@@ -1,0 +1,23 @@
+﻿<div>
+    <div class="control-list">
+        <input class="input-large" id="searchZone" value="" ng-model="searchZones" placeholder="Search ..." style="margin-bottom: 5px;" type="text" />
+        <ul class="checkTree">
+            <li ng-repeat="item in data | filter : searchZones">
+                <span class="table-check">
+                    <input ng-model="checkedMap[item.id]" type="checkbox" ng-change="itemChoice(item.id)">
+                    <label class="choice" for="Field"></label>
+                </span>{{item.name}}
+            </li>
+        </ul>
+    </div>
+    <div class="control-list">
+        <ul class="checkTree">
+            <li ng-repeat="item in selectedData">
+                <span class="table-check">
+                    <input type="checkbox" checked="true" ng-click="itemRemove(item.id)">
+                    <label class="choice" for="Field"></label>
+                </span>{{item.name}}
+            </li>
+        </ul>
+    </div>
+</div>

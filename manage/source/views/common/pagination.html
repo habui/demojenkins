@@ -1,0 +1,33 @@
+﻿<div class="row-fluid show-grid">
+    <div class="span6">        
+        <div class="input-append" style="position: relative; margin-bottom: 0">
+            <input type="text" class="input-mini" ng-model="pagesize" readonly>
+            <div class="btn-group" style="position: static;">
+
+                <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown-small2">
+                    <li><a href="javascript:;" ng-click="choose(10)">10</a></li>
+                    <li><a href="javascript:;" ng-click="choose(25)">25</a></li>
+                    <li><a href="javascript:;" ng-click="choose(50)">50</a></li>
+                    <li><a href="javascript:;" ng-click="choose(100)">100</a></li>
+                </ul>
+            </div>
+        </div>
+        Showing <strong>{{getStartIndex()}}</strong> to <strong>{{getEndIndex()}}</strong> of <strong>{{getNumRecord()}}</strong> entries
+    </div>
+    <div class="span6">
+        <div class="pagination">
+            <ul>
+                <li ng-class="checkDisable(pageindex, 'prev')"><a href="javascript:;" class="ss-icon ss-standard" ng-click="prev()">◅</a></li>
+                <li>page </li>
+                <li>
+                    <input type="text" class="input-pagination" ng-model="pageindex" ng-change="validate()">
+                </li>
+                <li>of <span>{{getPageNum()}}</span></li>
+                <li ng-class="checkDisable(pageindex, 'next')"><a href="javascript:;" class="ss-icon ss-standard" ng-click="next()">▻</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th style="width: 10px">#</th>
+            <th ng-class="getSortClass('title')" ng-click="switchSort('title')">Video Info</th>
+            <th ng-repeat="colLabel in colNamesLabel" ng-class="getSortClass(colNames[$index])" ng-click="switchSort(colNames[$index])">{{colLabel}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-show="totalRecord > 0">
+            <td></td>
+            <td></td>
+            <!--<td ng-if="currentTab === 'linked_campaign'" ></td>-->
+            <td ng-repeat="field in colNames">
+                <span class="arrow-none">{{formatNumber(report.summary.properties[field].value)}}</span>
+            </td>
+        </tr>
+    </tbody>
+    <tbody ng-repeat="video in report.videos | startFrom:(paging.startFrom - 1)*paging.limitItem | limitTo:paging.limitItem">
+        <tr>
+            <td>{{$index + (paging.startFrom - 1) * paging.limitItem + 1 }}</td>
+            <td colspan="3">
+                <strong>Title: {{video.name}}, Video Id: {{video.id}}</strong><br/>
+                Program: {{video.programName}}, Program Id: {{video.programId}}
+            </td>
+            <td><strong>{{formatNumber(video.impression)}}</strong></td>
+            <td><strong>{{formatNumber(video.click)}}</strong></td>
+            <td><strong>{{formatNumber(video.completed)}}</strong></td>
+            <td><strong>{{formatNumber(video.revenue)}}</strong></td>
+        </tr>
+        <tr ng-repeat="banner in video.banners">
+            <td></td>
+            <td></td>
+            <td ng-repeat="col in colNames">
+                {{typeof(banner.values[col].value) === 'number' ? formatNumber(banner.values[col].value) : banner.values[col].value}}
+            </td>
+        </tr>
+    </tbody>
+</table>

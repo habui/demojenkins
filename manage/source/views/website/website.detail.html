@@ -1,0 +1,14 @@
+﻿<section id="tables2">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('zones')"><a href="javascript:;" ng-click="gotoTab('zones')">Zones</a></li>
+        <li ng-class="isActiveTab('zonegroups')"><a href="javascript:;" ng-click="gotoTab('zonegroups')" ng-hide="isPRPublisher">ZoneGroups</a></li>
+        <li ng-class="isActiveTab('setting')"><a href="javascript:;" ng-click="gotoTab('setting')">Website Setting</a></li>
+        <li ng-class="isActiveTab('inventory')"><a href="javascript:;" ng-click="gotoTab('inventory')" ng-hide="isPRPublisher">Inventory</a></li>
+        <li ng-class="isActiveTab('shared')" ng-show="checkPermission(permissionDefine.EDITWEBSITE)"><a href="javascript:;"  ng-click="gotoTab('shared')">Assigned</a></li>
+    </ul>
+    <div class="tab-content">
+        <div ui-view>
+            <!-- content view -->
+        </div>
+    </div>
+</section>

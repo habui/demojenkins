@@ -1,0 +1,38 @@
+﻿<div class="row-fluid show-grid">
+    <div class="span6 btn-group input-append">
+        <search-autocomplete filterby="name" data="orders" onselected="choose(item)" placeholder="Select Website..." clear-text-on-click="true"></search-autocomplete>
+        <a ng-click="addOrder()" class="btn">Add order</a>
+    </div>
+    <div class="span6 right">
+        <button class="btn btn-primary" href="javascript:;" ng-click="save()" ng-disabled="!hasSave">Save</button>
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Order Name</th>
+            <th ng-repeat="role in roles">{{role.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="order in orderRoles">
+            <td>
+                <a href="javascript:;" style="vertical-align: middle;">{{order.name}}</a>
+            </td>
+            <td ng-repeat="role in roles">
+                <span class="table-check">
+                    <input type="checkbox" ng-checked="hasChecked(order.id, role.id)" ng-click="onchange(order.id, role.id)" />
+                    <label class="choice" for=""></label>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+        
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No item found.
+</div>

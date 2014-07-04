@@ -1,0 +1,35 @@
+﻿<div class="control-group">
+    <div class="control-group">
+        <label for="start-date" class="control-label">Size</label>
+        <div class="controls">
+            <combobox-listsize listsizes="sizes" search="search" />
+            <span class="alert alert-error" ng-show="isWarningSize">
+                <strong>Warning!</strong> This size is invalid with some zone. They can be disabled.
+            </span>
+        </div>
+    </div>
+    <label for="render-option" class="control-label">Render Option</label>
+    <div class="controls">
+        <p style="float: left; margin-bottom: 0; margin-right: 30px">
+            <span class="table-check">
+                <input type="checkbox" id="render-option" class="" ng-model="item.inline">
+                <label class="choice"></label>
+            </span>
+            <label for="inline">Inline</label>
+        </p>
+        <p style="float: left; margin-bottom: 0; margin-right: 30px">
+            <span class="table-check">
+                <input type="checkbox" id="autoLayout" class="" ng-model="item.autoLayout">
+                <label class="choice"></label>
+            </span>
+            <label for="inline">AutoLayout</label>
+        </p>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Embedded HTML</label>
+    <div class="controls">
+        <textarea id="inputDes" rows="10" name="embeddedHtml" placeholder="Enter your HTML code ..." ng-model="item.embeddedHtml" class="span6" required></textarea>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.embeddedHtml.$error.required">* required</span>
+    </div>
+</div>

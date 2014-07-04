@@ -1,0 +1,58 @@
+﻿<h2>{{page.getCurrPage()}}</h2>
+<div>
+    <form class="form-horizontal" id="edit-profile" name="accCreate" ng-submit="save()">
+        <fieldset>
+            <div class="control-group">
+                <p class="control-line">Account information</p>
+            </div>
+
+            <div class="control-group">
+                <label for="name" class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text" name="name" value="" ng-model="name" id="name" required class="input-large">
+                    <!--<span class="agerror" ng-show="accCreate.name.$error.required">(*)Required</span>-->
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="email" class="control-label">Email</label>
+                <div class="controls">
+                    <input type="email" name="email" ng-model="email" value="" id="email" class="input-large">
+                    <!--<span class="agerror" ng-show="accCreate.email.$error.required">(*)Required</span>-->
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="password" class="control-label">Password</label>
+                <div class="controls">
+                    <input type="password" name="password" ng-model="password" value="" id="password" required class="input-large">
+                    <!--<span class="agerror" ng-show="accCreate.password.$error.required">(*)Required</span>-->
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="confirmpassword" class="control-label">Confirm Password</label>
+                <div class="controls">
+                    <input type="password" value="" name="confirmpassword" ng-model="confirmPassword" required class="input-large">
+                    <!--<span class="agerror" ng-show="accCreate.confirmpassword.$error.required">(*)Required </span>-->
+                    <span class="agerror" ng-show="checkPassword()">Password not matched</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for=""></label>
+                <div class="controls">
+                    <button type="submit" class="btn btn-primary btn-large" href="javascript:;" ng-disabled="isInvalid()">Save</button>
+                    <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+                </div>
+            </div>
+            <div class="control-group" ng-show="createCode == 0">
+                <div class="alert alert-success">Create account successful.</div>
+            </div>
+
+            <div class="control-group" ng-show="createCode == -1">
+                <div class="alert alert-success">Create failed, please try again.</div>
+            </div>
+        </fieldset>
+    </form>
+</div>

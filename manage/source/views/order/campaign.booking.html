@@ -1,0 +1,134 @@
+﻿<h5>Booking Item</h5>
+<div class="alert alert-error" ng-show="showWarning">
+    <strong>Warning!</strong> Booked item time range beyond the campaign time range ({{formatDateTime(startDateCamp) + "-" + formatDateTime(endDateCamp - 1000)}}).
+</div>
+<div class="controls docs-input-sizes form-actions">
+    <ul class="list_filter">
+        <li class="filter-item">Website
+            <search-autocomplete filterby="name" data="websites" onselected="choose(item)"></search-autocomplete>
+        </li>
+        <li class="filter-item">From :
+        <div class="input-append">
+            <input id="startDate" name="startDate" style="width: 80px;" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker>
+            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>
+        </li>
+        <li class="filter-item">To :
+        <div class="input-append">
+            <input id="endDate" name="endDate" style="width: 80px;" type="text" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" bs-datepicker>
+            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>
+        </li>
+        <li class="filter-item">
+            <a class="btn btn-warning" href="javascript:;" ng-disabled="isDisableViewSchedule()" ng-click="viewBookingSchedule()">View</a>
+        </li>
+    </ul>
+</div>
+<div class="controls" ng-hide="isNullSchedule">
+    <div class="row-fluid show-grid">
+
+        <div class="span8">
+
+            <h5 class="tit-statuszone">Status zone: </h5>
+            <ul class="statuszone">
+                <li>
+                    <div style="width: 35px; float: left;" class="progress progress-info progress-striped">
+                        <div style="width: 100%; background-color: #D0E4FD;" class="bar"></div>
+                    </div>
+                    <span>&lt; 25%</span></li>
+                <li>
+                    <div style="width: 35px; float: left;" class="progress progress-success progress-striped">
+                        <div style="width: 100%; background-color: #D8EDA3;" class="bar"></div>
+                    </div>
+                    <span>25-50%</span></li>
+                <li>
+                    <div style="width: 35px; float: left;" class="progress progress-warning progress-striped">
+                        <div style="width: 100%; background-color: #FCD29A;" class="bar"></div>
+                    </div>
+                    <span>50-75%</span></li>
+                <li>
+                    <div style="width: 35px; float: left;" class="progress progress-danger progress-striped">
+                        <div style="width: 100%; background-color: #F9C4E1;" class="bar"></div>
+                    </div>
+                    <span>&gt; 75%</span></li>
+                <li>
+                    <div style="width: 35px; float: left;" class="progress progress-danger progress-striped">
+                        <div style="width: 100%; background-color: #DD514C;" class="bar"></div>
+                    </div>
+                    <span>100%</span></li>
+            </ul>
+
+        </div>
+        <div class="span4 right">
+            <a href="javascript:" class="label label-secondary" ng-class="isDisableDel()" ng-click="deleteItem()"><i class="icon-trash"></i>Delete</a></a> 
+        </div>
+    </div>
+
+    <booking data="data" item="item" selecteditem="selecteditem" setfn="setDirectiveFn(theDirFn)" editbookingfn="showBookingPopup()" addbookingfn="addBookingFn(theDirFn)" removebookingfn="delete()" sitename="sitename" starttime="startTimestamp" endtime="endTimestamp" xcoor="xcoor" ycoor="ycoor" exdata="exdata"></booking>
+    <div class="control-group">
+        <div class="controls" style="text-align: center">
+            <button type="submit" class="btn btn-large btn-primary" ng-click="booking()" ng-disabled="isDisable()">Booking</button>
+            <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+        </div>
+    </div>
+</div>
+<div class="alert alert-error" ng-show="isNullSchedule">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>Warning!</strong> None of suitable zone with size of item
+</div>
+
+<div class="popoup-booking width400" ng-show="isShowBookingPopup" ng-style="bookingPopupPosition">
+    <div class="marginbottom">
+        <h5 class="date">{{zone_name}}</h5>
+        <div class="content-booking left">
+            <div class="ctrol">
+                <span style="width: 60px; float: left; line-height: 30px;">Start date</span>
+                <div class="input-append">
+                    <input id="bookingStartDate" name="bookingStartDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_start" data-date-format="dd/mm/yyyy" bs-datepicker ng-disabled="isBookByDrag">
+                    <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isBookByDrag"><i class="icon-calendar"></i></button>
+                </div>
+                <span style="width: 60px; vertical-align: middle; line-height: 30px;">End date</span>
+                <div class="input-append">
+                    <input id="bookingEndDate" name="bookingEndDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_end" data-date-format="dd/mm/yyyy" bs-datepicker ng-disabled="isBookByDrag">
+                    <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isBookByDrag"><i class="icon-calendar"></i></button>
+                </div>
+            </div>
+            <div class="ctrol">
+                <div style="width: 60px; float: left; line-height: 30px;">Share</div>
+                <input type="text" style="width: 50px;" ng-model="zone_share">
+                (maximum <span style="color: red">{{zone_available}}</span>%)
+            </div>
+            <div class="margin-top2">
+                <a class="btn btn-small btn-primary" href="javascript:;" ng-click="bookZone()">Ok</a> <a class="btn btn-small" href="javascript:;" ng-click="closeBookingPopup()">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popoup-booking width400" ng-show="isEditItem" ng-style="bookingPopupPosition">
+    <div class="marginbottom">
+        <h5 class="date">{{zone_name}}</h5>
+        <div class="content-booking left">
+            <div class="ctrol">
+                <span style="width: 60px; float: left; line-height: 30px;">Start date</span>
+                <div class="input-append">
+                    <input id="bookingStartDate" name="bookingStartDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_start" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isBookByDrag"><i class="icon-calendar"></i></button>
+                </div>
+                <span style="width: 60px; vertical-align: middle; line-height: 30px;">End date</span>
+                <div class="input-append">
+                    <input id="bookingEndDate" name="bookingEndDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_end" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isBookByDrag"><i class="icon-calendar"></i></button>
+                </div>
+            </div>
+            <div class="ctrol">
+                <div style="width: 60px; float: left; line-height: 30px;">Share</div>
+                <input type="text" style="width: 50px;" ng-model="editingItem.share">
+                (maximum <span style="color: red">{{zone_available}}</span>%)
+            </div>
+            <div class="margin-top2">
+                <a class="btn btn-small btn-primary" href="javascript:;" ng-click="updateItem()">Ok</a> <a class="btn btn-small" href="javascript:;" ng-click="isEditItem = false">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+

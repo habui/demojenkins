@@ -1,0 +1,163 @@
+﻿<form class="form-horizontal" name="bannerZone">
+    <fieldset>
+        
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input class="input-large" type="text" name="name" id="inputName" placeholder="Banner name" ng-model="item.name" required>
+                <span class="agerror" ng-show="checkValidate && bannerZone.name.$error.required">* required</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="owner" class="control-label">Target Content</label>
+            <div class="controls" style="margin-top: 7px;">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" id="all-content" class="ng-pristine ng-valid" ng-model="chooseAll">
+                        <label for="all-content"></label>
+                    </span>
+                    <label for="all-content">All target content</label>
+                </p>
+                <div>
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="category in categories" ng-click="choose(category)"><span class="table-check">
+                                <input type="checkbox" ng-model="checkedMap[category.id]" ng-change="selectCate(category)">
+                                <label for="Field" class="choice"></label>
+                            </span>{{category.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="category in selectedCategories"><span class="table-check">
+                                <input type="checkbox" ng-model="checkedMap[category.id]" ng-change="unselectCate(category)">
+                                <label for="Field" class="choice"></label>
+                            </span>{{category.name}}
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div>
+                    <span class="agerror" ng-hide="isTargetChosen()">Please choose the target content </span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="control-group">
+            <label for="lastname" class="control-label">Allow running mode</label>
+            <div style="margin-top: 7px;" class="controls">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" value="network" class="" ng-model="networkRunningMode">
+                        <label for="Field" class="choice"></label>
+                    </span>Network
+                </p>
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" value="booking" class="" ng-model="bookingRunningMode">
+                        <label for="Field" class="choice"></label>
+                    </span>Booking
+                </p>
+                <span class="agerror" ng-show="validateRunningMode()">* please select one of running modes</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Size</label>
+            <div class="controls">
+                <combobox-listsize listsizes="sizes" search="search"/>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Expandable Banner</label>
+            <div class="controls">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="item.allowedExpand" ng-checked="item.allowedExpand">
+                        <label class="choice" for=""></label>
+                    </span>
+                    enable
+                </p>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Render Kind</label>
+            <div class="controls">
+                <div style="position: relative;margin-bottom:0" class="input-append">
+                    <input type="text" class="input-mediumcmb" placeholder="zone style" ng-model="zone_style">
+                    <div style="position:static;" class="btn-group">
+                        <button data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown scroll2">
+                            <li><a href="javascript:;" ng-click="chooseStyle('normal')">Normal</a></li>
+                            <li><a href="javascript:;" ng-click="chooseStyle('catfish')">Catfish</a></li>
+                            <li><a href="javascript:;" ng-click="chooseStyle('popup')">Popup</a></li>
+                            <li><a href="javascript:;" ng-click="chooseStyle('balloon')">Balloon</a></li>
+                            <li><a href="javascript:;" ng-click="chooseStyle('banner_skin')">Banner Skin</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group" ng-show="bookingRunningMode">
+            <label class="control-label">Price</label>
+            <div class="controls">
+                <input class="input-large" min="0" type="text" name="price" placeholder="Zone Price" ng-model="item.bookingPrice" price required>
+                per week
+            <span class="agerror" ng-show="checkValidate && (item.bookingPrice == 0)">Please fill the price</span>
+            </div>
+        </div>
+
+        <div class="control-group" ng-show="isNetwork()">
+            <label class="control-label">Minimum CPC Price</label>
+            <div class="controls">
+                <input class="input-large" min="0" type="text" price name="minCPCPrice" placeholder="min cpc price" ng-model="item.minCPC" required>
+                <span class="agerror" ng-show="checkValidate && (item.minCPC == 0)">* required</span>
+            </div>
+        </div>
+        <div class="control-group" ng-show="isNetwork()">
+            <label class="control-label">Minimum CPM Price</label>
+            <div class="controls">
+                <input class="input-large" min="0" type="text" price name="minCPMPrice" placeholder="min cpm price" ng-model="item.minCPM" required>
+                <span class="agerror" ng-show="checkValidate && (item.minCPM == 0)">* required</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="description">Frequency capping</label>
+            <div class="controls">
+                <input type="number" class="input-mini" id="frequencyCapping" ng-model="item.frequencyCapping" min="0">
+                ads per
+                <input type="number" class="input-mini" ng-model="item.frequencyCappingTime" min="0" max="{{fcLimitUnit == 'Minutes' ? 12*60 : fcLimitUnit == 'Hours' ? 12 : 12 * 60 * 60}}">
+                <div class="input-append" style="position: relative; margin-bottom: 0">
+                    <input type="text" class="input-mini" ng-model="fcLimitUnit" readonly>
+                    <div class="btn-group" style="position: static">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown cmbmini">
+                            <li><a href="javascript:;" ng-click="chooseFC('hours')">Hours</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('minutes')">Minutes</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('seconds')">Seconds</a></li>
+                            <!--<li><a href="javascript:;" ng-click="chooseFC('session')">Session</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-large btn-primary" ng-disabled="hasSave === true" ng-click="saveBannerZone(bannerZone)">Save</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

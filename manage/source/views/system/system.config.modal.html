@@ -1,0 +1,28 @@
+﻿<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+    <h3 id="myModalLabel">System config</h3>
+</div>
+<div class="modal-body height_auto">
+    <form id="edit-profile" class="form-horizontal" name="addConfig" ng-submit="ok()" style="margin-bottom: 0">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="key">Key</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" id="key" ng-model="item.key" required>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="value">Value</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" id="value" ng-model="item.value" required>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button ng-click="update()" class="btn btn-primary btn-large" ng-disabled="editAccount.$invalid">Submit</button>
+                <a ng-click="cancel()" class="btn btn-large">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>

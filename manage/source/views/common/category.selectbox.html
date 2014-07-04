@@ -1,0 +1,27 @@
+﻿<div class="controls">
+    <div class="control-list">
+        <input type="text" style="margin-bottom:5px;" 
+            placeholder="Search..." ng-model="searchWeb" id="searchField" class="input-medium">
+        <ul class="checkTree">
+            <li ng-repeat="object in data | filter : searchWeb">
+                <span class="table-check">
+                    <input type="checkbox" ng-model="parent.checked">
+                    <label for="Field" class="choice"></label>
+                </span>
+                {{object.name}}
+            </li>
+        </ul>
+    </div>
+
+    <div class="control-list">
+        <ul class="checkTree">
+            <li ng-repeat="object in selectedData">
+                <span class="table-check">
+                    <input type="checkbox" ng-checked="object.checked">
+                    <label for="Field" class="choice"></label>
+                </span>
+                {{object.name}}
+            </li>
+        </ul>
+    </div>
+</div>

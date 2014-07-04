@@ -1,0 +1,15 @@
+﻿
+<section id="tables2">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('campaigns')" ><a href="javascript:;" ng-click="gotoTab('campaigns')">Campaigns</a></li>
+        <li ng-class="isActiveTab('items')"><a href="javascript:;" ng-click="gotoTab('items')">Items</a></li>
+        <!--<li ng-class="isActiveTab('articles')"><a href="javascript:;" ng-click="gotoTab('articles')">Articles</a></li>-->
+        <li ng-class="isActiveTab('setting')"><a href="javascript:;" ng-click="gotoTab('setting')">Order Setting</a></li>
+        <li ng-class="isActiveTab('assigned')" ng-if="checkPermission(permissionDefine.EDITORDER)"><a href="javascript:;" ng-click="gotoTab('assigned')">Assigned</a></li>
+    </ul>
+    <div class="tab-content">
+        <div ui-view>
+            <!-- content view -->
+        </div>
+    </div>
+</section>

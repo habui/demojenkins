@@ -1,0 +1,22 @@
+﻿
+<div class="controls docs-input-sizes form-actions">
+    <ul class="list_filter">
+        <li class="filter-item">From :
+        <div class="input-append">
+            <input id="startDate" name="startDate" style="width: 80px;" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker>
+            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>
+        </li>
+        <li class="filter-item">To :
+        <div class="input-append">
+            <input id="endDate" name="endDate" style="width: 80px;" type="text" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" bs-datepicker>
+            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+        </div>
+        </li>
+        <li class="filter-item">
+            <a class="btn btn-primary" href="javascript:;" ng-click="view()">View</a>
+        </li>
+    </ul>
+</div>
+
+<booking-schedule data="data"></booking-schedule>

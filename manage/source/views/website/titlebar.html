@@ -1,0 +1,35 @@
+﻿<div class="navbar-inner">
+    <div class="container">
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="brand" href="javascript:;">123 Click</a>
+        <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li ng-class="getActiveClass('website')">
+                    <a href="javascript:;" ng-click="goto('website')">Websites</a>
+                </li>
+                <li ng-class="getActiveClass('campaign')">
+                    <a href="javascript:;" ng-click="goto('campaign')">Campaign</a>
+                </li>
+                <li ng-class="getActiveClass('report')">
+                    <a href="javascript:;" ng-click="goto('report')">Report</a>
+                </li>
+                <li ng-class="getActiveClass('account')">
+                    <a href="javascript:;" ng-click="goto('account')">Account</a>
+                </li>
+            </ul>
+        </div>
+        <div class="btn-group pull-right">
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">{{username}}<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="javascript:;" ng-click="logout()">logout</a></li>
+            </ul>
+        </div>
+        
+    </div>
+    
+</div>

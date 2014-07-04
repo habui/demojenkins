@@ -1,0 +1,55 @@
+﻿<div class="row-fluid show-grid">
+    <div id="myModal" class=" ">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()">&times;</button>
+            <h3 id="myModalLabel">Assign websites</h3>
+        </div>
+        <div class="modal-body height_auto">
+            <div class="span4 popup" style="height: 300px; width: 25%">
+                <h5><strong>Selected websites</strong></h5>
+                <ul class="list_right" style="overflow-y: auto; max-height: 250px">
+                    <li ng-repeat="site in selectedWebsites">{{site.name}}</li>
+                </ul>
+            </div>
+            <div class="span8 popup" style="height: 300px;width: 72%">
+                <search-autocomplete filterby="name" data="users" placeholder="Search user..." onselected="choose(item)" clear-text-on-click="true"></search-autocomplete>
+                <table class="table table-bordered table-striped scroll-body" style="margin-top: 10px;">
+                    <thead><tr>
+                        <th style="width: 141px">User Name</th>
+                               <th style="width: 90px" ng-repeat="role in roles">
+                                   <span class="table-check">
+                                       <input type="checkbox" ng-model="checkRole[role.id]" ng-change="checkAllRole(role.id)" />
+                                       <label class="choice">{{role.name}}</label>
+                                   </span>
+                               </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in items | startFrom: pageSize*(pageIndex - 1) | limitTo: pageSize">
+                            <td ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()" class="name"  style="width: 142px">{{user.name}}
+                                <a ng-show="currentSelectedRow == $index" style="float: right" class="label label-secondary" href="javascript:;" ng-click="remove($index)"><i class="icon-remove-sign"></i></a>
+                            </td>
+                            <td ng-repeat="role in roles"  style="width: 90px" >
+                                <span class="table-check">
+                                    <input type="checkbox" class="" ng-model="mapRole[user.id][role.id]" />
+                                    <label class="choice"></label>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div ng-show="totalRecord > 0">
+                    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)"></paging>
+                </div>
+                <div ng-show="totalRecord <= 0">
+                    No data found.
+                </div>
+            </div>
+            <div class="alert alert-error" ng-show="showWarning" style="margin: 5px 0; float: left">You do not have full role on some website, so can not assign role for it</div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" ng-click="cancel()">Close</button>
+            <button class="btn btn-primary" ng-click="ok()">Save</button>
+        </div>
+    </div>
+</div>

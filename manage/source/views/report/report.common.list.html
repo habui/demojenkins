@@ -1,0 +1,21 @@
+﻿
+<div>
+    <h2>{{title}}</h2>
+    <ng-include src="'views/report/report.timefilter'"></ng-include>
+    <section>
+        <ng-include src="'views/report/report.tab'"></ng-include>
+        
+        <div class="tab-content">
+            <ng-include src="'views/report/report.toolbar'"></ng-include>
+            <div class="clear"></div>
+
+            <ng-include src="'views/report/report.chart'"></ng-include>
+            
+            <!--Chart detail-->
+            <ng-include src="'views/report/report.chart.detail'"></ng-include>
+            
+            <!--Record detail-->
+            <ng-include src="'views/report/report.record.detail'"></ng-include>
+        </div>
+    </section>
+</div>

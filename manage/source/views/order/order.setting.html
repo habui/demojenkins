@@ -1,0 +1,32 @@
+﻿<form class="form-horizontal" name="frmOrderSetting">
+    <fieldset>
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" class="input-large" name="name" placeholder="order name" ng-model="item.name" required>
+                <span class="agerror" ng-show="checkValidate && frmOrderSetting.name.$error.required">* required</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputDes">Description</label>
+            <div class="controls">
+                <textarea id="inputDes" name="description" placeholder="Description" ng-model="item.description" class="input-large" required></textarea>
+                <span class="agerror" ng-show="checkValidate && frmOrderSetting.description.$error.required">* required</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for=""></label>
+            <div class="controls" ng-show="checkPermission(permissionDefine.EDITORDER)">
+                <button class="btn btn-large btn-primary" href="javascript:;" ng-click="save()">Save</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="goto('campaign_list')">Cancel</a>
+            </div>
+        </div>
+        <!-- /form-actions -->
+    </fieldset>
+</form>
+
+

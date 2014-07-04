@@ -1,0 +1,74 @@
+﻿<ul class="nav nav-tabs" ng-show="reportType === 'order' ">
+    <li ng-class="isActiveTab('campaign')"><a href="javascript:;" ng-click="goTab('campaign')">Campaign</a></li>
+    <li ng-class="isActiveTab('item')"><a href="javascript:;" ng-click="goTab('item')">Item</a></li>
+    <li ng-class="isActiveTab('linked_website')"><a href="javascript:;" ng-click="goTab('linked_website')">Linked website</a></li>
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+    <li ng-class="isActiveTab('conversion')"><a href="javascript:;" ng-click="goTab('conversion')">Conversion</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'order_zone_by_site' ">
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'campaign'">
+    <li ng-class="isActiveTab('item')"><a href="javascript:;" ng-click="goTab('item')">Item</a></li>
+    <li ng-class="isActiveTab('linked_website')"><a href="javascript:;" ng-click="goTab('linked_website')">Linked website</a></li>
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+    <li ng-class="isActiveTab('conversion')"><a href="javascript:;" ng-click="goTab('conversion')">Conversion</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'camp_zone_by_site'">
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'item'">
+    <li ng-class="isActiveTab('linked_website')"><a href="javascript:;" ng-click="goTab('linked_website')">Linked website</a></li>
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+</ul>
+<ul class="nav nav-tabs" ng-show="reportType === 'item_zone_by_site'">
+    <li ng-class="isActiveTab('linked_zone')"><a href="javascript:;" ng-click="goTab('linked_zone')">Linked zone</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'website'">
+    <li ng-class="isActiveTab('zone')"><a href="javascript:;" ng-click="goTab('zone')">Zone</a></li>
+    <li ng-class="isActiveTab('zonegroup')"><a href="javascript:;" ng-click="goTab('zonegroup')">Zone Group</a></li>
+    <li ng-class="isActiveTab('linked_campaign')"><a href="javascript:;" ng-click="goTab('linked_campaign')">Linked campaign</a></li>
+    <li ng-class="isActiveTab('linked_item')"><a href="javascript:;" ng-click="goTab('linked_item')">Linked item</a></li>
+    <li ng-class="isActiveTab('subzone')"><a href="javascript:;" ng-click="goTab('subzone')">Video</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'site_item_by_camp'">
+    <li ng-class="isActiveTab('linked_campaign')"><a href="javascript:;" ng-click="goTab('linked_campaign')">Linked campaign</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'zone'">
+    <li ng-class="isActiveTab('linked_campaign')"><a href="javascript:;" ng-click="goTab('linked_campaign')">Linked campaign</a></li>
+    <li ng-class="isActiveTab('linked_item')"><a href="javascript:;" ng-click="goTab('linked_item')">Linked item</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'zone_item_by_camp'">
+    <li ng-class="isActiveTab('linked_item')"><a href="javascript:;" ng-click="goTab('linked_item')">Linked item</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'zonegroup'">
+    <li ng-class="isActiveTab('zone')"><a href="javascript:;" ng-click="goTab('zone')">Zone</a></li>
+    <li ng-class="isActiveTab('linked_campaign')"><a href="javascript:;" ng-click="goTab('linked_campaign')">Linked campaign</a></li>
+    <li ng-class="isActiveTab('linked_item')"><a href="javascript:;" ng-click="goTab('linked_item')">Linked item</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'zg_item_by_camp'">
+    <li ng-class="isActiveTab('linked_item')"><a href="javascript:;" ng-click="goTab('linked_item')">Linked item</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'orders'">
+    <li ng-class="isActiveTab('orders')"><a href="javascript:;" ng-click="goTab('orders')">Orders</a></li>
+    <li ng-class="isActiveTab('conversion')"><a href="javascript:;" ng-click="goTab('conversion')">Conversion</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'pr_item'">
+    <li ng-class="isActiveTab('pr_item')"><a href="javascript:;" ng-click="goTab('pr_item')">PR Item</a></li>
+</ul>
+
+<ul class="nav nav-tabs" ng-show="reportType === 'pr_article'">
+    <li ng-class="isActiveTab('pr_article')"><a href="javascript:;" ng-click="goTab('pr_article')">PR Article</a></li>
+</ul>

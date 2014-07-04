@@ -1,0 +1,39 @@
+﻿<div class="row-fluid show-grid">
+    
+    <div class="span6 btn-group input-append">
+        <search-autocomplete filterby="name" data="websites" onselected="choose(item)" placeholder="Select Website..." clear-text-on-click="true"></search-autocomplete>
+        <a ng-click="addWebsite()" class="btn">Add website</a>
+    </div>
+    <div class="span6 right">
+        <button class="btn btn-primary" href="javascript:;" ng-click="save()" ng-disabled="!hasSave">Save</button>
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Website name  
+            </th>
+            <th ng-repeat="role in roles| filter: { name: '!Owner' }">{{role.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="website in websiteRoles">
+            <td>
+                <a href="javascript:;" style="vertical-align: middle;">{{website.name}}</a></td>
+            <td ng-repeat="role in roles| filter: { name: '!OWNER' }">
+                <span class="table-check">
+                    <input type="checkbox" ng-checked="hasChecked(website.id, role.id)" ng-click="onchange(website.id, role.id)" />
+                    <label class="choice" for=""></label>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+        
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No item found.
+</div>

@@ -1,0 +1,14 @@
+﻿<h2>{{page.getCurrPage()}}</h2>
+
+<section id="tables2">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('websites')"><a href="javascript:;" ng-click="gotoTab('websites')">Websites</a></li>
+        <li ng-class="isActiveTab('orders')"><a href="javascript:;" ng-click="gotoTab('orders')">Orders</a></li>
+    </ul>
+    <div class="tab-content">
+        
+        <div ui-view>
+            <!-- content view -->
+        </div>
+    </div>
+</section>

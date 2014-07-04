@@ -1,0 +1,31 @@
+﻿<!-- uploader.html template -->
+<div class="uploader">
+    <!-- the real input[type=file] is hidden -->
+    <input type="file" name="uploader" style="display: none;"
+        onchange="angular.element(this).scope().sendFile(this);" />
+
+    <!-- input field, used to open the real input[type=file]  -->
+    <div class="fake-uploader">
+        <label for="uploader"></label>
+        <input type="text" id="result" class="span3" ng-model="resultText" placeholder="Click to select file" style="cursor: pointer" onpaste="angular.element(this).scope().paste(this);" title="Click to select file" />
+        <a class="btn btn-small browse" href="javascript:;" >Browse ...</a>
+        <img src="resource/img/check-ok.png" ng-show="success && progress >= 100" />
+        <img src="resource/img/fail.jpg" ng-hide="progress === 0 || success" ng-show="result === 'FAIL'" />
+        <span class="alert alert-error" ng-show="isInvalid">
+            Allow only for {{filter}}.
+        </span>
+        <span class="alert" ng-show="isInvalidMultiple">
+            Some item is invalid type ({{filter}}).
+        </span>
+    </div>
+
+    <!-- progress bar -->
+    <div class="progress span3" ng-show="progress != 0" style="margin-top: 5px; margin-left: 0px; margin-bottom: 5px; height: 3px">
+        <div class="bar" style="width: {{progress}}%"></div>
+    </div>
+</div>
+
+<!-- preview -->
+<!--<div ng-if="avatar != ''" style="margin: 50px 0 0;">
+	<img ng-src="upload/{{avatar}}"/>
+</div>-->

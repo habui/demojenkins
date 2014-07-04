@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<title>Page</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<link rel="stylesheet" href="{{domain}}/resource/css/g8_ads.css">
+</head>
+<!--[if lt IE 7]>
+   <script type="text/javascript" src="{{domain}}/resource/js/g8_unitpngfix.js"></script>
+<![endif]-->
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<body>
+    {{#items}}
+        <a href="{{targetUrl}}" target="_blank">
+            <img src="{{imageUrl}}" width="468" height="90" ></img>
+        </a>
+    {{/items}}
+<!--<![endif]-->
+<!--
+{{#vertical}}
+    <div class="ads-s01">
+        <div class="box">
+            <div class="clearfix">
+                <a href="#" class="title-box" target="_blank">
+                    <span class="curve"></span>
+                    <span class="text">Quảng cáo <strong style="color:#333">123Mua</strong></span>
+                    <span class="icon"></span>
+                </a>
+            </div>
+            <div class="product-list">
+                <ul>
+                {{#items}}
+                    <li>
+                        <h2 class="title"><a href="{{targetUrl}}" target="_blank">{{title}}</a></h2>
+                        <p class="shop-name"><a href="#" target="_blank">{{shopName}}</a></p>
+                        <p class="pic"><a href="{{targetUrl}}" target="_blank"><img src="{{imageUrl}}" width="110" height="110" alt=""></a></p>
+                        <p class="price"><span class="label">Giá:</span> {{price}} <span class="unit">đ</span></p>
+                        {{{tracking}}}
+                    </li>
+                {{/items}}
+                </ul>
+            </div>
+        </div>
+    </div>
+{{/vertical}}
+{{^vertical}}
+     <div class="ads-s02">
+        <div class="box">
+            <div class="clearfix">
+                <a href="#" class="title-box" target="_blank">
+                    <span class="curve"></span>
+                    <span class="text">Quảng cáo <strong style="color:#333">123Mua</strong></span>
+                    <span class="icon"></span>
+                </a>
+            </div>
+            <div class="product-list clearfix">
+                <ul>
+                {{#items}}
+                    <li>
+                        <h2 class="title"><a href="{{targetUrl}}" target="_blank">{{{title}}}</a></h2>
+                        <div class="detail">
+                            <p class="pic"><a href="{{targetUrl}}" target="_blank"><img src="{{imageUrl}}" width="110" height="110" alt=""></a></p>
+                            <h3 class="desc">{{{desc}}}</h3>
+                            <p class="price"><span class="label">Giá:</span> {{price}} <span class="unit">đ</span></p>
+                            <p class="shop-name"><a href="#" target="_blank">{{shopName}}</a></p>
+                        </div>
+                        {{{tracking}}}
+                    </li>
+                {{/items}}
+                </ul>
+            </div>
+        </div>
+      </div>
+{{/vertical}}
+-->
+</body>
+</html>

@@ -1,0 +1,8 @@
+﻿<div style="position: relative; margin-bottom: 0">
+    <div class="btn-group" id="combobox_dropdown" style="position: static;" ng-class="getClass()">
+        <input class="input-large" data-toggle="dropdown" type="text" name="size" placeholder="width x height (100x100)" ng-model="search.value" ng-keydown="keydown($event)" pattern="\d+[\x]\d+" title="Only size format (ex: 468x60)" required />
+        <ul class="dropdown-menu width-dropdown">
+            <li ng-repeat="size in listsizes | filter:search:strict"><a href="javascript:;" ng-click="clickSize()" ng-mouseover="mouseover(size)" ng-class="isActiveClass(size)">{{size.text}}</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿<form style="padding-bottom: 0px;margin-bottom:0;" class="bs-docs-example">
+    <div class="controls docs-input-sizes form-actions">
+        <ul class="list_filter">
+            <li class="filter-item">
+            <div style="position: relative;margin-bottom:0" class="input-append">
+                <input type="text" class="input-large" placeholder="{{filterText}}" value="{{filterText}}" readonly>
+                <div style="position:static;" class="btn-group">
+                    <button data-toggle="dropdown" class="btn dropdown-toggle">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu width-dropdown range-time" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="javascript:;" ng-click="filter('all')">All websites</a></li>
+                        <li><a href="javascript:;" ng-click="filter('completed')">Completed websites</a></li>
+                        <li><a href="javascript:;" ng-click="filter('uncompleted')">Uncompleted websites</a></li>
+                        <li><a href="javascript:;" ng-click="filter('disable')">Disable websites</a></li>
+                    </ul>
+                </div>
+            </div>
+            </li>                                   
+        </ul>
+    </div>
+</form>
+<section>
+    
+    
+    <div class="row-fluid show-grid">
+        <div class="span6">
+            <a class="label label-secondary" href="javascript:;" ng-show="filterBy !== 'disable'" ng-click="delete()" ng-class="isActiveClass()"><i class="icon-ban-circle"></i>Disable</a>
+            <a class="label label-secondary" href="javascript:;" ng-show="filterBy === 'disable'" ng-click="delete()" ng-class="isActiveClass()"><i class="icon-ok-sign"></i>Enable</a>
+        </div>
+        <div class="span6">
+            <label class="right">
+                <input type="text" aria-controls="dt_a" ng-enter="search()" ng-model="searchText" placeholder="Search ...">
+            </label>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="check_widthtable">
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="checkBoxes['all']" />
+                        <label class="choice" for="Field"></label>
+                    </span>
+                </th>
+                <th width="30%" ng-class="getSortClass('name')" ng-click="switchSort('name')">Name</th>
+                <th ng-class="getSortClass('ownerId')" ng-click="switchSort('ownerId')">Owner</th>
+                <th ng-class="getSortClass('reviewType')" ng-click="switchSort('reviewType')">Approve type</th>
+                <th width="13%">Zones</th>
+                <th width="13%">Zone Groups</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="website in items" >
+                <td><span class="table-check">
+                    <input type="checkbox" ng-model="checkBoxes[website.id]" ng-change="check(website.id)"/>
+                    <label class="choice" for="Field"></label>
+                </span></td>
+                <td ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()" class="name">
+                    <div>
+                        <a href="javascript:;" ng-click="goto(website.id)">{{website.name}}</a>
+                        <a style="float:right" ng-if="itemsPermission[website.id]" ng-show="currentSelectedRow == $index" href="javascript:;" class="label label-secondary" ng-click="gotoSiteSetting(website.id)" ><i class="icon-edit"></i>Edit</a>
+                    </div>
+                    <!--<div><a href="javascript:;" ng-show="currentSelectedRow != $index">&nbsp&nbsp&nbsp</a></div>-->
+                </td>
+                <td>{{getOwnerName(website.ownerId)}}</td>
+                <td><div ng-repeat="reviewType in website.reviewTypeArr">{{reviewType}}</div></td>
+                <td><a href="javascript:;" ng-click="goZoneList(website.id)">{{website.zoneCount}}</a></td>
+                <td><a href="javascript:;" ng-click="goZoneGroupList(website.id)">{{website.zoneGroupCount}}</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show ="totalRecord > 0" >
+        
+        <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+        </paging>
+    </div>
+    <div ng-show ="totalRecord <= 0" >
+        No website found.
+    </div>
+</section>
+

@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Class-Path: lib/scala-library-2.10.3.jar lib/scala-reflect-2.10.3.jar lib/jetty-we
+ bapp-8.1.14.v20131031.jar lib/mchange-commons-java-0.2.3.4.jar lib/jackson-co
+ re-asl-1.9.11.jar lib/jetty-servlet-8.1.14.v20131031.jar lib/protostuff-core-
+ 1.0.7.jar lib/httpclient-4.2.5.jar lib/javax.servlet-api-3.1.0.jar lib/scalate-co
+ re_2.10-1.6.1.jar lib/c3p0-0.9.2.1.jar lib/rxjava-core-0.13.1.jar lib/jetty-serve
+ r-8.1.14.v20131031.jar lib/protostuff-runtime-1.0.7.jar lib/rxjava-scala-0.13
+ .1.jar lib/scala-pickling_2.10-0.8.0.jar lib/gson-2.2.4.jar lib/commons-
+ lang-2.6.jar lib/libthrift-0.9.1.jar lib/hystrix-core-1.3.5.jar lib/log4j-1.2.17.
+ jar lib/guava-11.0.2.jar lib/commons-fileupload-1.3.jar lib/commons-configuration
+ -1.8.jar lib/javax.servlet-3.0.0.v201112011016.jar lib/scalate-util_2.10-1.6.
+ 1.jar lib/mysql-connector-java-5.1.26.jar lib/protostuff-api-1.0.7.jar lib/slf4j-
+ log4j12-1.7.0.jar lib/httpcore-4.2.4.jar lib/commons-lang3-3.1.jar lib/commons-io
+ -2.2.jar lib/scala-library.jar lib/scala-swing.jar lib/scala-actors-2.10.3.jar lib/jsr305-2.
+ 0.0.jar lib/annotations-2.0.0.jar lib/commons-codec-1.6.jar lib/commons-logging-1
+ .1.1.jar lib/jackson-mapper-asl-1.9.11.jar lib/scala-compiler-2.10.3.jar lib/prot
+ ostuff-collectionschema-1.0.7.jar lib/slf4j-api-1.7.0.jar lib/archaius-core-0
+ .5.12.jar lib/compiler-0.8.14.jar lib/jcommon-1.0.12.jar lib/jfreechart-1.0.9.jar lib/itext-2.1.5.jar lib/itextpdf-5.4.5.jar lib/mail-1.4.3.jar lib/mime-util-2.1.3.jar lib/geoip-api-1.2.12.jar lib/org.hyperdex.client-1.1.0.jar lib/concurrentlinkedhashmap-lru-1.4.jar lib/xuggle-xuggler-5.4.jar lib/mapdb-1.0.1.jar lib/jsoup-1.7.3.jar lib/commons-net-3.3.jar lib/im4java-1.4.0.jar
+Main-Class: ads.website.Main
+

@@ -1,0 +1,159 @@
+﻿<h2>Network Campaign</h2>
+<form class="form-horizontal">
+    <fieldset>
+        <div class="control-group">
+            <p class="control-line">Select item type for network campaign type</p>
+        </div>
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="banner" ng-click="choose('banner')"/>
+                    <label for="" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Banner</strong>
+                <p>
+                    <!-- sample modal content -->
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa.
+               
+                </p>
+            </div>
+        </div>
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="banner" ng-click="choose('popup')"/>
+                    <label for="" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Popup</strong>
+                <p>
+                    <!-- sample modal content -->
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa.
+               
+                </p>
+            </div>
+        </div>
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="html" ng-click="choose('html')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Html</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+               
+                </p>
+            </div>
+        </div>
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="banner" ng-click="choose('balloon')"/>
+                    <label for="" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Balloon</strong>
+                <p>
+                    <!-- sample modal content -->
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa.
+               
+                </p>
+            </div>
+        </div>
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="expandable" ng-click="choose('expandable')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Expandable</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+               
+                </p>
+            </div>
+        </div>
+        
+        <div class="control-group" ng-hide="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="prbanner" ng-click="choose('prbanner')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Pr Banner</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+                </p>
+            </div>
+        </div>
+
+        <div class="control-group" ng-show="isNetworkTVC">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="html" ng-click="choose('tvc')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>TVC</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+               
+                </p>
+            </div>
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="html" ng-click="choose('tvcOverlay')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Overlay Banner</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+               
+                </p>
+            </div>
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="html" ng-click="choose('pauseAd')" />
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Pause Ad</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+               
+                </p>
+            </div>
+
+            <div class="control-group">
+                <div class="ctngroup_left">
+                    <span class="radioCampaign">
+                        <input type="radio" name="banner" ng-click="choose('banner')" />
+                        <label for="" class="choice"></label>
+                    </span>
+                </div>
+                <div class="controls">
+                    <strong>Banner</strong>
+                    <p>
+                        <!-- sample modal content -->
+                        Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>

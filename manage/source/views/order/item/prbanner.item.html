@@ -1,0 +1,263 @@
+﻿<div class="control-group">
+    <label for="start-date" class="control-label">Size</label>
+    <div class="controls">
+        <combobox-listsize listsizes="sizes" search="search" />
+    </div>
+</div>
+<!-- Category Select -->
+<div class="control-group">
+    <p class="control-line">Choose Categories</p>
+</div>
+<div class="control-group">
+    <label class="control-label">Categories <span style="color: red;">*</span></label>
+    <div class="controls">
+        <!-- Categories List -->
+        <div class="control-list">
+            <input class="input-large" value="" ng-model="searchCates.name" placeholder="Search category..." style="margin-bottom: 5px;" type="text" />
+            <ul ng-repeat="cate in articleCates | filter:searchCates:strict" class="checkTree">
+                <li>
+                    <span class="table-check">
+                        <input ng-model="checkBoxCate[cate.id]" id="cate_{{cate.id}}" type="checkbox" ng-change="selectCate(cate)">
+                        <label class="choice" for="cate_{{cate.id}}"></label>
+                    </span>
+                    <label for="cate_{{cate.id}}" title="{{cate.name}}" class="hide-text-over">{{cate.name}}</label>
+                </li>
+            </ul>
+        </div>
+        <!-- Selected Categories -->
+        <div class="control-list">
+            <ul class="checkTree">
+                <li ng-repeat="item in selectedCates" class="hide-text-over">
+                    <span class="table-check">
+                        <input type="checkbox" id="cate1_{{item.id}}" checked="true" ng-click="removeCate(item.id)">
+                        <label class="choice" for="cate1_{{item.id}}"></label>
+                    </span>
+                    <label for="cate1_{{item.id}}"><span title="{{item.name}}" class="hide-text-over">{{item.name}}</span></label>
+                </li>
+            </ul>
+        </div>
+        <!-- Error notification -->
+        <div class="article-notification">
+            <span class="agerror" ng-show="checkValidate && selectedZones.length <= 0">You must select one or more categories !</span>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <p class="control-line">Choose template</p>
+</div>
+<div class="control-group">
+    <div class="controls">
+        <ul class="list-radiocheck">
+            <li><span class="radio-check">
+                <input id="template1" name="template" type="radio" class="" ng-model="item.templateType" value="1"/>
+                <label class="choice" for="template1">1 Article</label>
+            </span></li>
+            <li><span class="radio-check">
+                <input id="template2" name="template" type="radio" class="" ng-model="item.templateType" value="2"/>
+                <label class="choice" for="template2">2 Articles</label>
+            </span></li>
+            <li><span class="radio-check">
+                <input id="template3" name="template" type="radio" class="" ng-model="item.templateType" value="3"/>
+                <label class="choice" for="template3">3 Articles</label>
+            </span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="control-group">
+    <p class="control-line">Delivery</p>
+</div>
+
+<div class="control-group">
+    <label class="control-label" for="Frequecy capping">Rate <span style="color: red;">*</span></label>
+    <div class="controls">
+        <input type="text" price name="rate" id="Number1" placeholder="rate" ng-model="item.rate" class="span1 input-medium3" required>
+        <div class="input-append" style="position: relative; margin-bottom: 0">
+            <input type="text" class="input-mini" placeholder="Rate" ng-model="rateUnit" readonly>
+            <div class="btn-group" style="position: static">
+                <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown cmbmini">
+                    <li><a href="javascript:;" ng-click="choose('rate', '1')">CPM</a></li>
+                    <li><a href="javascript:;" ng-click="choose('rate', '2')">CPC</a></li>
+                </ul>
+            </div>
+        </div>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.rate.$invalid">* required</span>
+        <div class="muted"><small>Enter value between 3000 and 50000</small></div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="Frequecy capping" style="padding-top: 0;">Limit by <span style="color: red;">*</span></label>
+    <div class="controls">
+        <input type="text" price name="limit" min="0" id="Number2" placeholder="limit" ng-model="item.limit" class="span1 input-medium3" required="false" title="Please enter limit value">
+        <div class="input-append" style="position: relative; margin-bottom: 0">
+            <input type="text" class="input-medium" placeholder="Daily" ng-model="item.limitUnit" readonly>
+            <div class="btn-group" style="position: static">
+                <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+            </div>
+        </div>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.limit.$invalid">* required</span>
+
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label" for="Frequecy capping" style="padding-top: 0;">Life time limit<span style="color: red;">*</span></label>
+    <div class="controls">
+        <input type="text" price name="lifetimeLimit" min="0" id="Text3" placeholder="0" ng-model="item.lifetimeLimit" class="span1 input-medium3" required>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.limit.$invalid">* required</span>
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" style="padding-top: 0;" for="Frequecy capping">Reset counter after <span style="color: red;">*</span></label>
+    <div class="controls">
+        <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="$parent.hours">
+        &nbsp; hours &nbsp;
+                <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="$parent.minutes">
+        &nbsp; minutes
+                <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="$parent.seconds">
+        &nbsp; seconds
+    </div>
+</div>
+
+<div class="control-group">
+    <label class="control-label" style="padding-top: 0;" for="Frequecy capping">Limit range time</label>
+    <div class="controls">
+        <span class="table-check">
+            <input type="checkbox" id="unlimitstart" class="ng-pristine ng-valid" ng-model="$parent.unlimitStartDate">
+            <label class="choice"></label>
+        </span>
+        <label for="unlimitstart" class="ng-binding">Unlimit start time</label>
+        <div ng-show="unlimitStartDate === false">
+            <div class="input-append">
+                <input name="startDate" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" class="input-medium ng-pristine ng-valid" style="width: 90px" bs-datepicker="">
+                <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="controls" style="padding-top: 10px">
+        <span class="table-check">
+            <input type="checkbox" id="unlimiend" class="ng-pristine ng-valid" ng-model="$parent.unlimitEndDate">
+            <label class="choice"></label>
+        </span>
+        <label for="unlimiend" class="ng-binding">Unlimit end time</label>
+        <div ng-show="unlimitEndDate === false">
+            <div class="input-append">
+                <span>to</span>
+                <input id="Text7" name="endDate" type="text" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" class="input-medium ng-pristine ng-valid" style="width: 90px" bs-datepicker="">
+                <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="control-group">
+    <p class="control-line">Link to zone</p>
+</div>
+
+<div class="control-group">
+    <div class="controls">
+        <div class="target-ctn" ng-show="targeting['website'] === true">
+            <div class="content-controls">
+                <div class="cnt-grid">
+                    <div class="control-list" id="selectWebsite" style="overflow-y: visible">
+                        <input type="text" id="searchSite" class="" ng-model="searchSite" placeholder="Search site name...">
+                        <div class="control-list" style="overflow-y: auto; border: none; padding: 0;">
+                            <ul class="checkTree">
+                                <li ng-repeat="website in websites|filter:{name:searchSite}:strict"><span class="table-check">
+                                    <input type="checkbox" id="website1{{website.id}}" class="" ng-model="checkboxWebsite[website.id]" ng-change="checkWebsite(website.id)">
+                                    <label class="choice"></label>
+                                </span>
+                                    <label for="website1{{website.id}}">{{website.name}}</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="websiteId in selectedWebsites"><span class="table-check">
+                                <input type="checkbox" id="website2{{websiteId}}" class="" ng-click="uncheck('website', $index)" checked>
+                                <label class="choice"></label>
+                            </span>
+                                <label for="website2{{websiteId}}">{{siteNameDic[websiteId]}}</label></li>
+                        </ul>
+                    </div>
+                </div>
+                <ul class="list-radiocheck">
+                    <li><span class="radio-check">
+                        <input id="radio5" name="zones" type="radio" class="" ng-model="option.targetZone" value="all" ng-change="choose('radio', 'all')" />
+                        <label class="choice" for="radio5">Dislayed on all suitable zones</label>
+                    </span></li>
+                    <li><span class="radio-check">
+                        <input id="radio6" name="zones" type="radio" class="" ng-model="option.targetZone" value="specific" ng-change="choose('radio', 'specific')" />
+                        <label class="choice" for="radio6">Dislayed on all specific zones</label>
+                    </span></li>
+                </ul>
+                <div class="cnt-grid" ng-show="option.targetZone === 'specific'">
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="websiteId in selectedWebsites"><span class="table-check">
+                                <input type="checkbox" id="sWebsite{{websiteId}}" ng-change="checkZoneWeb(websiteId)" ng-model="checkboxZoneWeb[websiteId]">
+                                <label class="choice" for="Field"></label>
+                            </span>
+                                <label for="sWebsite{{websiteId}}">{{siteNameDic[websiteId]}}</label>
+                                <ul class="checkTree" ng-if="kind != 'network_tvc'">
+                                    <li ng-repeat="zone in zones[websiteId]" id="li1{{zone.id}}"><span class="table-check">
+                                        <input type="checkbox" id="zone1{{zone.id}}" ng-model="checkboxZone[websiteId][zone.id]['null']" ng-change="checkZone(websiteId, zone.id, 'null')">
+                                        <label class="choice"></label>
+                                    </span>
+                                        <label for="zone1{{zone.id}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{zone.name}}">{{zone.name}}</label></li>
+                                </ul>
+                                <!--Create TVC-->
+                                <ul ng-if="kind == 'network_tvc'">
+                                    <span ng-repeat="zone in zones[websiteId]">
+                                        <li ng-repeat="pos in zone.tvcPositions" id="li1">
+                                            <span class="table-check">
+                                                <input type="checkbox" id="zone1{{zone.id + '_' + pos}}" ng-model="checkboxZone[websiteId][zone.id][pos]" ng-change="checkZone(websiteId, zone.id, pos)">
+                                                <label class="choice"></label>
+                                            </span>
+                                            <label for="zone1{{zone.id + '_' + pos}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{'[' + pos + '] ' + zone.name}}">{{"[" + pos + "] " + zone.name}}</label>
+                                        </li>
+                                    </span>
+                                </ul>
+                                <!------------------>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="control-list">
+                        <ul class="checkTree" ng-if="kind != 'network_tvc'">
+                            <li ng-repeat="a in selectedZones" id="li2{{a.zone}}"><span class="table-check">
+                                <input type="checkbox" id="zone2{{a.zone}}" checked ng-click="uncheck('zone', $index)">
+                                <label class="choice"></label>
+                            </span>
+                                <label for="zone2{{a.zone}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{zones[a.website][a.zone].name}}">{{zones[a.website][a.zone].name}}</label>
+                            </li>
+                        </ul>
+                        <ul class="checkTree" ng-if="kind == 'network_tvc'">
+                            <li ng-repeat="a in selectedZones" id="li2{{a.zone + '_' + a.pos}}"><span class="table-check">
+                                <input type="checkbox" id="zone2{{a.zone + '_' + a.pos}}" checked ng-click="uncheck('zone', $index)">
+                                <label class="choice"></label>
+                            </span>
+                                <label for="zone2{{a.zone + '_' + a.pos}}" ng-if="kind == 'network_tvc'" style="text-overflow: ellipsis; overflow: hidden;" title="{{'[' + a.pos + '] ' + zones[a.website][a.zone].name}}">{{"[" + a.pos + "] " + zones[a.website][a.zone].name}}</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="clear: both; padding-top: 10px;">
+                    <div></div>
+                    <span class="alert alert-error" ng-show="isWarningZoneSize">Some zone or website is disabled, because size of this item invalid with them.
+                    </span>
+                </div>
+                <div>
+                    <span class="alert alert-error" ng-show="isWarningSelectZone">Not yet any zone is selected!
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿<div ng-show="hasMediaPlan()">
+    <booking data="data" item="item" selecteditem="selecteditem" editbookingfn="editbooking()" sitename="campaign_name" starttime="startTimestamp" endtime="endTimestamp" xcoor="editPopupLeft" ycoor="editPopupTop"></booking>
+    
+    <div class="popoup-booking width400" ng-show="isEditZone" ng-style="editPopupStyle">
+        <div class="marginbottom">
+            <h5><i class="icon-check"></i> Your booking</h5>
+            <ul class="tab_booking">
+                <li><a href="javascript:;" ng-class="isActive('edit')" ng-click="changeAction('edit')">Share</a></li>
+                <li><a href="javascript:;" ng-class="isActive('edit_date')" ng-click="changeAction('edit_date')">Date</a></li>
+                <li><a href="javascript:;" ng-class="isActive('delete')" ng-click="changeAction('delete')">Delete</a></li>
+            </ul>
+            <div class="content-booking" ng-show="isAction('edit')">
+                <input type="text" class="input-mini" ng-model="share"> can booking more <strong>{{available}}%</strong>
+                <div class="margin-top2">
+                    <a class="btn btn-small btn-primary" href="javascript:;" ng-click="doAction()">Ok</a> 
+                    <a class="btn btn-small" href="javascript:;" ng-click="close()">Cancel</a>
+                </div>
+            </div>
+            <div class="content-booking" ng-show="isAction('edit_date')">
+                <div class="ctrol">
+                    <span style="width:60px;float:left;line-height:30px;">Start date</span>
+                    <div class="input-append"> 
+                        <input id="bookingStartDate" name="bookingStartDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_start" data-date-format="dd/mm/yyyy" bs-datepicker ng-disabled="isDisable('book_start_date')">
+                        <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isDisable('book_start_date')"><i class="icon-calendar"></i></button>
+                    </div>
+                    <span style="width:60px;vertical-align: middle;line-height:30px;">End date</span>
+                    <div class="input-append">
+                        <input id="bookingEndDate" name="bookingEndDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_end" data-date-end-date="12/12/2013" data-date-format="dd/mm/yyyy" bs-datepicker ng-disabled="isDisable('book_end_date')">
+                        <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isDisable('book_end_date')"><i class="icon-calendar"></i></button>
+                    </div>
+                </div>
+                <div class="margin-top2">
+                    <a class="btn btn-small btn-primary" href="javascript:;" ng-click="doAction()">Ok</a> 
+                    <a class="btn btn-small" href="javascript:;" ng-click="close()">Cancel</a>
+                </div>
+            </div>
+            <div class="content-booking" ng-show="isAction('delete')">
+                Delete this booked zone means you unlink all items linked to it.<br />
+                <strong>Are you sure want to delete it ?</strong>
+                <div class="margin-top2">
+                    <a class="btn btn-small btn-primary" href="javascript:;" ng-click="doAction()">Ok</a> 
+                    <a class="btn btn-small" href="javascript:;" ng-click="close()">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+<div ng-hide="hasMediaPlan()">
+    <span><i>No media plan for this campaign</i></span>
+</div>

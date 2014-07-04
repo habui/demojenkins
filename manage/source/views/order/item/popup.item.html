@@ -1,0 +1,119 @@
+﻿<div class="control-group">
+    <label for="start-date" class="control-label">Size</label>
+    <div class="controls">
+        <combobox-listsize listsizes="sizes" search="search" />
+        <span class="alert alert-error" ng-show="isWarningSize">
+            <strong>Warning!</strong> This size is invalid with some zone. They can be disabled.
+        </span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Close Button Action</label>
+    <div class="controls">
+        <div style="position: relative; margin-bottom: 0" class="input-append">
+            <input type="text" class="input-mediumcmb" placeholder="Close button action" ng-model="close_btn_action">
+            <div style="position: static;" class="btn-group">
+                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown scroll2">
+                    <li><a href="javascript:;" ng-click="chooseCloseBtnAction('close')">Close</a></li>
+                    <li><a href="javascript:;" ng-click="chooseCloseBtnAction('move_to_target')">Move to target</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Banner File</label>
+    <div class="controls">
+        <p style="float: left; margin-bottom: 0; margin-right: 30px" ng-show="isExtlnk">
+            <span class="table-check">
+                <input type="checkbox" ng-checked="extlnkimage" ng-model="extlnkimage" id="extlnkimg" name="extlnkimg">
+                <label class="choice" for="Field"></label>
+            </span>[External Link] - Image 
+                    
+        </p>
+        <p style="float: left; margin-bottom: 0; margin-right: 30px" ng-show="isExtlnk">
+            <span class="table-check">
+                <input type="checkbox" ng-checked="extlnkflash" ng-model="extlnkflash" id="extlnkflash" name="extlnkflash">
+                <label class="choice" for="Field"></label>
+            </span>[External Link] - Flash
+                    
+            <br />
+        </p>
+        <img ng-src="{{item.bannerFile}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="item.bannerFile.length > 0 && isBannerImage(item.bannerFile) && !isExtlnk">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.bannerFile}}" width="250" height="100" ng-show="item.bannerFile.length > 0 && isBannerFlash(item.bannerFile) && !isExtlnk">
+            <param name="movie" value="{{item.bannerFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.bannerFile}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerUploadResult" filter="jpg, gif, png, flv, swf" ext="isExtlnk" required="true"></uploader>
+        <!--<span class="agerror" ng-show="checkValidate && ( !item.bannerFile || item.bannerFile.length == 0)">* required</span>-->
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Banner Fallback</label>
+    <div class="controls">
+        <img ng-src="{{item.bannerFileFallback}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="isBannerImage(item.bannerFileFallback)">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.bannerFileFallback}}" width="250" height="100" ng-show="isBannerFlash(item.bannerFileFallback)">
+            <param name="movie" value="{{item.bannerFileFallback}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.bannerFileFallback}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerFallbackUploadResult" filter="jpg, gif, png" required="true"></uploader>
+        <div>
+            <label><small><em>(Only use for flash)</em></small></label>
+        </div>
+    </div>
+</div>
+<!-- Frequency Capping -->
+<!--<div ng-hide="isNetworkItem">
+    <div class="control-group">
+        <p class="control-line">Frequency Capping</p>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="frequencycapping">Frequency capping</label>
+        <div class="controls">
+            <input type="text" price name="impression" id="impression" placeholder="impression" ng-model="freq_impression" class="input-small" required>
+            impression per 
+            <input type="text" numbers-only name="time_" id="time_" class="input-mini" placeholder="0" ng-model="freq_time" required>
+            <div class="input-append" style="position: relative; margin-bottom: 0">
+                <input type="text" class="input-mini" placeholder="Time" ng-model="freq_time_string">
+                <div class="btn-group" style="position: static">
+                    <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu width-dropdown cmbmini">
+                        <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('minute')">Minutes</a></li>
+                        <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('hour')">Hours</a></li>
+                        <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('day')">Days</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+<div class="control-group">
+    <p class="control-line">Links</p>
+</div>
+<div class="control-group">
+    <label class="control-label">Target URL</label>
+    <div class="controls">
+        <input type="text" name="targetUrl" id="targetUrl" placeholder="target url" ng-model="item.targetUrl" class="span3" required>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.targetUrl.$error.required">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Impression</label>
+    <div class="controls">
+        <input type="text" name="impressionLink" id="Text2" placeholder="third party impression" ng-model="item.thirdPartyImpressionUrl" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Click</label>
+    <div class="controls">
+        <input type="text" name="impression3rd" placeholder="third party click" ng-model="item.thirdPartyClickUrl" class="input-large">
+    </div>
+</div>
+

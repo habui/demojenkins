@@ -1,0 +1,21 @@
+﻿
+<div ng-show="freeItemCount > 0" ng-if="checkPermission(permissionDefine.EDITORDER)">
+    <p>
+        There are <span style="color:#BB3E70;font-weight: bold;"> {{freeItemCount}} items</span> not yet linked to zone <a href="javascript:;" ng-click="goUnlinkBookingItemList()">View</a>
+    </p>
+</div>
+
+<section id="tables2">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('items')"><a href="javascript:;" ng-click="gotoTab('items')">Items</a></li>
+        <li ng-class="isActiveTab('articles')"><!--<a href="javascript:;" ng-click="gotoTab('articles')" ng-show="isNetworkPRCampaign">Articles</a>--></li>
+        <li ng-class="isActiveTab('linked_booking')" ng-show="isBookingCampaign"><a href="javascript:;" ng-click="gotoTab('linked_booking')">Linked booking</a></li>
+        <li ng-class="isActiveTab('setting')" ><a href="javascript:;" ng-click="gotoTab('setting')">Campaign Setting</a></li>
+        <li ng-class="isActiveTab('media_plan')" ng-show="isBookingCampaign"><a href="javascript:;" ng-click="gotoTab('media_plan')">Media Plan</a></li>
+    </ul>
+    <div class="tab-content">
+        <div ui-view>
+            <!-- content view -->
+        </div>
+    </div>
+</section>

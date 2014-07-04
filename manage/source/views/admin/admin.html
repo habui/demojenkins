@@ -1,0 +1,32 @@
+﻿<div class="row">
+    <div class="tabbable">
+
+        <div class="span3">
+            <div class="input-append">
+                <input class="input-search" placeholder="Search..." id="appendedInputButtons" type="text" ng-model="searchField" ng-enter="search()">
+                <button class="btn" type="button" ng-click="search()"><i class="icon-search"></i></button>
+            </div>
+            <ul class="nav nav-tabs nav-stacked">
+                <li ng-class="isActiveTab('accounts')"  ng-if="checkPermission(permissionDefine.ROOT)"><a href="javascript:;" data-toggle="tab" ng-click="gotoTab('accounts')"><i class="icon-file"></i>Account management<i class="icon-chevron-right"></i></a></li>
+                <li ng-class="isActiveTab('categories')" ng-if="checkPermission(permissionDefine.ROOT)"><a href="javascript:;" data-toggle="tab" ng-click="gotoTab('categories')"><i class="icon-file"></i>Categories management<i class="icon-chevron-right"></i> </a></li>
+                <li ng-class="isActiveTab('user_logs')" ng-if="checkPermission(permissionDefine.ROOT)" ><a href="javascript:;" data-toggle="tab" ng-click="gotoTab('user_logs')"><i class="icon-file"></i>User activities log<i class="icon-chevron-right"></i></a></li>
+                <li ng-class="isActiveTab('unique_visitor')" ng-if="checkPermission(permissionDefine.ROOT)" ><a href="javascript:;" data-toggle="tab" ng-click="gotoTab('unique_visitor')"><i class="icon-file"></i>Unique Visitor<i class="icon-chevron-right"></i></a></li>
+            </ul>
+            <ul class="nav button-right">
+                <li ng-repeat="actionMenu in actionMenus"><a href="javascript:;" ng-if="true" ng-click="doIt(actionMenu.name)" ng-if="checkPermission(actionMenu.permission)"><i ng-class="actionMenu.icon"></i>{{actionMenu.name}}</a></li>
+            </ul>
+        </div>
+        <div class="span9">
+            <div class="tab-content">
+                <div class="tab-pane  active">
+                    <div ui-view="breadcumnav">
+                    </div>
+                    
+                    <div ui-view="content" ng-if="checkPermission(permissionDefine.ROOT)">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

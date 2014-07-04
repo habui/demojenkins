@@ -1,0 +1,42 @@
+﻿
+<div>
+    <h2>{{page.getCurrPage()}}</h2>
+    <section id="tables2">
+        <div class="row-fluid show-grid">
+            <div class="span6">
+            </div>
+            <div class="span6">
+                <label class="right">
+                    <input type="text" placeholder="Search category ..." aria-controls="dt_a">
+                </label>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 30%;">Category name</th>
+                    <th style="width: 55%;">Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in items">
+                    <td>{{item.name}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <a class="label label-secondary" ng-click="setEditItem(item)"><i class="icon-edit"></i>Edit</a>
+                        <a class="label label-secondary" ng-click="setDeleteItem(item)"><i class="icon-trash"></i>Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-show="totalRecord > 0">
+            <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	        
+        </paging>
+        </div>
+        <div ng-show="totalRecord <= 0">
+            No category found.
+        </div>
+    </section>
+</div>

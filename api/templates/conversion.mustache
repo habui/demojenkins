@@ -1,0 +1,12 @@
+<script type="text/javascript" src="{{conversion_js}}"></script>
+<script type="text/javascript"> 
+var adtima_conversion_order_id = "{{orderId}}";
+var adtima_conversion_type = "{{type}}";
+var adtima_conversion_value = {{value}};
+adtima_conversion();
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="{{host}}/rest/conversion/conversion?orderId={{orderId}}&conversionType={{type}}&value={{value}}"/>
+</div>
+</noscript>

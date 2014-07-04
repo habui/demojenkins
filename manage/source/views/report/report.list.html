@@ -1,0 +1,253 @@
+﻿<h2>{{title}}</h2>
+<form style="padding-bottom: 0px; margin-bottom: 0;" class="bs-docs-example">
+    <div class="controls docs-input-sizes form-actions">
+        <ul class="list_filter">
+            <li class="filter-item">
+                <div style="position: relative; margin-bottom: 0"
+                    class="input-append">
+                    <input type="text" class="input-large" placeholder="Range time" ng-model="timeOption">
+                    <div style="position: static;" class="btn-group">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu width-dropdown range-time" ng-click="click($event)">
+                            <li ng-click="chose('today', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.today" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Today
+                            </li>
+                            <li ng-click="chose('yesterday', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.yesterday" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Yesterday
+                            </li>
+                            <li ng-click="chose('thisweek', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.thisweek" />
+                                    <label for="Field" class="choice"></label>
+                                </span>This Week
+                            </li>
+                            <li ng-click="chose('lastweek', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.lastweek" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last Week
+                            </li>
+                            <li ng-click="chose('thismonth', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.thismonth" />
+                                    <label for="Field" class="choice"></label>
+                                </span>This Month
+                            </li>
+                            <li ng-click="chose('lastmonth', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.lastmonth" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last Month
+                            </li>
+                            <li ng-click="chose('last7days', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.last7days" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last 7 days
+                            </li>
+                            <li ng-click="chose('alltime', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.alltime" />
+                                    <label for="Field" class="choice"></label>
+                                </span>All Time
+                            </li>
+                            <li>
+                                <div>
+                                    <span class="table-check margintop">
+                                        <input type="checkbox" ng-model="check.custom" ng-change="chose('custom', $event)" />
+                                        <label for="Field" class="choice"></label>
+                                    </span>Custom
+                                </div>
+
+                                <div>
+                                    <div class="customtime cus1">
+                                        <input id="datepickerfrom" name="datepickerfrom" type="text" class="input-mini custom" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                    </div>
+                                    <span class="customtime cus2">- </span>
+                                    <div class="customtime">
+                                        <input id="datepickerto" name="datepickerto" type="text" class="input-mini custom" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                    </div>
+                                </div>
+                            </li>
+                            <li style="clear: both"></li>
+                            <li class="divider"></li>
+                            <li class="listcampare" ng-click="chose('compare', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-change="enableCompare()" ng-model="check.isCompare" />
+                                    <label for="Field" class="choice"></label>
+                                </span>
+                                <strong>COMPARE</strong><!--Khi check vao se show duoi the ul-->
+                                <ul ng-show="check.isCompare">
+                                    <li ng-click="chose('compare', $event)">
+                                        <span class="radio-check margintop">
+                                            <input type="radio" value="previous" name="compare" ng-model="check.compare" />
+                                            <label for="Field" class="choice"></label>
+                                        </span>Previous period
+                                    </li>
+                                    <li ng-click="chose('compare', $event)">
+                                        <span class="radio-check margintop">
+                                            <input type="radio" value="previous-year" name="compare" ng-model="check.compare" />
+                                            <label for="Field" class="choice"></label>
+                                        </span>Same period year
+                                    </li>
+                                    <li ng-click="chose('compare', $event)">
+                                        <span class="radio-check margintop">
+                                            <input type="radio" value="custom" name="compare" ng-model="check.compare">
+                                            <label for="Field" class="choice"></label>
+                                        </span>Custom<br>
+                                        <div class="customtime cus1">
+                                            <input id="comparedatepickerfrom" name="comparedatepickerfrom" type="text" class="input-mini custom" ng-model="datepicker.startCompareDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                        </div>
+                                        <span class="customtime cus2">- </span>
+                                        <div style="position: relative; float: left">
+                                            <input id="comparedatepickerto" name="comparedatepickerto" type="text" class="input-mini custom" ng-model="datepicker.endCompareDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                        </div>
+                                    </li>
+                                    <li style="clear: both"></li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;">
+                                <input id="query" type="button" class="btn btn-primary btn-small btn-apply" ng-click="query()" value="Apply" /></li>
+                        </ul>
+                    </div>
+                    <img ng-show="isLoading" src="resource/img/ajax-loader.gif" style="margin-left: 20px;" />
+                </div>
+            </li>
+        </ul>
+    </div>
+</form>
+<section>
+    <ul class="nav nav-tabs">
+        <li><a href="javascript:;">Campaign</a></li>
+        <li><a href="javascript:;">Item</a></li>
+        <li><a href="javascript:;">Linked website</a></li>
+        <li><a href="javascript:;">Liked zone</a></li>
+    </ul>
+    <div class="tab-content">
+        <ul class="list_filter padding-search-bar">
+            <li class="filter-item">
+                <input type="text" placeholder="Search ..." class="input-medium">
+            </li>
+            <li class="filter-item"><a title="Search ..." class="btn" href="javascript:;"><i class="icon-search"></i></a></li>
+            <li style="float: right;" class="filter-item"><a title="Hide chart" class="btn" href="javascript:;" ng-click="showHideChart()"><i class="icon-arrow-up chart" ng-hide="isShowChart"></i><i class="icon-arrow-down chart" ng-show="isShowChart"></i></a>
+                <!--<a href="#"  class="btn" title="Show chart"><i class="icon-arrow-up chart"></i></a>-->
+            </li>
+            <li style="float: right;" class="filter-item"><a title="Download csv" class="btn" href="#"><i style="margin-top: 2px;" class="icon-download-alt"></i></a></li>
+        </ul>
+        <div class="clear"></div>
+        <div class="chartshow" ng-show="isShowChart">
+            <div class="row-fluid show-grid">
+                <div class="span6">
+                    <div style="position: relative; margin-bottom: 0"
+                        class="input-append">
+                        <input type="text" class="input-mini input-xsmall" placeholder="Impression">
+                        <div style="position: static;" class="btn-group">
+
+                            <button tabindex="-1" data-toggle="dropdown" class="btn btn-small dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown-small">
+                                <li><a href="#">Impression</a></li>
+                                <li><a href="#">Click</a></li>
+                                <li><a href="#">CTR</a></li>
+                                <li><a href="#">Spent</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    vs
+                    <div style="position: relative; margin-bottom: 0"
+                        class="input-append">
+                        <input type="text" class="input-mini input-xsmall" placeholder="None">
+                        <div style="position: static;" class="btn-group">
+
+                            <button tabindex="-1" data-toggle="dropdown" class="btn btn-small dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown-small">
+                                <li><a href="#">Impression</a></li>
+                                <li><a href="#">Click</a></li>
+                                <li><a href="#">CTR</a></li>
+                                <li><a href="#">Spent</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: right;" class="span6">
+
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-small active">Day</a>
+                        <a href="#" class="btn btn-small">Week</a>
+                        <a href="#" class="btn btn-small">Month</a>
+                    </div>
+                </div>
+            </div>
+            <!-- <img width="823" height="396" alt="" src="img/Bieudo.jpg"> -->
+        </div>
+        <div>
+            <div class="row-fluid show-grid">
+                <div class="span6">
+                </div>
+                <div class="span6">
+                    <label class="right">
+                        <input type="text" placeholder="Search ..." aria-controls="dt_a">
+                    </label>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-highlight">
+                <thead>
+                    <tr>
+                        <th width="200">Order</th>
+                        <th ng-repeat="colLabel in colNamesLabel" ng-show="selectedCol[colNames[$index]] == true" ng-class="getSortClass(colNames[$index])" ng-click="switchSort(colNames[$index])">{{colLabel}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td ng-repeat="property in report.summary.properties">
+                            <span class="arrow-none" ng-hide="isCompare()">{{property.value}}</span>
+                            <div ng-show="isCompare()"><span ng-class="getDirection(property.change)">{{getABS(property.change)}}%</span></div>
+                            <div ng-show="isCompare()">{{property.value}} vs {{property.compareValue}}</div>
+                        </td>
+                    </tr>
+                    <tbody ng-repeat="item in report.items" ng-if="isCompareReport">
+                        <tr>
+                            <td>{{$index + parseInt(pageIndex) + 1}}. <a href="javascript:;" ng-click="gotoDetail(item.id)"><strong>{{item.name}}</strong></a></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 20px;">{{formatDateTime(report.range.from)}} to {{formatDateTime(report.range.to)}}</td>
+                            <td ng-repeat="field in item.fields">{{item.values[field].value}}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 20px;">{{formatDateTime(report.compareRange.from)}} to {{formatDateTime(report.compareRange.to)}}</td>
+                            <td ng-repeat="field in item.fields">{{item.values[field].compareValue}}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-left: 20px;"><strong>%Change</strong></td>
+                            <td ng-repeat="field in item.fields"><strong>{{item.values[field].change}}%</strong></td>
+                        </tr>
+                    </tbody>
+                    <tr ng-repeat="item in report.items" ng-if="!isCompareReport">
+                        <td>{{$index + parseInt(pageIndex) + 1}}. <a href="javascript:;" ng-click="gotoDetail(item.id)"><strong>{{item.name}}</strong></a></td>
+                        <td ng-repeat="field in item.fields">{{item.values[field].value}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+                </paging>
+            </div>
+        </div>
+    </div>
+</section>

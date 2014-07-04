@@ -1,0 +1,44 @@
+﻿
+    <div id="header">
+        <div class="logo_login"><a href="javascript:;" class="brand loginlogo">Dashboard Admin</a></div>
+    </div>
+
+    <div class="account-container login stacked">
+	    <div class="content clearfix">
+		    <form name="frmLogin">
+			    <h1>Sign In</h1>		
+			    <div class="login-fields">
+			        <p>Sign in using your registered account:</p>
+                    <div class="alert alert-error" ng-show="error_message.length > 0">{{error_message}}</div>
+				    <div class="field">
+					    <label for="username">Username:</label>
+				        <input type="text" id="username" name="username" placeholder="Username" class="login username-field" required ng-model="username" autofocus/>
+                    </div> <!-- /field -->
+				    <div class="field">
+					    <label for="password">Password:</label>
+				        <input type="password" id="password" name="password" placeholder="Password" class="login password-field" required ng-model="password" ng-enter="login(username, password)"/>
+                    </div> <!-- /password -->
+                    
+			    </div> <!-- /login-fields -->
+			
+			    <div class="login-actions">
+				    <span class="login-checkbox">
+					    <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+					    <label class="choice" for="Field">Keep me signed in</label>
+				    </span>					
+				    <a class="button btn btn-primary btn-large" ng-disabled="!frmLogin.$valid" ng-click="login(username,password)">Sign In</a>	
+			    </div> <!-- .actions -->			
+		    </form>
+	    </div> <!-- /content -->
+    </div> <!-- /account-container -->
+
+
+    <!-- Text Under Box -->
+    <div class="login-extra">
+	    Don't have an account? <!-- DISABLE <a href="javascript:;" ng-click="goSignUp()">Sign Up</a> --> <a href="javascript:;">Sign Up</a><br/>
+	    Remind <a href="#">Password</a>
+    </div> <!-- /login-extra -->
+
+
+      
+

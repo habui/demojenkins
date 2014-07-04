@@ -1,0 +1,46 @@
+﻿<div class="modal-header">
+    <button aria-hidden="true" ng-click="cancel()" type="button" class="close">×</button>
+    <h3>Edit account</h3>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal" id="edit-profile" name="accCreate">
+        <fieldset>
+            <div class="control-group">
+                <p class="control-line">Account information</p>
+            </div>
+
+            <div class="control-group">
+                <label for="name" class="control-label">Name</label>
+                <div class="controls">
+                    <input type="text" name="name" value="" ng-model="item.name" id="name" required class="input-large">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="email" class="control-label">Email</label>
+                <div class="controls">
+                    <input type="email" name="email" ng-model="item.email" value="" id="email" class="input-large">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="password" class="control-label">Password</label>
+                <div class="controls">
+                    <input type="password" id="password" ng-model="item.password" class="input-large">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label for="confirmpassword" class="control-label">Confirm Password</label>
+                <div class="controls">
+                    <input type="password" id="confirmpassword" ng-model="item.confirmPassword" class="input-large">
+                    <span class="agerror" ng-show="checkPassword()">Password not match</span>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-disabled="accCreate.$invalid || checkPassword()" ng-click="ok()">Save</button>
+    <button class="btn" ng-click="cancel()">Cancel</button>
+</div>

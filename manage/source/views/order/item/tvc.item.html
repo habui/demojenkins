@@ -1,0 +1,93 @@
+﻿<div class="control-group">
+    <label class="control-label">Wrapper</label>
+    <div class="controls">
+        <span class="table-check">
+            <input type="checkbox" id="wrapper_cxb" class="" ng-model="item.wrapper">
+            <label class="choice"></label>
+        </span>
+        <label for="wrapper_cxb">enable</label>
+    </div>
+</div>
+<div class="control-group" ng-show="item.wrapper == true">
+    <label class="control-label">Extend URL</label>
+    <div class="controls">
+        <input type="text" name="extendURl" id="Text1" placeholder="Extend url" ng-model="item.extendURL" class="span3" required>
+        <span class="agerror" ng-show="checkValidate && item.wrapper && networkItemForm.extendURl.$error.required">* required</span>
+    </div>
+</div>
+<div class="control-group" ng-show="item.wrapper === false">
+    <label class="control-label">TVC File</label>
+    <div class="controls">
+        <img ng-src="{{item.tvcFile}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="isBannerImage(item.tvcFile)">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.tvcFile}}" width="250" height="100" ng-show="isBannerFlash(item.tvcFile)">
+            <param name="movie" value="{{item.tvcFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.tvcFile}}" quality="high" width="250" height="100" />
+        </object>
+        <br />
+        <a href="{{item.tvcFile}}" ng-show="item.tvcFile" target="_blank">{{item.tvcFile}}</a>
+        <uploader action="{{uploadUrl}}" result="uploadResult.tvcFileUploadResult" filter="mp4, flv, swf, wmv" duration="uploadResult.duration"></uploader>
+        <span class="agerror" ng-show="checkValidate && (!item.tvcFile || item.tvcFile.length == 0)">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">TVC Duration</label>
+    <div class="controls">
+        <input type="text" name="duration" id="duration" placeholder="0" ng-model="item.duration" class="input-small2" ng-readonly="item.wrapper === false">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Target URL</label>
+    <div class="controls">
+        <input type="text" name="targetUrl" id="targetUrl" placeholder="target url" ng-model="item.targetUrl" class="span3" required>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.targetUrl.$error.required">* required</span>
+    </div>
+</div>
+
+<div class="control-group">
+    <p class="control-line">Third party Tracking</p>
+</div>
+<div class="control-group">
+    <label class="control-label">Impression Tracking  Url</label>
+    <div class="controls">
+        <input type="text" name="impressionLink" id="impressionLink" placeholder="third party impression" ng-model="item.thirdParty.impression" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Click Tracking  Url</label>
+    <div class="controls">
+        <input type="text" name="impression3rd" placeholder="third party click" ng-model="item.thirdParty.click" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Fullview Tracking  Url</label>
+    <div class="controls">
+        <input type="text" name="impression3rd" placeholder="third party full view" ng-model="item.thirdParty.complete" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <p class="control-line"></p>
+</div>
+<div class="control-group">
+    <label class="control-label">TVC Type</label>
+    <div class="controls">
+        <ul class="list-radiocheck" style="padding: 8px 0 0;">
+            <li>
+                <span class="radio-check">
+                    <input type="radio" name="tvcType" id="skip" ng-model="item.tvcType" value="skip">
+                    <label class="choice" for="skip">Skip</label>
+                </span>
+            </li>
+            <li>
+                <span class="radio-check">
+                    <input type="radio" name="tvcType" id="standard" ng-model="item.tvcType" value="standard">
+                    <label class="choice" for="standard">Standard</label>
+                </span>
+            </li>
+        </ul>
+        <span ng-show="item.tvcType === 'skip'">
+            <input type="number" ng-model="item.skipAfter" placeholder="after" class="input-small2 ng-pristine ng-valid" min="0"/> seconds
+        </span>
+    </div>
+</div>
+

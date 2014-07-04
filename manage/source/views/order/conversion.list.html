@@ -1,0 +1,76 @@
+﻿<div class="row-fluid show-grid">
+    <div class="span6">
+        </div>
+    <div class="span6">
+        <label class="right">
+            <input type="text" aria-controls="dt_a" placeholder="Search conversion..." ng-enter="search()" ng-model="searchText">
+        </label>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="check_widthtable">
+                <span class="table-check">
+                    <input type="checkbox" ng-model="checkBoxes['all']">
+                    <label class="choice" for=""></label>
+                </span>
+            </th>
+            <th style="width: 25%" ng-class="getSortClass('name')" ng-click="switchSort('name')">Order</th>
+            <th>View code</th>
+            <th>Update date</th>
+            <th>Tracking status</th>
+            <th>Conversion windows</th>
+            <th>Value</th>
+        </tr>
+    </thead>
+    <tbody >
+        <tr ng-repeat="item in items" >
+            <td>
+                <span class="table-check">
+                    <input type="checkbox" ng-model="checkBoxes[item.id]" ng-change="check(item.id)"/>
+                    <label class="choice" for=""></label>
+                </span>
+            </td>
+            <td ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()" ng-hide="isEditName[item.id]">
+                <a href="javascript:;" ng-click="gotoConversion(item.id)">{{item.name}}</a>
+                <a ng-show="currentSelectedRow == $index" style="float:right" class="label label-secondary" href="javascript:;" ng-click="gotoConversion(item.id)"><i class="icon-edit"></i>Edit</a>
+            </td>
+            <td>
+                <a href="javascript:;" ng-click="viewCode($index)">View code</a>
+            </td>
+            <td>{{formatDateTime(item.updateDate)}}</td>
+            <td>{{item.trackingStatus}}</td>
+            <td>{{formatWindows(item.windows)}}</td>
+            <td>{{item.value}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	    
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No item found.
+</div>
+<div id="previewCode" class="modal hide fade ads" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-body notice">
+        <h2>Conversion Code</h2>
+        <p>Copy the code below and paste it between the &lt;head&gt;&lt;/head&gt; in the page where you want to track conversions.</p>
+        <textarea ng-model="itemPreviewCode.code"  style="width: 100%; height: 200px; cursor: text" readonly></textarea>
+        <div class="alert alert-success" ng-show="isCopied" style="float: left; position: absolute; bottom: 60px; left: 30%;">
+            <strong>Conversion code is copied to clipboard</strong>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <div style="float: left; position: relative" id="contain_clip">
+                    <a id="d_clip_button" class="btn btn-large btn-primary" href="javascript:;">Copy to clipboard</a>
+                </div>
+                <a class="btn btn-large" href="javascript:;" onclick="jQuery('#previewCode').modal('hide')">Close</a>
+            </div>
+        </div>
+    </div>
+</div>

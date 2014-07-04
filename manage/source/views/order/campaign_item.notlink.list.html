@@ -1,0 +1,109 @@
+﻿<section id="tables2" ng-if="checkPermission(permissionDefine.EDITORDER)">
+    <div class="tab-content">
+        <div class="control-group">
+            <p class="control-line">List unlink item</p>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th style="width: 40%;">Preview</th>
+                    <th>Type</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="item in items" >
+                    <td>
+                        <a href="javascript:;" >{{item.name}}</a>
+                    </td>
+                    <td>{{item.width}}x{{item.height}}</td>
+                    <td style="text-align: center">
+                        <a class="iconads" href="javascript:;" ng-class="getKind(item.kind)" ng-click="view(item.id, item.name, item.kind)"></a>
+                        
+                    </td>
+                    <td><span class="label">{{item.kind}}</span></td>
+                    <td style="text-align: center"><a class="label label-secondary" href="javascript:;" ng-click="book(item.id)"><i class=" icon-resize-horizontal"></i>Book</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="totalRecord > 0">
+            <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	            
+            </paging>
+        </div>
+        <div ng-show="totalRecord <= 0">
+            No item found.
+        </div>
+        <!-- modal -->
+        <div id="myModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Link to zone</h3>
+            </div>
+            <div class="modal-body notice">
+                <p class="font-size16"><strong>Select the following zones to add into item name</strong></p>
+                <div id="mcs4_container" class="list_userdefault listItems">
+                    <div class="customScrollBox" style="">
+                        <div class="container listzone2" style="top: 0px;">
+                            <ul class="listzone">
+                                <li ng-repeat="item in campaignZones" ng-style="isDisableLinkStyle(item.zoneId)">
+                                    <span class="table-check">
+                                        <input type="checkbox" id="zone{{item.zoneId}}" ng-model="check[item.zoneId]" ng-disabled="isDisable(item.zoneId)">
+                                        <label for="" class="choice"></label>
+                                    </span>
+                                    <label for="zone{{item.zoneId}}">{{item.name}}</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="modal-footer">
+            <a href="javascript:;" class="btn" ng-click="closeModal('#myModal')">Cancel</a>
+            <a href="javascript:;" class="btn btn-primary" ng-click="link('#myModal')">Add zone</a>
+          </div>
+        </div>
+        <!-- end modal -->
+    </div>
+</section>
+
+<div id="previewBanner" class="modal hide fade ads" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-body notice">
+        <p>Item : <span style="color:#4B79C3;font-weight: bold">{{previewTitle}}</span></p>
+        <img ng-src="{{previewSource}}" alt="" ng-show="isBannerImage(previewSource)" width="{{previewWidth}}" height="{{previewHeight}}"/>
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{previewSource}}" ng-show="isBannerFlash(previewSource)" width="{{previewWidth}}" height="{{previewHeight}}">
+            <param name="movie" value="{{previewSource}}" />
+            <param name="quality" value="high" />
+            <param name="scale" value="exactfit" />
+            <embed ng-src="{{previewSource}}" quality="high" width="{{previewWidth}}" height="{{previewHeight}}"/>
+        </object>
+    </div>
+</div>
+
+<div id="previewHtml" class="modal hide fade ads" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-body notice">
+        <p>Item : <span style="color:#4B79C3;font-weight: bold">{{previewTitle}}</span></p>
+        <iframe srcdoc="{{previewContent}}" width="{{previewWidth}}" height="{{previewHeight}}">
+            <p>Your browser does not support iframe!</p>
+        </iframe>
+    </div>
+</div>
+
+<div id="previewVideo" class="modal hide fade ads" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-body notice">
+        <p>Item : <span style="color:#4B79C3;font-weight: bold">{{previewTitle}}</span></p>
+        <a  style="display:block;width:520px;height:330px"  id="player"></a> 
+    </div>
+</div>
+
+
+<div id="previewExternalVideo" class="modal hide fade ads" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-body notice">
+        <p>Item : <span style="color:#4B79C3;font-weight: bold">{{previewTitle}}</span></p>
+        <div class="alert">This is external video</div>
+    </div>
+</div>
+

@@ -1,0 +1,51 @@
+﻿
+<form action="" class="form-horizontal" name="frmZoneGroupSetting">
+     <fieldset>
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        
+        <div class="control-group">
+            <label for="name" class="control-label">Name</label>
+            <div class="controls">
+                <input type="text" id="name" name="name" placeholder="ZoneGroup Name" ng-model="item.name" required="" />
+                <span class="agerror" ng-show="frmZoneGroupSetting.name.$error.required">* required !</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="owner" class="control-label">Zones</label>
+            <div class="controls">
+                <div class="control-list">
+                    <input class="input-large" id="searchZone" value="" ng-model="searchZones" placeholder="Search ..." style="margin-bottom: 5px;" type="text" />
+                    <ul class="checkTree">
+                        <li ng-repeat="zoneitem in sitezones | filter : searchZones">
+                            <span class="table-check">
+                                <input tabindex="4" ng-model="checkedMap[zoneitem.id]" type="checkbox" ng-change="zoneChoice(zoneitem.id, zoneitem.name)">
+                                <label class="choice" for="Field"></label>
+                            </span>{{zoneitem.name}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="control-list">
+                    <ul class="checkTree">
+                        <li ng-repeat="zoneitem in selectedZones">
+                            <span class="table-check">
+                                <input type="checkbox" checked="true" ng-click="zoneRemove(zoneitem.id)">
+                                <label class="choice" for="Field"></label>
+                            </span>{{zoneitem.name}}
+                        </li>
+                    </ul>
+                </div>
+                <div style="clear: both; padding-top: 10px;"><a href="javascript:;" ng-click="addNewZone()">Add new zone</a></div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-show ="checkPermission(permissionDefine.EDITWEBSITE)">
+            <div class="controls">
+                <button class="btn btn-large btn-primary" href="javascript:;" ng-disabled="!frmZoneGroupSetting.$valid" ng-click="updateSetting(frmZoneGroupSetting)">Update</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="goto('zonegrouplist')">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

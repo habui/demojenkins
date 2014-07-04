@@ -1,0 +1,45 @@
+﻿<h2>{{page.getCurrPage()}}</h2>
+<section id="tables2">
+    <div class="row-fluid show-grid">
+        <div class="span6">
+        </div>
+        <div class="span6">
+            <label class="right">
+                <input type="text" placeholder="Search account ..." ng-model="searchAccount" aria-controls="dt_a">
+            </label>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th width="35%">User Name</th>
+                <th width="40%">Email</th>
+                <th>Assigned</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td ng-mouseover="clicked($index)" ng-mouseleave="mouseleave()">{{item.name}}
+                    <span ng-show="currentSelectedRow == $index">
+                        <a style="float: right" class="label label-secondary" ng-click="setEditItem(item)"><i class="icon-edit"></i>Edit</a>
+                        <a style="float: right; margin-right: 5px" class="label label-secondary"><i class="icon-trash"></i>Delete</a>
+                        <!--<a class="label label-secondary"><i class="icon-resize-horizontal"></i>Assign roles</a>-->
+                    </span>
+                </td>
+                <td>{{item.email}}</td>
+                <td>
+                    <a href="" ng-click="assignedWebsites(item.id,item.name)"><span style="color: red">{{item.assignedWebsiteCount}}</span> Websites</a><br>
+                    <a href="" ng-click="assignedOrders(item.id,item.name)"><span style="color: red">{{item.assignedOrderCount}}</span> Orders</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="totalRecord > 0">
+        <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	        
+        </paging>
+    </div>
+    <div ng-show="totalRecord <= 0">
+        No account found.
+    </div>
+</section>

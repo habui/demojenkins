@@ -1,0 +1,101 @@
+﻿<form class="form-horizontal" name="frmCampaignCreate">
+    <fieldset>
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" name="name" id="name" placeholder="Campaign name" ng-model="item.name" class="input-large">
+                <span class="agerror" ng-show="checkValidate && item.name.length == 0">Please enter Campaign Name</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label for="end-date" class="control-label">Start Date</label>
+            <div class="controls">
+                <div id="date-picker-start" class="input-append">
+                    <div class="input-append">
+                        <input id="startDate" name="startDate" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" class="input-largecrd" bs-datepicker>
+                        <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                    </div>
+                </div>
+                <span class="agerror" ng-show="validateStartTime()">Start time must be greater than or equal to current time</span>
+
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="end-date" class="control-label">End Date</label>
+            <div class="controls">
+                <div id="date-picker-end" class="input-append">
+                    <div class="input-append">
+                        <input id="endDate" name="endDate" type="text" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" class="input-largecrd" bs-datepicker>
+                        <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                    </div>
+                </div>
+                <span class="agerror" ng-show="datepicker.endDate == null">(*)</span>
+                <span class="agerror" ng-show="validateEndTime()">End time must be greater than start time</span>
+            </div>
+        </div>
+
+        <div ng-show="isNetworkCampaign()">
+            <div class="control-group">
+                <p class="control-line">Other options</p>
+            </div>
+            <div class="control-group">
+
+                <label class="control-label" for="dateandtime">Date and Time</label>
+                <div class="controls">
+                    <span style="line-height: 30px;" ng-show="isAllDayTime()">All day and time <a href="#myModal" role="button" class="" data-toggle="modal">Edit</a></span>
+                    <span style="line-height: 30px; font-weight: bold;" ng-hide="isAllDayTime()"><a style="color: #C24793;" href="#myModal" role="button" data-toggle="modal">Custom ... Please see</a></span>
+
+                    <bookingdaytime timeinday="timeinday"></bookingdaytime>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <label class="control-label" for="display time">Companion positioning</label>
+                <div class="controls">
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" class="input-largecmb" placeholder="Display items" ng-model="displayTypeString">
+                        <div class="btn-group" style="position: static">
+                            <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown">
+                                <li><a href="javascript:;" ng-click="chooseDisplayType(0)">All</a></li>
+                                <li><a href="javascript:;" ng-click="chooseDisplayType(-1)">None</a></li>
+                                <li><a href="javascript:;" ng-click="chooseDisplayType(1)">As much as posible</a></li>
+                                <li><a href="javascript:;" ng-click="chooseDisplayType(2)">One or more</a></li>
+                                <li><a href="javascript:;" ng-click="chooseDisplayType(3)">Only one</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group" ng-hide="isNetworkCampaign()">
+            <label class="control-label">Advance Option</label>
+            <div class="controls" style="margin-top: 7px">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="item.companion" ng-checked="item.companion">
+                        <label for="" class="choice"></label>
+                    </span>
+                    Companion positioning
+                </p>
+                
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn btn-large btn-primary" ng-disabled="isDisable(frmCampaignCreate)" ng-click="save()">Save</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="gotoTab('campaigns')">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+
+

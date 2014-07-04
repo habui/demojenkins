@@ -1,0 +1,40 @@
+﻿<section id="tables2">
+    <div class="row-fluid show-grid">
+        <div class="span6">
+            <a class="label label-secondary" ng-click="popupAssign()" ng-class="isActiveClass()" data-toggle="modal"><i class="icon-ok"></i>Assign</a>
+        </div>
+        <div class="span6">
+            <label class="right">
+                 <input type="text" aria-controls="dt_a" ng-model="searchText" placeholder="Search order..." ng-enter="search()">
+            </label>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <th class="check_widthtable"><span class="table-check">
+                <input id="Checkbox12" name="Field" type="checkbox"  ng-model="checkBoxes['all']"  ng-change="check('all')" tabindex="4" />
+                <label class="choice" for="Field"></label>
+            </span></th>
+            <th>Order Name</th>
+            <th>Share</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items">
+                <td><span class="table-check">
+                    <input id="Checkbox13" name="Field" type="checkbox" class="" tabindex="4" ng-model="checkBoxes[item.id]" ng-change="check(item.id)" />
+                    <label class="choice" for="Field"></label>
+                </span></td>
+                <td><a href="javascript:;" ng-click="gotoAssignDetail(item.id)">{{item.name}}</a></td>
+                <td><a href="javascript:;" ng-click="gotoAssignDetail(item.id)">Share (<strong style="color: #FF0000">{{countAssigned[item.id]||0}}</strong>)</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="totalRecord > 0">
+        <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+        </paging>
+    </div>
+    <div ng-show="totalRecord <= 0">
+        No data found.
+    </div>
+</section>
+

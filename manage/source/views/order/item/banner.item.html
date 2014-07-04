@@ -1,0 +1,71 @@
+﻿<div class="control-group">
+    <label for="start-date" class="control-label">Size</label>
+    <div class="controls">
+        <combobox-listsize listsizes="sizes" search="search" />
+        <span class="alert alert-error" ng-show="isWarningSize">
+            <strong>Warning!</strong> This size is invalid with some zone. They can be disabled.
+        </span>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Banner File</label>
+    <div class="controls">
+        <p style="float: left; margin-bottom: 0; margin-right: 30px" ng-show="isExtlnk">
+            <span class="table-check">
+                <input type="checkbox" ng-checked="extlnkimage" ng-model="extlnkimage" id="extlnkimg" name="extlnkimg">
+                <label class="choice" for="Field"></label>
+            </span>[External Link] - Image 
+                    
+        </p>
+        <p style="float: left; margin-bottom: 0; margin-right: 30px" ng-show="isExtlnk">
+            <span class="table-check">
+                <input type="checkbox" ng-checked="extlnkflash" ng-model="extlnkflash" id="extlnkflash" name="extlnkflash">
+                <label class="choice" for="Field"></label>
+            </span>[External Link] - Flash
+                    
+            <br />
+        </p>
+        <img ng-src="{{item.bannerFile}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="item.bannerFile.length > 0 && isBannerImage(item.bannerFile) && !isExtlnk">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.bannerFile}}" width="250" height="100" ng-show="item.bannerFile.length > 0 && isBannerFlash(item.bannerFile) && !isExtlnk">
+            <param name="movie" value="{{item.bannerFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.bannerFile}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerUploadResult" filter="jpg, gif, png, flv, swf" ext="isExtlnk" required="true"></uploader>
+        <!--<span class="agerror" ng-show="checkValidate && ( !item.bannerFile || item.bannerFile.length == 0)">* required</span>-->
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Banner Fallback</label>
+    <div class="controls">
+        <img ng-src="{{item.bannerFileFallback}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="isBannerImage(item.bannerFileFallback)">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.bannerFileFallback}}" width="250" height="100" ng-show="isBannerFlash(item.bannerFileFallback)">
+            <param name="movie" value="{{item.bannerFileFallback}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.bannerFileFallback}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerFallbackUploadResult" filter="jpg, gif, png"></uploader>
+        <div>
+            <label><small><em>(Only use for flash)</em></small></label>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Target URL</label>
+    <div class="controls">
+        <input type="text" name="targetUrl" id="targetUrl" placeholder="target url" ng-model="item.targetUrl" class="span3" required>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.targetUrl.$error.required">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Impression Link</label>
+    <div class="controls">
+        <input type="text" name="impressionLink" id="Text2" placeholder="third party impression" ng-model="item.thirdPartyImpressionUrl" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Click</label>
+    <div class="controls">
+        <input type="text" name="impression3rd" placeholder="third party click" ng-model="item.thirdPartyClickUrl" class="input-large">
+    </div>
+</div>

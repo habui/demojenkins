@@ -1,0 +1,88 @@
+﻿
+<form style="padding-bottom: 0px;margin-bottom:0;" class="bs-docs-example">
+    <div class="controls docs-input-sizes form-actions">
+        <ul class="list_filter">
+            <li class="filter-item">
+            <div style="position: relative;margin-bottom:0" class="input-append">
+                <input type="text" class="input-large" placeholder="{{filterText}}" value="{{filterText}}" readonly>
+                <div style="position:static;" class="btn-group">
+                    <button data-toggle="dropdown" class="btn dropdown-toggle">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu width-dropdown range-time" role="menu" aria-labelledby="dropdownMenu">
+                        <li><a href="javascript:;" ng-click="filter('all')">All order</a></li>
+                        <li><a href="javascript:;" ng-click="filter('running')">Order running</a></li>
+                        <li><a href="javascript:;" ng-click="filter('finished')">Order finished</a></li>
+                    </ul>
+                </div>
+            </div>
+            </li>                                   
+        </ul>
+    </div>
+</form>
+<section>
+    <div class="row-fluid show-grid">
+        <div class="span6">
+            <a class="label label-secondary" href="javascript:;" ng-click="terminate()" ng-class="isActiveClass()"><i class="icon-trash"></i>Terminate</a>
+            <a class="label label-secondary" href="javascript:;" ng-click="pause()" ng-class="isActiveClass()"><i class="icon-pause"></i>Pause</a>
+            <a class="label label-secondary" href="javascript:;" ng-click="resume()" ng-class="isActiveClass()"><i class="icon-play"></i>Resume</a>
+        </div>
+        <div class="span6">
+            <label class="right">
+                <input type="text" aria-controls="dt_a" placeholder="Search order..." ng-enter="search()" ng-model="searchText">
+            </label>
+        </div>
+    </div>
+    <!-- TABLE CONTENT -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="check_widthtable">
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="checkBoxes['all']">
+                        <label class="choice" for="Field"></label>
+                    </span>
+                </th>
+                <th width="25%" ng-class="getSortClass('name')" ng-click="switchSort('name')">Name</th>
+                <th>Campaign</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr ng-repeat="item in items">
+                <td>
+                    <span class="table-check">
+					    <input type="checkbox" ng-model="checkBoxes[item.id]" ng-change="check(item.id)"/>
+					    <label class="choice" for=""></label>
+				    </span>
+                </td>
+                <td  ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()" class="name">
+                    <a href="javascript:;" ng-click="gotoOrder(item.id)">{{item.name}}</a>
+                    <a style="float:right" ng-if="itemsPermission[item.id]" ng-show="currentSelectedRow == $index" class="label label-secondary" href="javascript:;" ng-click="gotoOrderSetting(item.id)"><i class="icon-edit"></i>Edit</a>
+                </td>
+                <td>
+                    <div ng-show="{{item.pendingCampaign > 0}}"><a href="javascript:;">{{item.pendingCampaign}}</a> Pending</div>
+                    <div ng-show="{{item.runningCampaign > 0}}"><a href="javascript:;">{{item.runningCampaign}}</a> Running</div>
+                    <div ng-show="{{item.finishedCampaign > 0}}"><a href="javascript:;">{{item.finishedCampaign}}</a> Finish</div>
+                    <div ng-show="{{item.scheduledCampaign > 0}}"><a href="javascript:;">{{item.scheduledCampaign}}</a> Schedule</div>
+                    <div ng-show="{{item.terminatedCampaign > 0}}"><a href="javascript:;">{{item.terminatedCampaign}}</a> Terminated</div>
+                    <div ng-show="{{item.outOfBudgetCampaign > 0}}"><a href="javascript:;">{{item.outOfBudgetCampaign}}</a> Out of Budget</div>
+                    <div ng-show="{{item.expiredCampaign > 0}}"><a href="javascript:;">{{item.expiredCampaign}}</a> Expired</div>
+                    <div ng-show="{{item.pausedCampaign > 0}}"><a href="javascript:;">{{item.pausedCampaign}}</a> Pause</div>
+                </td>
+                <td>
+                    <a class="label" ng-class="getStatusClass(item.status)">{{item.status}}</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	    
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No order found.
+</div> 
+</section>
+

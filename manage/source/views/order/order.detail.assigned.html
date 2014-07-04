@@ -1,0 +1,40 @@
+﻿
+<div class="row-fluid show-grid">
+    <div class="span6">
+        <search-autocomplete filterBy="name" data="users" onselected="choose(item)"></search-autocomplete>
+        <a class="btn" href="javascript:;" ng-click="add()">ADD</a>
+    </div>
+    <div class="span6 right">
+        <button class="btn btn-primary" href="javascript:;" ng-click="save()" ng-disabled="!hasSave">Save</button>
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="col-search">User  
+                <!--<input class="input-medium search-table" type="text" value="Search user..." placeholder="Search user..." aria-controls="dt_a" ng-enter="search()" ng-model="searchText">-->
+            </th>
+            <th ng-repeat="role in roles| filter: { name: '!Owner' }">{{role.name}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in userroles">
+            <td>
+                <a href="javascript:;" style="vertical-align: middle;">{{user.name}}</a></td>
+            <td ng-repeat="role in roles| filter: { name: '!OWNER' }">
+                <span class="table-check">
+                    <input type="checkbox" ng-checked="hasChecked(user.id, role.id)" ng-click="onchange(user.id, role.id)" />
+                    <label class="choice" for=""></label>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	    
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No item found.
+</div>

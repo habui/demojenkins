@@ -1,0 +1,133 @@
+﻿<h2>{{page.getCurrPage()}}</h2>
+<section id="tables2">
+    <div class="row-fluid show-grid">
+        <div class="controls docs-input-sizes form-actions" style="background-color: white">
+            <ul class="list_filter">
+                <li class="filter-item4">
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" placeholder="Choose Account" ng-model="account.name" class="input-large custom">
+                        <div class="btn-group" style="position: static;">
+                            <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown width-dropdown-small scroll" role="menu" aria-labelledby="dropdownMenu">
+                                <li ng-repeat="acc in accounts"><a href="javascript:;" ng-click="chose('account', acc)">{{acc.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="filter-item4">
+                    <div class="input-append" style="position: relative; margin-bottom: 0; text-align: left;">
+                        <ul class="list_filter">
+                            <li class="filter-item">
+                                <div style="position: relative; margin-bottom: 0" class="input-append">
+                                    <input type="text" class="input-large" placeholder="Range time" ng-model="timeOption">
+                                    <div style="position: static;" class="btn-group" ng-class="getOpenClass()">
+                                        <button class="btn dropdown-toggle" ng-click="toggleOpen()">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul aria-labelledby="dropdownMenu" class="dropdown-menu width-dropdown range-time" ng-click="click($event)">
+                                            <li ng-click="chose('today', $event)">
+                                                <span class="table-check margintop">
+                                                    <input type="checkbox" ng-model="check.today" />
+                                                    <label for="Field" class="choice"></label>
+                                                </span>Today
+                                            </li>
+                                            <li ng-click="chose('lastweek', $event)">
+                                                <span class="table-check margintop">
+                                                    <input type="checkbox" ng-model="check.lastweek" />
+                                                    <label for="Field" class="choice"></label>
+                                                </span>Last Week
+                                            </li>
+                                            <li ng-click="chose('lastmonth', $event)">
+                                                <span class="table-check margintop">
+                                                    <input type="checkbox" ng-model="check.lastmonth" />
+                                                    <label for="Field" class="choice"></label>
+                                                </span>Last Month
+                                            </li>
+                                            <li ng-click="chose('alltime', $event)">
+                                                <span class="table-check margintop">
+                                                    <input type="checkbox" ng-model="check.alltime" />
+                                                    <label for="Field" class="choice"></label>
+                                                </span>All Time
+                                            </li>
+                                            <li>
+                                                <div>
+                                                    <span class="table-check margintop">
+                                                        <input type="checkbox" ng-model="check.custom" ng-change="chose('custom', $event)" />
+                                                        <label for="Field" class="choice"></label>
+                                                    </span>Custom
+                                                </div>
+                                                <div>
+                                                    <div class="customtime cus1">
+                                                        <input id="Text1" name="datepickerfrom" type="text" class="input-mini custom" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                                    </div>
+                                                    <span class="customtime cus2">- </span>
+                                                    <div class="customtime">
+                                                        <input id="Text2" name="datepickerto" type="text" class="input-mini custom" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="filter-item4"><a href="javascript:;" ng-click="query()" class="btn">View Log</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th width="13%">Account Name</th>
+                <th width="7%">Action</th>
+                <th width="10%">Time</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="log in listLog" ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()">
+                <td>{{log.userName}}</td>
+                <td>{{log.action.charAt(0).toUpperCase() + log.action.slice(1);}}</td>
+                <td>{{log.stringTime}}</td>
+                <td class="name">
+                    <span>{{log.detail}}</span>
+                    <a href="javascript:" ng-show="currentSelectedRow == $index" ng-click="detailLog(log.id)" class="label label-secondary">Detail</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-show="totalRecord > 0">
+        <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	        
+        </paging>
+    </div>
+    <div ng-show="totalRecord <= 0">
+        No log found.
+    </div>
+</section>
+<div id="detailLogModal" class="modal hide fade in" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 800px; left: 40%; top: 20%">
+    <div class="modal-header">
+        <button aria-hidden="true" onclick="$('#detailLogModal').modal('hide')" type="button" class="close">×</button>
+        <h3>Detail log</h3>
+    </div>
+    <div class="modal-body notice" style="max-height: 600px;">
+        <div style="width: 49%; float: left; overflow-y: visible; max-height: 1000px">
+            <h3>Old value</h3>
+            <pre ng-bind-html="logParsed.old"></pre>
+        </div>
+        <div style="width: 49%; float: left; overflow-y: visible; max-height: 1000px; padding-left: 5px">
+            <h3>New value</h3>
+            <pre ng-bind-html="logParsed.new"></pre>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="btn" onclick="$('#detailLogModal').modal('hide')">Cancel</a>
+    </div>
+</div>

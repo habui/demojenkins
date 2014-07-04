@@ -1,0 +1,40 @@
+﻿<h2>{{website.name}}</h2>
+<section id="tables2">
+    <div class="row-fluid show-grid">
+        <div class="span6">
+            <search-autocomplete filterby="name" data="users" placeholder="Search user..." onselected="choose(item)" clear-text-on-click="true"></search-autocomplete>
+        </div>
+        <div class="span6 align-right">
+            <a href="javascript:;" ng-click="save()" class="btn btn-primary">Save</a>
+            <a href="javascript:;" ng-click="cancel()" class="btn">Cancel</a>
+        </div>
+    </div>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th ng-repeat="role in roles">{{role.name}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in items | orderBy:'name' | startFrom: pageSize*(pageIndex - 1) | limitTo: pageSize">
+                <td ng-mouseover="mouseover($index)" ng-mouseleave="mouseleave()" class="name">{{user.name}}
+                    <a ng-show="currentSelectedRow == $index" style="float: right" class="label label-secondary" href="javascript:;" ng-click="remove($index)"><i class="icon-remove-sign"></i>remove</a>
+                </td>
+                <td ng-repeat="role in roles">
+                    <span class="table-check">
+                        <input type="checkbox" class="" ng-model="mapRole[user.id][role.id]" />
+                        <label class="choice"></label>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div ng-show="totalRecord > 0">
+        <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">
+        </paging>
+    </div>
+    <div ng-show="totalRecord <= 0">
+        No data found.
+    </div>
+</section>

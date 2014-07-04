@@ -1,0 +1,11 @@
+﻿<h2>Unique Visitor</h2>
+<div class="progress progress-striped progress-success unique_user" style="height: 20px"  ng-show="process >= 0">
+    <div class="bar" ng-style="{'width': process + '%'}">{{process + "%"}}</div>
+</div>
+<div class="alert alert-error" ng-show="process < 0">
+  <strong>Stopped</strong>
+</div>
+<div ui-view>
+    
+</div>
+

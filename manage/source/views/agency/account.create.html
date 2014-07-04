@@ -1,0 +1,42 @@
+﻿<h2>Create new account</h2>
+
+<form id="edit-profile" class="form-horizontal" name="createAccount" ng-submit="save($valid)">
+    <fieldset>
+        <div class="control-group">
+            <label class="control-label" for="firstname">Name (<span style="color: #F00">*</span>)</label>
+            <div class="controls">
+                <input type="text" class="input-medium" maxlength="255" id="firstname" ng-model="item.name" title="User name is required" required>
+                <!--<span class="agerror">{{errorname}}</span>-->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastname">Email (<span style="color: #F00">*</span>)</label>
+            <div class="controls">
+                <input type="email" class="input-medium" maxlength="255" id="lastname" placeholder="ex: john@vng.com.vn" ng-model="item.email" required title="Ex: john@vng.com.vn" pattern="^[a-zA-Z0-9._]+[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z]+){1,2}$">
+                <!--<span class="agerror">{{erroremail}}</span>-->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastname">Confirm email (<span style="color: #F00">*</span>)</label>
+            <div class="controls">
+                <input type="text" class="input-medium" maxlength="255" id="Email1" ng-model="item.confirmemail" required pattern="{{item.email}}" title="Email not match" >
+                <!--<span class="agerror">{{errorconfirmemail}}</span>-->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="lastname">Password (<span style="color: #F00">*</span>)</label>
+            <div class="controls">
+                <input type="password" class="input-medium" maxlength="255" id="Password1" ng-model="item.password" required />
+                <!--<span class="agerror">{{errorpassword}}</span>-->
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-primary btn-large" ng-disabled="createAccount.$invalid">Submit</button>
+            <a ng-click="cancel()" class="btn btn-large">Cancel</a>
+        </div>
+        <!-- /form-actions -->
+    </fieldset>
+</form>

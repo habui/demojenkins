@@ -1,0 +1,6 @@
+﻿<ul class="breadcrumb" ng-show="isShow()">
+    <li ng-repeat="item in items">
+        <a href="javascript:;" ng-click="goto(item.link)" ng-hide="isActive(item.link)">{{item.name}}</a><span class="divider" ng-hide="isActive(item.link)"> / </span>
+        <span ng-show="isActive(item.link)">{{item.name}}</span>
+    </li>
+</ul>

@@ -1,0 +1,101 @@
+﻿<h2>Create Site</h2>
+
+<form class="form-horizontal" name="newSite">
+    <fieldset>
+        <div class="alert alert-error" ng-show="error_message.length > 0">{{error_message}}</div>
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" name="name" id="inputName" placeholder="Website's name" ng-model="item.name" class="input-large" required>
+                <span class="agerror" ng-show="checkValidate && newSite.name.$error.required">* required</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputDes">Description</label>
+            <div class="controls">
+                <textarea id="inputDes" name="description" placeholder="description" ng-model="item.description" class="input-large" required></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="reviewType">Review type</label>
+            <div style="margin-top: 7px;" class="controls">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" tabindex="4" value="First Choice" class="" ng-model="networkType" ng-checked="networkType || tvcType">
+                        <label for="Field" class="choice"></label>
+                    </span>Network banner
+                </p>
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" tabindex="4" value="First Choice" class="" ng-model="bookingType">
+                        <label for="Field" class="choice"></label>
+                    </span>Booking banner
+                </p>
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" tabindex="4" value="First Choice" class="" ng-model="tvcType">
+                        <label for="Field" class="choice"></label>
+                    </span>Video TVC
+                </p>
+                <span class="agerror" ng-show="(checkValidate && !networkType && !bookingType && !tvcType)">* required</span>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 0;" class="control-group">
+            <div style="margin-top: 0px;" class="controls">
+                <p class="allow-everyone" ng-class="getAllowBookingClass()">
+                    <span class="table-check">
+                        <input type="checkbox" tabindex="4" value="First Choice" ng-model="allowBooking">
+                        <label for="Field" class="choice"></label>
+                    </span>Allow everyone to make booking on your website
+                </p>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="description">Frequency capping</label>
+            <div class="controls">
+                <!--<div class="input-append" style="position: relative; margin-bottom: 0">
+                    <input type="text" class="input-mini" ng-model="fcType" readonly>
+                    <div class="btn-group" style="position: static">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown cmbmini">
+                            <li><a href="javascript:;" ng-click="chooseFC('unlimited')">Unlimited</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('specific')">Specific</a></li>
+                        </ul>
+                    </div>
+                </div>-->
+                <input type="number" class="input-mini" id="frequencyCapping" ng-model="item.frequencyCapping" min="0">
+                ads per
+                <input type="number" class="input-mini" ng-model="item.frequencyCappingTime" min="0" max="{{fcLimitUnit == 'Minutes' ? 12*60 : fcLimitUnit == 'Hours' ? 12 : 12 * 60 * 60}}">
+                <div class="input-append" style="position: relative; margin-bottom: 0">
+                    <input type="text" class="input-mini" ng-model="fcLimitUnit" readonly>
+                    <div class="btn-group" style="position: static">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown cmbmini">
+                            <li><a href="javascript:;" ng-click="chooseFC('hours')">Hours</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('minutes')">Minutes</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('seconds')">Seconds</a></li>
+                            <!--<li><a href="javascript:;" ng-click="chooseFC('session')">Session</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <a href="javascript:;" class="btn btn-large btn-primary" ng-disabled="hasSave === true" ng-click="save()">Save</a>
+                <a class="btn btn-large" href="javascript:;" ng-click="gotoWebsiteList()">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+

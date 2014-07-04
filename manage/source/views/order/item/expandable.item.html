@@ -1,0 +1,143 @@
+﻿<div class="control-group">
+    <label class="control-label">Standard Width</label>
+    <div class="controls">
+        <input class="input-small2" type="text" ng-model="item.width" />
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Standard Height</label>
+    <div class="controls">
+        <input class="input-small2" type="text" ng-model="item.height" />
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Expanded Width</label>
+    <div class="controls">
+        <input class="input-small2" type="text" ng-model="item.expandWidth" />
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Expanded Height</label>
+    <div class="controls">
+        <input class="input-small2" type="text" ng-model="item.expandHeight" />
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Standard File</label>
+    <div class="controls">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.standardFile}}" width="250" height="100" ng-show="item.standardFile.length > 0 && isBannerFlash(item.standardFile)">
+            <param name="movie" value="{{item.standardFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.standardFile}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerUploadResult" filter="swf" required="true"></uploader>
+        <span class="agerror" ng-show="checkValidate && ( !item.standardFile || item.standardFile.length == 0)">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Backup File</label>
+    <div class="controls">
+        <img ng-src="{{item.backupFile}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="item.backupFile.length > 0 && isBannerImage(item.backupFile)">
+        <uploader action="{{uploadUrl}}" result="uploadResult.bannerFallbackUploadResult" filter="jpg, gif, png" required="true"></uploader>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Expand File</label>
+    <div class="controls">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.expandFile}}" width="250" height="100" ng-show="item.expandFile.length > 0 && isBannerFlash(item.expandFile)">
+            <param name="movie" value="{{item.expandFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.expandFile}}" quality="high" width="250" height="100" />
+        </object>
+        <uploader action="{{uploadUrl}}" result="uploadResult.expandBannerUploadResult" filter="swf" required="true"></uploader>
+        <span class="agerror" ng-show="checkValidate && ( !item.expandFile || item.expandFile.length == 0)">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Expand direction</label>
+    <div class="controls">
+        <div style="position: relative; margin-bottom: 0" class="input-append">
+            <input type="text" class="input-mediumcmb" placeholder="Expand direction" ng-model="expand_direction">
+            <div style="position: static;" class="btn-group">
+                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown scroll2">
+                    <li><a href="javascript:;" ng-click="chooseDirection('top_push_down')">Top Push Down</a></li>
+                    <li><a href="javascript:;" ng-click="chooseDirection('right_to_left')">Right To Left</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Expand style</label>
+    <div class="controls">
+        <div style="position: relative; margin-bottom: 0" class="input-append">
+            <input type="text" class="input-mediumcmb" placeholder="Expand style" ng-model="expand_style">
+            <div style="position: static;" class="btn-group">
+                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown scroll2">
+                    <li><a href="javascript:;" ng-click="chooseStyle('mouse_over')">Mouse over</a></li>
+                    <li><a href="javascript:;" ng-click="chooseStyle('auto')">Auto</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label for="start-date" class="control-label">Display Style</label>
+    <div class="controls">
+        <div style="position: relative; margin-bottom: 0" class="input-append">
+            <input type="text" class="input-mediumcmb" placeholder="Expand display style" ng-model="expand_display_style">
+            <div style="position: static;" class="btn-group">
+                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu width-dropdown scroll2">
+                    <li><a href="javascript:;" ng-click="chooseDisplayStyle('overlay')">Overlay</a></li>
+                    <li><a href="javascript:;" ng-click="chooseDisplayStyle('push_down')">Push down</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">iTVC Extension</label>
+    <div class="controls">
+        <p style="float: left; margin-bottom: 0">
+            <span style="margin-top: 6px;" class="table-check">
+                <input type="checkbox" ng-model="bStatus.iTVCExtension" ng-checked="bStatus.iTVCExtension">
+                <label for="runningTime" class="choice">enable</label>
+            </span>
+        </p>
+    </div>
+</div>
+<div class="control-group" ng-show="bStatus.iTVCExtension">
+    <label for="start-date" class="control-label">TVC File</label>
+    <div class="controls">
+        <uploader action="{{uploadUrl}}" result="uploadResult.tvcFileUploadResult" filter="mp4, flv, wmv"></uploader>
+        <span class="agerror" ng-show="bStatus.iTVCExtension && checkValidate && ( !item.tvcFile || item.tvcFile.length == 0)">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Target URL</label>
+    <div class="controls">
+        <input type="text" name="targetUrl" id="targetUrl" placeholder="target url" ng-model="item.targetUrl" class="span3" required>
+        <span class="agerror" ng-show="checkValidate && networkItemForm.targetUrl.$error.required">* required</span>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Impression Link</label>
+    <div class="controls">
+        <input type="text" name="impressionLink" id="Text2" placeholder="third party impression" ng-model="item.thirdPartyImpressionUrl" class="span3">
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Third party Click</label>
+    <div class="controls">
+        <input type="text" name="impression3rd" placeholder="third party click" ng-model="item.thirdPartyClickUrl" class="input-large">
+    </div>
+</div>

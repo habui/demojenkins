@@ -1,0 +1,16 @@
+﻿<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal hide fade  in" id="myModal" style="display: block;">
+    <div class="modal-header">
+        <button aria-hidden="true" ng-click="cancel()" type="button" class="close">×</button>
+        <h3>Approve</h3>
+    </div>
+    <div class="modal-body notice">
+        <p class="font-size16">{{bodyMessage}}</p>
+        <ul>
+            <li ng-repeat="item in items"><strong>{{item.name}}</strong></li>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <a class="btn btn-primary" ng-click="ok()">Approve</a>
+        <a class="btn" ng-click="cancel()">Cancel</a>
+    </div>
+</div>

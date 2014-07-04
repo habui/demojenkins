@@ -1,0 +1,41 @@
+﻿<style>
+    .dropdown-menu.width-dropdown.mod {
+        display: block;
+    }
+    .dropdown-menu.width-dropdown.mod {
+        display: none
+    }
+    .open .dropdown-menu.width-dropdown.mod {
+        display: block;
+    }
+    .dropdown-menu.width-dropdown.mod li a{
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .noHover li > a:hover {
+        background: none;
+        color: #333;
+        text-shadow: none;
+    }
+    .noHover li > a.active:hover {
+        color: #ffffff;
+        background-color: #94ba65;
+        background-image: -moz-linear-gradient(top, #94ba65, #94ba65);
+        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#94ba65), to(#94ba65));
+        background-image: -webkit-linear-gradient(top, #94ba65, #94ba65);
+        background-image: -o-linear-gradient(top, #94ba65, #94ba65);
+        background-image: linear-gradient(to bottom, #94ba65, #94ba65);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff94ba65', endColorstr='#ff94ba65', GradientType=0);
+        background: #94ba65;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25); 
+    }
+</style>
+<div style="display: inline-block; position: relative">
+    <input class="input-large" type="text" placeholder="{{placeholder}}" ng-model="search[filterby]" style="width: 209px; margin: 0" ng-click="focus()" ng-change="change()" ng-keydown="keydown($event)">
+    <ul class="dropdown-menu width-dropdown mod scroll2" ng-keydown="keydown($event)">
+        <li ng-repeat="item in data | filter:search:strict">
+            <a href="javascript:;" ng-click="onselect(item)" class="ng-binding" ng-class="isActive(item)" ng-mouseover="mouseover(item)">{{item.name}}</a>
+        </li>
+    </ul>
+</div>

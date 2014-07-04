@@ -1,0 +1,52 @@
+﻿<div class="controls">
+    <div class="control-list">
+        <input type="text" style="margin-bottom:5px;" 
+            placeholder="Search..." ng-model="searchWeb" id="searchField" class="input-medium">
+        <ul class="checkTree">
+            <div ng-repeat="parent in data | filter : searchWeb">
+                <li>
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="parent.checked" tabindex="4">
+                        <label for="Field" class="choice"></label>
+                    </span>
+                    {{parent.name}}
+                </li>
+                <li>
+                    <ul>
+                        <li ng-repeat="child in parent.childs | filter : searchWeb">
+                            <span class="table-check">
+                                <input type="checkbox"  ng-model="child.checked">
+                                <label for="Field" class="choice"></label>
+                            </span>
+                            {{child.name}}
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </ul>
+    </div>
+    <div class="control-list">
+        <ul class="checkTree">
+            <div ng-repeat="parent in selectedData">
+                <li>
+                    <span class="table-check">
+                        <input type="checkbox" ng-checked="parent.checked" tabindex="4" name="Field">
+                        <label for="Field" class="choice"></label>
+                    </span>
+                    {{parent.name}}
+                </li>
+                <li>
+                    <ul>
+                        <li ng-repeat="child in parent.childs">
+                            <span class="table-check">
+                                <input type="checkbox" ng-checked="child.checked" tabindex="4"  name="Field">
+                                <label for="Field" class="choice"></label>
+                            </span>
+                            {{child.name}}
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>

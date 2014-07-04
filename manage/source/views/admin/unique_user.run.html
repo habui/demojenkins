@@ -1,0 +1,91 @@
+﻿<form class="form-horizontal">
+    <fieldset>
+        <div class="control-group">
+            <label for="api_key" class="control-label">API Key</label>
+            <div class="controls">
+                <input type="text" name="name" id="api_key" value="" ng-model="apiKey" class="input-large" required />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputDes">From</label>
+            <div class="controls">
+                <div class="input-append">
+                    <input style="width: 80px;" type="text" ng-model="fromDate" data-date-format="dd/mm/yyyy" bs-datepicker disabled required />
+                    <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="api_key" class="control-label">Duration</label>
+            <div class="controls">
+                <input type="number" value="" ng-model="duration" class="input-mini" required min="1" max="35" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="api_key" class="control-label">Times</label>
+            <div class="controls">
+                <input type="text" ng-model="times" class="input-large" required tooltip-text="Enter times to run, seperate by comma" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="api_key" class="control-label">Filter by website</label>
+            <div class="controls">
+                <p>
+                    <input type="text" value="{{filterSite.toString()}}" class="input-large" disabled=""></p>
+
+                <div class="control-list" id="selectWebsite" style="overflow-y: visible">
+                    <input type="text" id="searchSite" class="" ng-model="searchSite" placeholder="Search site name...">
+                    <div class="control-list" style="overflow-y: auto; border: none; padding: 0; height: 175px">
+                        <ul class="checkTree">
+                            <li ng-repeat="website in websites|filter:{name:searchSite}"><span class="table-check">
+                                <input type="checkbox" id="website{{website.id}}" class="" ng-model="checkboxWebsite[website.id]" ng-change="checkWebsite(website.id)">
+                                <label class="choice"></label>
+                            </span>
+                                <label for="website{{website.id}}">{{website.name}}</label></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="api_key" class="control-label">Filter by campaign</label>
+            <div class="controls">
+                <div class="control-list" style="overflow-y: visible">
+                    <input type="text" class="" ng-model="searchOrder" placeholder="Search...">
+                    <div class="control-list" style="overflow-y: auto; border: none; padding: 0; height: 175px">
+                        <ul class="checkTree">
+                            <li ng-repeat="order in orders|filter:{name:searchOrder}">
+                                <span class="table-check">
+                                    <input type="checkbox" id="order_{{order.id}}" class="" ng-model="checkboxOrder[order.id]" ng-change="checkOrder(order.id)">
+                                    <label class="choice"></label>
+                                </span>
+                                <label for="order_{{order.id}}">{{order.name}}</label>
+                                <ul class="checkTree" ng-show="expandOrder[order.id]">
+                                    <li ng-repeat="campaign in campaignByOrder[order.id]">
+                                        <span class="table-check">
+                                            <input type="checkbox" id="camp_{{campaign.id}}" class="" ng-model="checkboxCampaign[campaign.id]" ng-change="checkCampaign(campaign)">
+                                            <label class="choice"></label>
+                                        </span>
+                                        <label for="camp_{{campaign.id}}">{{campaign.name}}</label></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="api_key" class="control-label">Email</label>
+            <div class="controls">
+                <input type="text" ng-model="email" class="input-large" required />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for=""></label>
+            <div class="controls">
+                <button class="btn btn-primary btn-large" ng-click="run()">Run unique visitor</button>
+            </div>
+        </div>
+    </fieldset>
+</form>

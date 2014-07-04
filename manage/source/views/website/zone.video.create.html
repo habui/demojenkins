@@ -1,0 +1,373 @@
+﻿<form class="form-horizontal" name="videoZone" id="mainForm">
+    <fieldset>
+
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input class="input-large" type="text" name="name" id="inputName" placeholder="Video Zone Name" ng-model="item.name" required>
+                <span class="agerror" ng-hide="validateZoneName()">* required</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="owner" class="control-label">Categories</label>
+            <div class="controls" style="margin-top: 7px;">
+                <p>
+                    <span class="table-check">
+                        <input type="checkbox" id="all-content" class="ng-pristine ng-valid" ng-model="chooseAll">
+                        <label for="all-content"></label>
+                    </span>
+                    <label for="all-content">All target content</label>
+                </p>
+                <div>
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="category in categories" ng-click="choose(category)"><span class="table-check">
+                                <input type="checkbox" ng-model="checkedMap[category.id]" ng-change="selectCate(category)">
+                                <label for="Field" class="choice"></label>
+                            </span>{{category.name}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="control-list">
+                        <ul class="checkTree">
+                            <li ng-repeat="category in selectedCategories"><span class="table-check">
+                                <input type="checkbox" ng-model="checkedMap[category.id]" ng-change="unselectCate(category)">
+                                <label for="Field" class="choice"></label>
+                            </span>{{category.name}}
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="description">Frequency capping</label>
+            <div class="controls">
+                <input type="number" class="input-mini" id="frequencyCapping" ng-model="item.frequencyCapping" min="0">
+                ads per
+                <input type="number" class="input-mini" ng-model="item.frequencyCappingTime" min="0" max="{{fcLimitUnit == 'Minutes' ? 12*60 : fcLimitUnit == 'Hours' ? 12 : 12 * 60 * 60}}">
+                <div class="input-append" style="position: relative; margin-bottom: 0">
+                    <input type="text" class="input-mini" ng-model="fcLimitUnit" readonly>
+                    <div class="btn-group" style="position: static">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown cmbmini">
+                            <li><a href="javascript:;" ng-click="chooseFC('hours')">Hours</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('minutes')">Minutes</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('seconds')">Seconds</a></li>
+                            <!--<li><a href="javascript:;" ng-click="chooseFC('session')">Session</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Allowed item type</label>
+            <div style="margin-top: 7px;" class="controls">
+                <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="isBannerType">
+                        <label for="" class="choice"></label>
+                    </span>Banner
+                </p>
+                <p style="margin-bottom: 0; float: left;">
+                    <span class="table-check">
+                        <input type="checkbox" ng-model="isTvcType">
+                        <label for="" class="choice"></label>
+                    </span>TVC
+                </p>
+                <span class="agerror" ng-hide="validateItemType()">Choose item type</span>
+            </div>
+
+        </div>
+        <div ng-show="isBannerType">
+            <div class="control-group">
+                <p class="control-line">Banner setting</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Item Size</label>
+                <div class="controls">
+                    <combobox-listsize listsizes="sizes" search="search" />
+                </div>
+
+            </div>
+            <div class="control-group">
+                <label class="control-label">Time appearance</label>
+                <div class="controls">
+                    <p style="margin-bottom: 5px; margin-right: 30px" ng-repeat="time in timeappearances">
+                        From (minute) :
+                    <input class="input-small2" type="text" numbers-only ng-model="time.from" />
+                        duration (second) :
+                    <input class="input-small2" type="text" numbers-only ng-model="time.duration" />
+                        <a href="javascript:;" ng-show="{{$index > 0}}" ng-click="removeTimeAppearance($index)" style="color: #FF0000"><i class=" icon-remove-sign"></i></a><a href="javascript:;" ng-click="addTimeAppearance()" ng-show="{{$index === 0}}">more</a>
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Ads position</label>
+                <div class="controls" style="margin-top: 7px;">
+                    <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                        <span class="table-check">
+                            <input type="checkbox" ng-model="bottom_position">
+                            <label for="" class="choice"></label>
+                        </span>Bottom
+                    </p>
+                    <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                        <span class="table-check">
+                            <input type="checkbox" ng-model="top_position">
+                            <label for="" class="choice"></label>
+                        </span>Top
+                    </p>
+                    <span class="agerror" ng-hide="validateBannerPosition()">Choose position</span>
+                </div>
+
+            </div>
+            <div class="control-group">
+                <label class="control-label">Minimum CPC Price</label>
+                <div class="controls">
+                    <input class="input-large" type="text" price name="minCPCPrice" placeholder="min cpc price" ng-model="item.minCPC" required>
+                    VND
+                <span class="agerror" ng-hide="validateNumber(item.minCPC)">Must greater than 0</span>
+                </div>
+
+            </div>
+            <div class="control-group">
+                <label class="control-label">Minimum CPM Price</label>
+                <div class="controls">
+                    <input class="input-large" type="text" price name="minCPMPrice" placeholder="min cpm price" ng-model="item.minCPM" required>
+                    VND
+                <span class="agerror" ng-hide="validateNumber(item.minCPM)">Must greater than 0</span>
+                </div>
+
+            </div>
+        </div>
+        <div ng-show="isTvcType">
+            <div class="control-group">
+                <p class="control-line">TVC setting</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Ads positions</label>
+                <div class="controls" style="margin-top: 7px">
+                    <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                        <span class="table-check">
+                            <input type="checkbox" ng-model="isPreRoll">
+                            <label for="Field" class="choice"></label>
+                        </span>Pre-roll
+                    </p>
+                    <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                        <span class="table-check">
+                            <input type="checkbox" ng-model="isMidRoll">
+                            <label for="Field" class="choice"></label>
+                        </span>Mid-roll
+                    </p>
+                    <p style="float: left; margin-bottom: 0; margin-right: 30px">
+                        <span class="table-check">
+                            <input type="checkbox" ng-model="isPostRoll">
+                            <label for="Field" class="choice"></label>
+                        </span>Post-roll
+                    </p>
+                    <span class="agerror" ng-hide="validateTVCPosition()">Please choose position</span>
+                </div>
+
+            </div>
+
+            <div ng-show="isPreRoll">
+                <div class="control-group">
+                    <label for="" class="control-label bold">PRE-ROLL</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Skip time</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPreRollSkipTime" ng-model="item.preSkiptime" required>
+                        seconds
+                    <span class="agerror" ng-hide="validateNumber(item.preSkiptime)">Must greater than 0</span>
+                    </div>
+
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max ads duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPreRollMaxAdsDura" ng-model="item.preMaxDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.preMaxDuration)">Must greater than 0</span>
+                    </div>
+
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max AdPod duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPreRollMaxAdPodDura" ng-model="item.preMaxPodDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.preMaxPodDuration)">Must greater than 0</span>
+                    </div>
+
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Minimum CPM Price</label>
+                    <div class="controls">
+                        <input class="input-small2" type="text" price name="tvcPreRollMinCPM" ng-model="item.preMinCPM" required>
+                        VND
+                    <div style="position: relative; margin-bottom: 0" class="input-append">
+                        <input type="text" class="input-small120" ng-model="pre_mincpmtype">
+                        <div style="position: static;" class="btn-group">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown cmbsmall">
+                                <li><a href="javascript:;" ng-click="selectCPMType('pre','create view')">Create view</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('pre', 'first quatile')">First quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('pre', 'midpoint')">Midpoint</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('pre', 'third quatile')">Third quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('pre', 'full video')">Full video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                        <span class="agerror" ng-hide="validateNumber(item.preMinCPM)">Must greater than 0</span>
+                    </div>
+
+                </div>
+            </div>
+            <div ng-show="isMidRoll">
+                <div class="control-group">
+                    <label for="" class="control-label bold">MID-ROLL</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Skip time</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcMidRollSkipTime" ng-model="item.midSkipTime" required>
+                        seconds
+                    <span class="agerror" ng-hide="validateNumber(item.midSkipTime)">Must greater than 0</span>
+                    </div>
+
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max ads duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcMidRollMaxAdsDura" ng-model="item.midMaxDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.midMaxDuration)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max AdPod duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcMidRollMaxAdPodDura" ng-model="item.midMaxPodDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.midMaxPodDuration)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Minimum CPM Price</label>
+                    <div class="controls">
+                        <input class="input-small2" type="text" price name="tvcMidRollMinCPM" ng-model="item.midMinCPM" required>
+                        VND
+                    <div style="position: relative; margin-bottom: 0" class="input-append">
+                        <input type="text" class="input-small120" ng-model="mid_mincpmtype">
+                        <div style="position: static;" class="btn-group">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown cmbsmall">
+                                <li><a href="javascript:;" ng-click="selectCPMType('mid','create view')">Create view</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('mid', 'first quatile')">First quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('mid', 'midpoint')">Midpoint</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('mid', 'third quatile')">Third quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('mid', 'full video')">Full video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                        <span class="agerror" ng-hide="validateNumber(item.midMinCPM)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Start time at minute</label>
+                    <div class="controls">
+                        <input class="input-small" type="text" numbers-only name="tvcMidRollStartTime" ng-model="item.midStartTime" required>
+                        <span class="agerror" ng-hide="validateNumber(item.midStartTime)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Maximum Adpod</label>
+                    <div class="controls">
+                        <input class="input-small2" type="text" numbers-only name="tvcMidRollMaxAdpod" ng-model="item.midMaxAdpod" required>
+                        Time schedule every
+                    <input class="input-small2" type="text" numbers-only name="tvcMidRollScheduleTime" ng-model="item.midTimeScheduled" required>
+                        <div style="position: relative; margin-bottom: 0" class="input-append">
+                            <input type="text" value="Minutes" class="input-mini" ng-model="timeScheduledUnit">
+                            <div style="position: static;" class="btn-group">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu width-dropdown cmbmini">
+                                    <li><a href="javascript:;" ng-click="selectTimeScheduleUnit('minute')">Minute</a></li>
+                                    <li><a href="javascript:;" ng-click="selectTimeScheduleUnit('second')">Second</a></li>
+                                    <li><a href="javascript:;" ng-click="selectTimeScheduleUnit('hour')">Hour</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="agerror" ng-hide="validateNumber(item.midMaxAdpod) || validateNumber(item.midTimeScheduled)">Must greater than 0</span>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="isPostRoll">
+                <div class="control-group">
+                    <label for="" class="control-label bold">POST-ROLL</label>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Skip time</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPostRollSkipTime" ng-model="item.postSkipTime" required>
+                        seconds
+                    <span class="agerror" ng-hide="validateNumber(item.postSkipTime)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max ads duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPostRollMaxAdsDura" ng-model="item.postMaxDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.postMaxDuration)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Max AdPod duration</label>
+                    <div class="controls">
+                        <input class="input-medium" type="text" numbers-only name="tvcPostRollMaxAdPodDura" ng-model="item.postMaxPodDuration" required>
+                        <span class="agerror" ng-hide="validateNumber(item.postMaxPodDuration)">Must greater than 0</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Minimum CPM Price</label>
+                    <div class="controls">
+                        <input class="input-small2" type="text" price name="tvcPostRollMinCPM" ng-model="item.postMinCPM" required>
+                        VND
+                    <div style="position: relative; margin-bottom: 0" class="input-append">
+                        <input type="text" class="input-small120" ng-model="post_mincpmtype">
+                        <div style="position: static;" class="btn-group">
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown cmbsmall">
+                                <li><a href="javascript:;" ng-click="selectCPMType('post','create view')">Create view</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('post', 'first quatile')">First quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('post', 'midpoint')">Midpoint</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('post', 'third quatile')">Third quatile</a></li>
+                                <li><a href="javascript:;" ng-click="selectCPMType('post', 'full video')">Full video</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                        <span class="agerror" ng-hide="validateNumber(item.postMinCPM)">Must greater than 0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-large btn-primary" ng-disabled="hasSave === true" ng-click="save()">Save</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

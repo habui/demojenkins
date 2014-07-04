@@ -1,0 +1,85 @@
+﻿<section>
+    <h2>Search result</h2>
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('websites')"><a href="javascript:;" ng-click="gotoTab('websites')">Websites</a></li>
+        <li ng-class="isActiveTab('zonegroups')"><a href="javascript:;" ng-click="gotoTab('zonegroups')">Zone groups</a></li>
+        <li ng-class="isActiveTab('zones')"><a href="javascript:;" ng-click="gotoTab('zones')">Zones</a></li>
+        <li ng-class="isActiveTab('orders')"><a href="javascript:;" ng-click="gotoTab('orders')">Orders</a></li>
+        <li ng-class="isActiveTab('campaigns')"><a href="javascript:;" ng-click="gotoTab('campaigns')">Campaigns</a></li>
+        <li ng-class="isActiveTab('items')"><a href="javascript:;" ng-click="gotoTab('items')">Items</a></li>
+    </ul>
+    <div class="tab-content" ng-show="items.length !== 0">
+        <div class="row-fluid show-grid">
+            <div class="alert" ng-if="showWarning">
+                <strong>Warning!</strong>{{messageBody}}
+            </div>
+            <a class="label label-secondary" href="javascript:;" ng-click="disable()" ng-class="isActiveClass()"><i class="icon-ban-circle"></i>Disable</a>
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="check_widthtable">
+                            <span class="table-check">
+                                <input type="checkbox" ng-model="checkBoxes['all']">
+                                <label class="choice" for="Field"></label>
+                            </span>
+                        </th>
+                        <th ng-class="getSortClass('name')" ng-click="switchSort('name')">Item</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in items | startFrom:(startFrom - 1)*limitItem |limitTo:limitItem">
+                        <td>
+                            <span class="table-check">
+                                <input type="checkbox" ng-model="checkBoxes[item.id]" ng-change="check(item.id)" />
+                                <label class="choice" for="Field"></label>
+                            </span>
+                        </td>
+                        <td><a href="javascript:" ng-click="gotoItem(item.kind, item.id)">{{item.name}}</a></td>
+                        <td>{{getKind(item.kind)}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row-fluid show-grid" ng-show="items.length > 0">
+                <div class="span6">
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" class="input-mini" ng-model="limitItem" readonly>
+                        <div class="btn-group" style="position: static;">
+
+                            <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown-small2">
+                                <li><a href="javascript:;" ng-click="chooseLimit(10)">10</a></li>
+                                <li><a href="javascript:;" ng-click="chooseLimit(25)">25</a></li>
+                                <li><a href="javascript:;" ng-click="chooseLimit(50)">50</a></li>
+                                <li><a href="javascript:;" ng-click="chooseLimit(100)">100</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    records per page | 
+                Showing <strong>{{(startFrom - 1)* limitItem + 1}}</strong>
+                    to <strong>{{getEndIndex()}}</strong>
+                    of <strong>{{items.length}}</strong> entries
+                </div>
+                <div class="span6">
+                    <div class="pagination">
+                        <ul>
+                            <li ng-class="checkDisable(startFrom, 'prev')"><a href="javascript:;" class="ss-icon ss-standard" ng-click="prev()">◅</a></li>
+                            <li>page </li>
+                            <li>
+                                <input type="text" class="input-pagination" ng-model="startFrom">
+                            </li>
+                            <li>of <span>{{getPageNum()}}</span></li>
+                            <li ng-class="checkDisable(startFrom, 'next')"><a href="javascript:;" class="ss-icon ss-standard" ng-click="next()">▻</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid show-grid" ng-if="items.length === 0">Item not found</div>
+</section>
+

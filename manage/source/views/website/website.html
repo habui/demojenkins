@@ -1,0 +1,30 @@
+﻿<div class="row">
+    <div class="tabbable">
+        <div class="span3">
+            <div class="input-append">
+                <input type="text" ng-model="searchField" id="appendedInputButtons" placeholder="Search..." class="input-search" ng-enter="search()" title="Search ID with format [Type][ID]. Type is : w - Website, g - ZoneGroup, z - Zone, o - Order, c - Campaign, i - Item. Example : w1002 will find website with ID = 1002">
+                <button type="button" class="btn" ng-click="search()"><i class="icon-search"></i></button>
+            </div>
+            <ul class="nav nav-tabs nav-stacked">
+                <li ng-class="isActiveTab('list_sites')"><a href="javascript:;" data-toggle="tab" ng-click="goTab('list_sites')"><i class="icon-file"></i>All Websites<i class="icon-chevron-right"></i></a></li>
+                <li ng-class="isActiveTab('create_site')" ng-show="checkPermission(permissionDefine.WEBSITE_CREATE)"><a href="javascript:;" data-toggle="tab" ng-click="goTab('create_site')"><i class="icon-file"></i>Create Site<i class="icon-chevron-right"></i> </a></li>
+                <li ng-class="isActiveTab('approve_ads')" ng-show="checkPermission(permissionDefine.WEBSITE_CREATE)"><a href="javascript:;" data-toggle="tab" ng-click="goTab('approve_ads')"><i class="icon-file"></i>Approve Ads<i class="icon-chevron-right"></i> </a></li>
+            </ul>
+
+            <ul class="nav button-right">
+                <li ng-repeat="actionMenu in actionMenus"><a href="javascript:;" ng-click="doIt(actionMenu.name)" ng-if="checkPermission(actionMenu.permission)"><i ng-class="actionMenu.icon"></i>{{actionMenu.name}}</a></li>
+            </ul>
+        </div>
+        <div class="span9">
+            <div class="tab-content">
+                <div class="tab-pane  active">
+                    <div ui-view="breadcumnav">
+                    </div>
+                    
+                    <div ui-view="content">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>

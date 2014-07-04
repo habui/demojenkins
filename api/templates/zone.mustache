@@ -1,0 +1,14 @@
+<!-- 123Click Ads Code begin -->
+<script type="text/javascript" >
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {return;}
+		js = d.createElement(s);
+		js.type = 'text/javascript';
+		js.async=true;
+		js.id = id;
+		js.src = "{{domain}}/resource/js/zads-base-mod.js";
+		fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'z2-jssdk'));
+</script>
+<div z2-width="{{width}}" z2-height="{{height}}" {{{z2-type}}} z2-zoneid="{{id}}"  class="z2-zads-zone" {{inline}}></div>
+<!-- 123Click Ads Code end -->

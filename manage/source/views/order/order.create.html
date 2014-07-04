@@ -1,0 +1,98 @@
+﻿<h2>Create Order</h2>
+<form class="form-horizontal" name="frmOrder">
+    <fieldset>
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" name="name" id="name" placeholder="order name" ng-model="item.name" class="input-large" required>
+                <span class="agerror" ng-show="checkValidate && frmOrder.name.$error.required">* required</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputDes">Description</label>
+            <div class="controls">
+                <textarea id="description" name="description" placeholder="description" ng-model="item.description" class="input-large"></textarea>
+            </div>
+        </div>
+        <div class="control-group">
+            <p class="control-line">Campain</p>
+        </div>
+        <div style="margin:-30px 0px 0px;" class="control-group">
+            <p class="">Select one Campaign type below</p>
+        </div>
+        <div class="control-group">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="campaign" ng-model="option" value="booking"/>
+                    <label for="" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Booking Display Ads</strong>
+                <p>
+                    <!-- sample modal content -->
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa.
+                </p>     
+            </div>    
+        </div>
+        <div class="control-group">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="campaign" ng-model="option" value="network"/>
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Network Display Ads</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque 
+                </p>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="campaign" ng-model="option" value="tvc"/>
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Netword Video Ads - TVC</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error.
+                </p>
+                <!--<span class="agerror" ng-hide="isCampaignTypeSelected()">* please select one of campaign type</span>-->
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="ctngroup_left">
+                <span class="radioCampaign">
+                    <input type="radio" name="campaign" ng-model="option" value="pr"/>
+                    <label for="Field" class="choice"></label>
+                </span>
+            </div>
+            <div class="controls">
+                <strong>Netword PR Articles</strong>
+                <p>
+                    Sed ut persde omnis iste natus error sit voluptatem accusantium doloremque laudantiuotam rem aperiam, eaque ipsa. Sed ut persde omnis iste natus error.
+                </p>
+                <span class="agerror" ng-hide="isCampaignTypeSelected()">* please select one of campaign type</span>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for=""></label>
+             <div class="controls">
+                <button class="btn btn-large btn-primary" href="javascript:;" ng-disabled="hasSave === false" ng-click="save()">Create</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="goto('orderlist')">Cancel</a>
+             </div>
+        </div>
+        
+    </fieldset>
+</form>

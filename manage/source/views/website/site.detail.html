@@ -1,0 +1,38 @@
+﻿<div>
+    <ul class="nav nav-tabs">
+        <li><a href="#/websites/{{extra['siteid']}}/zonegrps">Zone Group</a></li>
+        <li><a href="#/websites/{{extra['siteid']}}/zones">Zone</a></li>
+        <li class="active"><a href="javascript:;">Settings</a></li>
+        <li><a href="javascript:;">Shared</a></li>
+    </ul>
+</div>
+
+<div style="margin-top: 50px;">
+    <form class="form-horizontal" ng-submit="update()">
+    <div class="control-group">
+        <label class="control-label" for="inputName">Name</label>
+        <div class="controls">
+            <input type="text" id="inputName" placeholder="website's name" ng-model="item.name">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputOwner">Owner</label>
+        <div class="controls">
+            <input type="text" id="inputOwner" placeholder="website's owner" ng-model="item.owner">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputDes">Description</label>
+        <div class="controls">
+            <textarea id="inputDes" placeholder="website's owner" ng-model="item.description">{{item.description}}</textarea>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-info">Save</button>
+            <a class="btn" href="#/websites">Cancel</a>
+        </div>
+    </div>
+</form>
+</div>
+

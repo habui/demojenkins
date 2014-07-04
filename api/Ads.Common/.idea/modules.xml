@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Ads.Common.iml" filepath="$PROJECT_DIR$/Ads.Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Ads.Serving/Ads.Serving.iml" filepath="$PROJECT_DIR$/../Ads.Serving/Ads.Serving.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Ads.Web/Ads.Web.iml" filepath="$PROJECT_DIR$/../Ads.Web/Ads.Web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Ads.Website/Ads.Website.iml" filepath="$PROJECT_DIR$/../Ads.Website/Ads.Website.iml" />
+    </modules>
+  </component>
+</project>
+

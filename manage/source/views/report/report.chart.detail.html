@@ -1,0 +1,84 @@
+﻿<div class="ctn-table-chart" ng-hide="reportType === 'zing_tv'">
+    <div class="group1-table-onchart">
+        <a class="link-downupchart show" href="javascript:;" ng-show="isMaximizeChartData()" ng-click="toggleMinimize()"><i class="icon-chevron-up"></i></a>
+        <a class="link-downupchart" href="javascript:;" ng-show="isMinimizeChartData()" ng-click="toggleMinimize()"><i class="icon-chevron-down"></i></a>
+    </div>
+    <div class="group1-table-show" ng-show="isMaximizeChartData()">
+        <table class="table table-bordered table-striped" style="background-color: #fff;" ng-hide="isConversion()">
+            <thead>
+                <tr>
+                    <th width="200">Time</th>
+                    <th ng-class="getSortClass('impression_graph')" ng-click="switchSortGraph('impression_graph')">Impression</th>
+                    <th ng-class="getSortClass('click_graph')" ng-click="switchSortGraph('click_graph')">Click</th>
+                    <th ng-class="getSortClass('ctr_graph')" ng-click="switchSortGraph('ctr_graph')">CTR (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>{{formatNumber(totalChartValue['impression'])}}</strong></td>
+                    <td><strong>{{formatNumber(totalChartValue['click'])}}</strong></td>
+                    <td><strong>{{formatCTR(totalChartValue['ctr'])}} %</strong></td>
+                </tr>
+                <tr ng-repeat="point in dataChart">
+                    <td>{{formatTime(point.date)}}</td>
+                    <td>{{formatNumber(point.getValue('impression'))}}</td>
+                    <td>{{formatNumber(point.getValue('click'))}}</td>
+                    <td>{{formatNumber(point.getValue('ctr'))}} %</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped" style="background-color: #fff;" ng-show="isConversion() && !isConversionDetail()">
+            <thead>
+                <tr>
+                    <th width="200">Time</th>
+                    <th ng-class="getSortClass('conversion_graph')" ng-click="switchSortGraph('conversion_graph')">Conversion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>{{formatNumber(totalChartValue['conversion'])}}</strong></td>
+                </tr>
+                <tr ng-repeat="point in dataChart">
+                    <td>{{formatTime(point.date)}}</td>
+                    <td>{{formatNumber(point.getValue('conversion'))}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped" style="background-color: #fff;" ng-show="isConversionDetail()">
+            <thead>
+                <tr>
+                    <th width="200" style="min-width: 180px">Time</th>
+                    <th ng-repeat="conversionD in conversionDetails[0].item" style="min-width: 130px">{{upperCaseFirst(conversionD.label)}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td ng-repeat="conversionD in conversionDetails[0].item" style="padding: 0px;">
+                        <div class="convers-header left" ng-class="getSortClass('{{conversionD.label}}'+ '_count_conv')" ng-click="switchSortGraph('{{conversionD.label}}' + '_count_conv')">Count</div>
+                        <div class="convers-header right" ng-class="getSortClass('{{conversionD.label}}'+ '_value_conv')" ng-click="switchSortGraph('{{conversionD.label}}' + '_value_conv')">Value</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td ng-repeat="conversionD in conversionDetails[0].item" style="padding: 0px">
+                        <div class="convers left"><strong>{{formatNumber(totalConversionCount[conversionD.label])}}</strong></div>
+                        <div class="convers right"><strong>{{formatNumber(totalConversionValue[conversionD.label])}}</strong></div>
+                    </td>
+                </tr>
+                <tr ng-repeat="conversionD in conversionDetails">
+                    <td>{{formatTime(conversionD.date)}}</td>
+                    <td ng-repeat="conversionVal in conversionD.item" style="padding: 0px">
+                        <div class="convers left">{{formatNumber(conversionVal.conversion)}}</div>
+                        <div class="convers right">{{formatNumber(conversionVal.value)}}</div>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>

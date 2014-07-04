@@ -1,0 +1,14 @@
+﻿
+<section id="tables2" ng-if="checkPermission(permissionDefine.VIEWWEBSITE)">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveTab('linked_items')" ng-show="zoneType !== 'pr'"><a href="javascript:;" ng-click="gotoTab('linked_items', '{{zoneType}}')">Linked Items</a></li>
+        <li ng-class="isActiveTab('articles')" ng-show="zoneType == 'pr'"><a href="javascript:;" ng-click="gotoTab('articles', '{{zoneType}}')">Articles</a></li>
+        <li ng-class="isActiveTab('setting')"><a href="javascript:;" ng-click="gotoTab('setting', '{{zoneType}}')">Setting</a></li>
+        <li ng-class="isActiveTab('booking')"ng-show="zoneType !== 'pr'"><a href="javascript:;" ng-click="gotoTab('booking', '{{zoneType}}')">Booking Schedule</a></li>
+    </ul>
+    <div class="tab-content">
+        <div ui-view>
+            <!-- content view -->
+        </div>
+    </div>
+</section>

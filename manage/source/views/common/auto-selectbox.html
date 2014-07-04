@@ -1,0 +1,12 @@
+﻿<div class="input-append" style="position: relative; margin-bottom: 0">
+    <input type="text" ng-model="selectitemname" class="{{inputcssclass}}" placeholder="{{placeholder}}">
+    <div class="btn-group" style="position: static">
+
+        <button data-toggle="dropdown" class="btn dropdown-toggle">
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu {{selecboxcssclass}} scroll2" id="{{targetid}}">
+            <li ng-repeat="item in items"><a ng-click="choose(item)" href="javascript:;">{{item.name}}</a></li>
+        </ul>
+    </div>
+</div>

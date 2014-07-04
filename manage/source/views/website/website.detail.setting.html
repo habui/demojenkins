@@ -1,0 +1,72 @@
+﻿
+<form id="edit-website" class="form-horizontal" name="frmsite" ng-if="checkPermission(permissionDefine.VIEWWEBSITE)">
+    <fieldset>
+        
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" id="name" name="name" placeholder="website's name" ng-model="item.name" class="input-large">
+                <span class="agerror" ng-show="frmsite.name.$error.required">* required</span>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="description">Description</label>
+            <div class="controls">
+                <textarea id="description" name="description" placeholder="website's owner" ng-model="item.description" class="input-large">{{item.description}}</textarea>
+                <span class="agerror" ng-show="frmsite.description.$error.required">* required</span>
+            </div>
+        </div>            
+             
+        <div class="control-group">
+            <label class="control-label" for="lastname">Review type</label>
+            <div class="controls" style="margin-top: 7px;">
+                <p><span class="table-check">
+                       <input type="checkbox" class="" value="First Choice" tabindex="4" ng-model="networkType" />
+                       <label class="choice" for="Field"></label>
+                   </span> Network banner</p>
+                <p><span class="table-check">
+                       <input type="checkbox" class="" value="First Choice" tabindex="4"  ng-model="bookingType"/>
+                       <label class="choice" for="Field"></label>
+                   </span> Booking banner</p>
+                <p><span class="table-check">
+                       <input type="checkbox" class="" value="First Choice" tabindex="4"  ng-model="tvcType"/>
+                       <label class="choice" for="Field"></label>
+                   </span> Video TVC</p>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="description">Frequency capping</label>
+            <div class="controls">
+                <input type="number" class="input-mini" id="frequencyCapping" ng-model="item.frequencyCapping" min="0">
+                ads per
+                <input type="number" class="input-mini" ng-model="item.frequencyCappingTime" min="0" max="{{fcLimitUnit == 'Minutes' ? 12*60 : fcLimitUnit == 'Hours' ? 12 : 12 * 60 * 60}}">
+                <div class="input-append" style="position: relative; margin-bottom: 0">
+                    <input type="text" class="input-mini" ng-model="fcLimitUnit" readonly>
+                    <div class="btn-group" style="position: static">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu width-dropdown cmbmini">
+                            <li><a href="javascript:;" ng-click="chooseFC('hours')">Hours</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('minutes')">Minutes</a></li>
+                            <li><a href="javascript:;" ng-click="chooseFC('seconds')">Seconds</a></li>
+                            <!--<li><a href="javascript:;" ng-click="chooseFC('session')">Session</a></li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+                    
+        <div class="control-group" ng-show="checkPermission(permissionDefine.EDITWEBSITE)">
+            <div class="controls">
+                <button class="btn btn-large btn-primary" href="javascript:;" ng-click="update()">Save</button>
+                <a class="btn btn-large" href="#/websites">Cancel</a>
+            </div>
+        </div>
+        <!-- /form-actions -->
+    </fieldset>
+</form>
+
+

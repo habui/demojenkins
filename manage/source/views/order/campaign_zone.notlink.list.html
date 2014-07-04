@@ -1,0 +1,64 @@
+﻿<section id="tables2" ng-if="checkPermission(permissionDefine.EDITORDER)">
+    <div class="tab-content">
+        <div class="control-group">
+            <p class="control-line">List unlink zone</p>
+        </div>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Zone</th>
+                    <th>Website</th>
+                    <th>Size</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr ng-repeat="item in items" ng-class="(item.disable === true)?'disabled':''">
+                    <td>
+                        <a href="javascript:;" >{{item.name}}{{(item.disable === true)?'(Disabled)':''}}</a>
+                    </td>
+                    <td>{{item.siteName}}</td>
+                    <td>{{item.width}}x{{item.height}}</td>
+                    <td style="text-align: center"><a class="label {{(!item.disable)?'label-secondary':''}}" href="javascript:;" ng-class="isActiveClass()" ng-disabled="item.disable" ng-click="(!item.disable)?loadExistItem('#myModal', item.zoneId):return" ><i class=" icon-resize-horizontal"></i>Link existing item</a> <a class="label {{(!item.disable)?'label-secondary':''}}" href="javascript:;" ng-click="(!item.disable)?addZonesNewItem(item.zoneId):return"><i class="icon-plus"></i>Add to new item</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div ng-show="totalRecord > 0">
+            <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	            
+            </paging>
+        </div>
+        <div ng-show="totalRecord <= 0">
+            No item found.
+        </div>
+        <div id="myModal" class="modal hide fade " tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3>Link to zone</h3>
+            </div>
+            <div class="modal-body notice">
+                <p class="font-size16"><strong>Select the following item to link</strong></p>
+                <div id="mcs4_container" class="list_userdefault listItems">
+                    <div class="customScrollBox" style="">
+                        <div class="container listzone2" style="top: 0px;">
+                            <ul class="listzone">
+                                <li ng-repeat="item in campaignItems" ng-style="isDisableLinkStyle(item.id)">
+                                    <span class="table-check">
+                                        <input type="checkbox" ng-model="check[item.id]" ng-disabled="isDisable(item.id)">
+                                        <label for="" class="choice"></label>
+                                    </span>
+                                    {{item.name}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <div class="modal-footer">
+            <a href="javascript:;" class="btn" ng-click="closeModal('#myModal')">Cancel</a>
+            <a href="javascript:;" class="btn btn-primary" ng-click="link('#myModal')">Done</a>
+          </div>
+        </div>
+    </div>
+</section>

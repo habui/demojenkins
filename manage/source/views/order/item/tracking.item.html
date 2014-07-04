@@ -1,0 +1,60 @@
+﻿<div class="control-group">
+    <label class="control-label" for="inputName">Target Url</label>
+    <div class="controls">
+        <input type="text" name="target" id="target" placeholder="Target Url" ng-model="item.targetUrl" class="input-large"><span></span>
+    </div>
+</div>
+<div class="control-group">
+    <label for="banner" class="control-label">Banner File</label>
+    <div class="controls">
+        <img ng-src="{{item.bannerFile}}" class="img-polaroid" style="width: 250px; height: 100px" ng-show="item.bannerFile.length > 0 && isBannerImage(item.bannerFile)">
+        <object codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" type="application/x-shockwave-flash" data="{{item.bannerFile}}" width="250" height="100" ng-show="item.bannerFile.length > 0 && isBannerFlash(item.bannerFile)">
+            <param name="movie" value="{{item.bannerFile}}" />
+            <param name="quality" value="high" />
+            <embed ng-src="{{item.bannerFile}}" quality="high" width="250" height="100" />
+        </object>
+        <div ng-show="isShowBannerUrl()">
+            <input type="text" name="mediaurl" id="mediaurl" placeholder="" ng-model="item.bannerFile" style="width: 450px" disabled><a href="javascript:;" class="btn btn-info" ng-click="uploadFile()">Edit</a>
+        </div>
+        <div ng-hide="isShowBannerUrl()">
+            <uploader action="{{uploadUrl}}" result="uploadResult.bannerUploadResult" filter="jpg, gif, png, flv, swf"></uploader>
+            <span class="agerror" ng-show="checkValidate && ( !item.bannerFile || item.bannerFile.length == 0)">* required</span>
+        </div>
+
+    </div>
+</div>
+<div ng-show="showTrackingLink">
+    <div class="control-group">
+        <p class="control-line">Imformation</p>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Impression Tracking</label>
+        <div class="controls">
+            <input type="text" name="impr_trk_lnk" id="impr_trk_lnk" placeholder="" ng-model="item.impression_tracking" class="" style="width: 350px">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Impression Pixel Tracking</label>
+        <div class="controls">
+            <input type="text" name="impr_pixel_trk_lnk" id="impr_pixel_trk_lnk" placeholder="" ng-model="item.impression_pixel_tracking" class="" style="width: 350px">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Click Tracking</label>
+        <div class="controls">
+            <input type="text" name="click_trk_lnk" id="click_trk_lnk" placeholder="" ng-model="item.click_tracking" class="" style="width: 350px">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Click Pixel Tracking</label>
+        <div class="controls">
+            <input type="text" name="click_pixel_trk_lnk" id="click_pixel_trk_lnk" placeholder="" ng-model="item.click_pixel_tracking" class="" style="width: 350px">
+        </div>
+    </div>
+</div>
+<div class="control-group">
+    <label class="control-label">Retargeting</label>
+    <div class="controls">
+        <input type="number" name="" placeholder="" ng-model="item.retargeting" class="input-mini" >
+    </div>
+</div>

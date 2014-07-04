@@ -1,0 +1,40 @@
+﻿<form action="" class="form-horizontal" name="frmzonegrp">
+    <fieldset>
+        
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        
+        <div class="control-group">
+            <label for="name" class="control-label">Site</label>
+            <div class="controls">
+                <input type="text" id="txtsitename" name="txtsitename" placeholder="Zone Group Name" class="input-large" ng-model="siteName" disabled="disabled" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="name" class="control-label">Name</label>
+            <div class="controls">
+                <input type="text" id="name" name="name" placeholder="Zone Group Name" class="input-large" required ng-model="item.name" />
+                <span class="agerror" ng-show="frmzonegrp.name.$error.required">(*)</span>
+                <span class="agerror" ng-show="validateFailed && frmzonegrp.name.$error.required">You must specific zone group's name</span>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="owner" class="control-label">Zones</label>
+            <div class="controls">
+                <select-box data="sitezones" selected-data="selectedZones"></select-box>
+                <div>
+                <span class="agerror" ng-show="validateFailed && selectedZones.length <= 0">You must select one or more zone !</span>
+                </div>
+                <div style="clear: both; padding-top: 10px;"><a href="javascript:;" ng-click="addNewZone()">Add new zone</a></div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button class="btn btn-large btn-primary" href="javascript:;" ng-disabled="!frmzonegrp.$valid || hasSave === true" ng-click="create(frmzonegrp)">Create</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

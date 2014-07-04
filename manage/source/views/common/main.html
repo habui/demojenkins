@@ -1,0 +1,70 @@
+﻿
+    <div id="topbar">
+        <div class="container">
+            <a href="javascript:;" id="menu-trigger" class="dropdown-toggle" data-toggle="dropdown" data-target="#"><i class="icon-cog"></i></a>
+            <div id="top-nav">
+                <ul class="pull-right">
+                    <li><a href="javascript:;"><i class="icon-user"></i>Logged in as {{username}}</a></li>
+                    <li><a href="javascript:;"><span class="badge badge-primary">0</span> New Message</a></li>
+                    <li class="dropdown"><a href="./pages/settings.html" class="dropdown-toggle" data-toggle="dropdown">Settings <b class="caret"></b></a>
+                        <ul class="dropdown-menu pull-right">
+                            <li><a href="javascript:;" ng-click="changePassword()">Change password</a></li>
+                            <!--
+                            <li><a href="javascript:;">Settings #2</a></li>
+                            <li class="dropdown-submenu"><a tabindex="-1" href="#">Dropdown menu</a>
+                                <ul class="dropdown-menu">
+                                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a tabindex="-1" href="#">Second level link</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </li>
+                    <li><a href="javascript:;" ng-click="logout()">Logout</a></li>
+                </ul>
+            </div>
+            <!-- /#top-nav -->
+
+        </div>
+        <!-- /.container -->
+
+    </div>
+    <!-- /#topbar -->
+
+    <div id="header">
+        <div class="container">
+            <a href="javascript:;" class="brand">Dashboard Admin</a> <a href="javascript:;" class="btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><i class="icon-reorder"></i></a>
+            <div class="nav-collapse">
+                <ul id="main-nav" class="nav pull-right">
+                    <li ng-class="isActiveTab('website')">
+                        <a href="javascript:;" ng-click="goTab('website')"><i class="icon-globe"></i><span>Website</span></a>
+                    </li>
+                    <li ng-class="isActiveTab('order')">
+                        <a href="javascript:;" ng-click="goTab('order')"><i class="icon-copy"></i><span>Orders</span></a>
+                    </li>
+                    <li ng-class="isActiveTab('report')">
+                        <a href="javascript:;" ng-click="goTab('report')"><i class="icon-bar-chart"></i><span>Report</span></a>
+                    </li>
+                    <li ng-class="isActiveTab('admin')" ng-if="checkPermission(permissionDefine.ROOT)">
+                        <a href="javascript:;" ng-click="goTab('admin')"><i class="icon-user"></i><span>Admin</span></a>
+                    </li>
+                    <li ng-class="isActiveTab('agency')" ng-if="checkPermission(permissionDefine.AGENCY)">
+                        <a href="javascript:;" ng-click="goTab('agency')"><i class="icon-flag"></i><span>Agency</span></a>
+                    </li>
+                    <li ng-class="isActiveTab('system')" ng-if="checkPermission(permissionDefine.ROOT)">
+                        <a href="javascript:;" ng-click="goTab('system')"><i class="icon-cog"></i><span>System</span></a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.nav-collapse -->
+
+        </div>
+        <!-- /.container -->
+    </div>
+    <div id="content">
+        <div id="maincontent" class="container" ui-view></div>
+    </div>
+
+
+
+

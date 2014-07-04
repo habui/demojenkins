@@ -1,0 +1,319 @@
+﻿<form class="form-horizontal" name="bookingPRArticleForm" id="top">
+    <!-- Form Header -->
+    <div class="control-group">
+        <p class="control-line">PR Article</p>
+    </div>
+    
+    <div class="control-group" ng-show="isUpdate||isPreview">
+        <label class="control-label">Status</label>
+        <div class="controls">
+            <div class="label label-green" ng-if="item.status==1">{{getStatus(item.status)}}</div>
+            <div class="label label-blue" ng-if="item.status==2">{{getStatus(item.status)}}</div>
+            <div class="label label-important" ng-if="item.status==3">{{getStatus(item.status)}}</div>
+            <div class="label label-info" ng-if="item.status==4">{{getStatus(item.status)}}</div>
+            <div class="label label-pink" ng-if="item.status==5">{{getStatus(item.status)}}</div>
+            <div class="label label-warning" ng-if="item.status==6">{{getStatus(item.status)}}</div>
+            <div class="label label-secondary" ng-if="item.status==7">{{getStatus(item.status)}}</div>
+            <div class="label label-success" ng-if="item.status==8">{{getStatus(item.status)}}</div>
+            <div class="label label-tertiary" ng-if="item.status==9">{{getStatus(item.status)}}</div>
+            <div class="label label-primary" ng-if="item.status==10">{{getStatus(item.status)}}</div>
+        </div>
+    </div>
+    <!-- Category Select -->
+    <div class="control-group">
+        <label class="control-label">Publisher <span style="color: red;">*</span></label>
+        <div class="controls">
+            <div ng-show="isCreate||isUpdate">
+                <!-- Categories List -->
+                <div class="control-list">
+                    <input class="input-large" id="searchPublisher" value="" ng-model="searchPublishers.name" placeholder="Search Publisher..." style="margin-bottom: 5px;" type="text" />
+                    <ul ng-repeat="publisher in publishers | filter:searchPublishers:strict" class="checkTree">
+                        <li>
+                            <span class="table-check">
+                                <input ng-model="checkBoxSite[publisher.id]" id="{{publisher.id}}" type="checkbox" ng-change="selectSite(publisher.id)">
+                                <label class="choice" for="Field"></label>
+                            </span>
+                            <label for="{{publisher.id}}" title="{{publisher.name}}" class="hide-text-over">{{publisher.name}}</label>
+                            <ul ng-show="publisher.zoneModels.length !== 0">
+                                <li ng-repeat="zone in publisher.zoneModels">
+                                    <span class="table-check">
+                                        <input ng-model="checkBoxZone[zone.id]" id="{{zone.id}}" type="checkbox" ng-change="selectZone(zone.id, publisher.id)">
+                                        <label class="choice" for="Field"></label>
+                                    </span>
+                                    <label for="{{zone.id}}" title="{{zone.name}}" class="hide-text-over">{{zone.name}}</label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Selected Categories -->
+                <div class="control-list">
+                    <ul class="checkTree">
+                        <li ng-repeat="item in selectedZones"class="hide-text-over">
+                            <span class="table-check">
+                                <input type="checkbox" id="{{item.id}}" checked="true" ng-click="removeZone(item.id)">
+                                <label class="choice" for="Field"></label>
+                            </span>
+                            <label for="{{item.id}}"><span title="{{item.siteName + '-' + item.name}}" class="hide-text-over">{{item.siteName}} - {{item.name}}</span></label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div ng-show="isPreview">
+                <ul>
+                    <li ng-repeat="item in selectedZones">
+                        <span>Publisher: {{item.siteName}} - Category: {{item.name}}</span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Error notification -->
+            <div class="article-notification">
+                <span class="agerror" ng-show="checkValidate && selectedZones.length <= 0">You must select one or more categories !</span>
+            </div>
+        </div>
+    </div>
+    <!-- Article Title -->
+    <div class="control-group">
+        <label class="control-label" for="inputTitle">Article Title <span style="color: red;">*</span></label>
+        <div class="controls">
+            <input type="text" name="title" id="inputTitle" placeholder="PR Article Title" ng-model="item.name" class="input-large" required ng-disabled="isPreview" />
+            <!-- Error notification -->
+            <span class="agerror" ng-show="checkValidate && bookingPRArticleForm.title.$error.required">This field is required</span>
+        </div>
+    </div>
+    <!-- Article Summary -->
+    <div class="control-group">
+        <label class="control-label" for="inputSummary">Summary <span style="color: red;">*</span></label>
+        <div class="controls">
+            <textarea name="summary" id="inputSummary" placeholder="PR Article Summary" ng-model="item.summary" rows="5" class="input-large" style="width: 560px;" required ng-disabled="isPreview"></textarea>
+            <div class="article-notification">
+                <span class="agerror" ng-show="checkValidate && bookingPRArticleForm.summary.$error.required">This field is required</span>
+            </div>
+        </div>
+    </div>
+    <!-- Content file -->
+    <div class="control-group">
+        <label class="control-label" for="inputContentFile">Content File <span style="color: red;">*</span></label>
+        <div class="controls">
+            <ul class="list-radiocheck" ng-show="isCreate||isUpdate">
+                <li><span class="radio-check">
+                    <input id="radio5" name="zones" type="radio" class="" ng-model="item.contentType" value="file" />
+                    <label class="choice" for="radio5">Content file</label>
+                </span></li>
+                <li><span class="radio-check">
+                    <input id="radio6" name="zones" type="radio" class="" ng-model="item.contentType" value="text" />
+                    <label class="choice" for="radio6">Input</label>
+                </span></li>
+            </ul>
+            <div ng-show="item.contentType == 'file'">
+                <a href="{{item.content}}" ng-show="item.content.length > 0">Click here to view Content File</a>
+                <div ng-show="isUpdate||isCreate">
+                    <uploader action="{{uploadUrl}}" result="contentUploadResult" filter="doc, docx, txt, pdf" required="true"></uploader>
+                    <span class="agerror" ng-show="checkValidate && ( !item.content || item.content.length == 0)">This field is required</span>
+                </div>
+            </div>
+            <div ng-show="item.contentType == 'text'">
+                <!--WYSIWYG-->
+                <div id="alerts"></div>
+                <div class="btn-toolbar" data-role="editor-toolbar" data-target="#editor" ng-show="isUpdate||isCreate">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                            <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                            <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                        <a class="btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                        <a class="btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+                        <a class="btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+                        <a class="btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+                        <a class="btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                        <a class="btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                    </div>
+                    <br />
+                    <div class="btn-group">
+                        <a class="btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                        <a class="btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                        <a class="btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                        <a class="btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" title="Hyperlink"><i class="icon-link"></i></a>
+                        <div class="dropdown-menu" style="padding: 5px 10px">
+                            <input class="span2" placeholder="URL" type="text" data-edit="createLink" />
+                            <button class="btn" type="button">Add</button>
+                        </div>
+                        <a class="btn" data-edit="unlink" title="Remove Hyperlink"><i class="icon-cut"></i></a>
+
+                    </div>
+
+                    <div class="btn-group">
+                        <a class="btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+                        <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" />
+                    </div>
+                    <div class="btn-group">
+                        <a class="btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                        <a class="btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+                    </div>
+                </div>
+
+                <div id="editor" ng-show="isCreate||isUpdate" class="editor">
+                </div>
+                <!--<script src="../../resource/js/initialEditor.js"></script>-->
+                <style>
+                    .btn-group {
+                        margin-top: 5px;
+                    }
+                </style>
+                <!-- End -->
+                <div id="previewEditor" ng-show="isPreview" class="editor">
+                </div>
+
+                <span class="agerror" ng-show="checkValidate && ( !item.content || item.content.length == 0)">This field is required</span>
+            </div>
+        </div>
+    </div>
+    <!-- Photo files -->
+    <div class="control-group">
+        <label class="control-label" for="inputPhotoFile" style="margin-top: 5px;">Photo Files <span style="color: red;">*</span></label>
+        <div class="controls">
+            <div style="overflow: hidden; clear: none" class="target-ctn">
+                <div ng-repeat="photo in item.photos" class="title-target" style="width: 140px; float: left; position: relative; padding-right: 5px">
+                    <img ng-src="{{photo}}" width="140" height="100" />
+                    <a href="javascript:" ng-click="(isUpdate||isCreate)?item.photos.splice($index, 1):0" ng-hide="isPreview"><i class="icon-remove" style="position: absolute; top: 10px; right: 10px;"></i></a>
+                </div>
+                <span ng-show="item.photos.length === 0 && isPreview">No photo</span>
+            </div>
+            <div style="margin: 0;" ng-show="isUpdate||isCreate">
+                <uploader id="photoUploader" action="{{uploadUrl}}" result="photoUploadResults" filter="jpg, gif, png" style="float: left;" multi="true" required="true"></uploader>
+            </div>
+            <div class="article-notification">
+                <span class="agerror" ng-show="checkValidate && item.photos.length === 0">This field is required</span>
+            </div>
+        </div>
+    </div>
+    <!-- Video files -->
+    <div class="control-group">
+        <label class="control-label" for="inputVideoFile" style="margin-top: 5px;">Video Files</label>
+        <div class="controls">
+            <div ng-show="isUpdate||isPreview" style="overflow: hidden; clear: none" class="target-ctn">
+                <span ng-show="item.videos.length === 0 && isPreview">No video</span>
+            </div>
+            <div style="margin: 0;" ng-show="isUpdate||isCreate">
+                <uploader action="{{uploadUrl}}" result="item.value" filter="mp4, flv" style="float: left;" multi="true"></uploader>
+            </div>
+        </div>
+    </div>
+    <!-- Article Tags -->
+    <div class="control-group">
+        <label class="control-label" for="inputTags">Tags <span style="color: red;">*</span></label>
+        <div class="controls">
+            <input type="text" name="tags" id="inputTags" placeholder="PR Article Tags" ng-model="item.tags" class="input-large" required ng-disabled="isPreview" />
+            <span class="agerror" ng-show="checkValidate && bookingPRArticleForm.tags.$error.required">This field is required</span>
+            <div>
+                <label><em>(Seperated by coma ",")</em></label></div>
+        </div>
+    </div>
+    <!-- Article Author -->
+    <div class="control-group">
+        <label class="control-label" for="inputAuthor">Author</label>
+        <div class="controls">
+            <input type="text" name="author" id="inputAuthor" placeholder="PR Article Author" ng-model="item.author" class="input-large" ng-disabled="isPreview" />
+        </div>
+    </div>
+    <!-- Article Source -->
+    <div class="control-group">
+        <label class="control-label" for="inputSource">Source <span style="color: red;">*</span></label>
+        <div class="controls">
+            <input type="text" name="source" id="inputSource" placeholder="PR Article Source" ng-model="item.source" class="input-large" ng-disabled="isPreview" required />
+            <span class="agerror" ng-show="checkValidate && bookingPRArticleForm.source.$error.required">This field is required</span>
+        </div>
+    </div>
+    <!-- Publish Date -->
+    <div class="control-group">
+        <label class="control-label" for="inputPublishDate">Publish Date <span style="color: red;">*</span></label>
+        <div class="controls">
+            <ul class="list_filter">
+                <li class="filter-item">
+                    <div class="input-append">
+                        <input id="inputPublishDate" name="publishedDate" style="width: 80px;" type="text" ng-model="publishedDate" data-date-format="dd/mm/yyyy" bs-datepicker disabled required />
+                        <button type="button" class="btn" data-toggle="datepicker" ng-disabled="isPreview"><i class="icon-calendar"></i></button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="control-group" ng-hide="isCreate">
+        <label class="control-label" for="inputPublishDate">Tracking link</label>
+        <div class="controls">
+            <input ng-model="item.trackingLink" ng-show="isUpdate || isCreate" class="span3 ng-pristine" type="text" placeholder="Type tracking link here"/>
+            <span ng-hide="isUpdate || isCreate">{{trackingLink}}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Retargeting</label>
+        <div class="controls" style="padding-top: 6px">
+            <span class="table-check" style="float: none" ng-show="isUpdate || isCreate">
+                <input type="checkbox" id="retargeting" ng-model="item.retargetingEnable" class="ng-pristine ng-valid">
+                <label for="retargeting" class="choice">Enable</label>
+            </span>
+            <label><span ng-show="!isCreate && !isUpdate">Retargeting value: {{item.retargeting}}</span></label>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="inputPublishDate">Price</label>
+        <div class="controls">
+            <input ng-model="item.price" class="input-small" type="text" ng-disabled="isPreview" price />
+        </div>
+    </div>
+    
+    <div class="control-group" ng-hide="isCreate">
+        <label class="control-label">Companion targeting</label>
+        <div class="controls" style="padding-top: 6px">
+            <label>{{item.companionTargeting}}</label>
+        </div>
+    </div>
+
+    <!-- Submit buttons -->
+    <div class="control-group">
+        <div class="controls">
+            <button type="submit" class="btn btn-large btn-primary" ng-show="isUpdate || isCreate" ng-disabled="hasSave" ng-click="save()">{{isUpdate ? "Update": isCreate ?"Save" : ""}}</button>
+            <a class="btn btn-large btn-primary" ng-show="isApprove()" ng-click="approve('Approve')" ng-disabled="isSubmited">Approve</a>
+            <a class="btn btn-large btn-primary" ng-show="isApprove()" ng-click="approve('Reject')" ng-disabled="isSubmited">Reject</a>
+            <a class="btn btn-large btn-primary" ng-show="isPublisher()" ng-click="sync2CMS()" ng-disabled="isSubmited">Sync to CMS</a>
+            <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+        </div>
+    </div>
+    <div class="control-group" ng-show="commentList && commentList.length !==0 || isUpdate || isApprove()">
+        <hr />
+        <label class="control-label">Comments</label>
+        <div class="controls">
+            <div class="target-ctn" ng-show="isUpdate || isApprove()" style="clear: none">
+                <textarea style="width: 560px; height: 40px; max-height: 40px; max-width: 560px" ng-model="comment" placeholder="Write comment here...">
+                    </textarea>
+                <a class="btn" href="javascript:;" ng-click="sendComment()" style="height: 40px; line-height: 40px">Send</a>
+            </div>
+            <div class="target-ctn" ng-repeat="commentInfo in commentList|orderBy:date" style="clear: none">
+                <div class="title-target">
+                    <span class="title name">{{commentInfo.owner.name}}</span>
+                    <span class="title time">{{formatCommentTime(commentInfo.date)}}</span>
+                </div>
+                <div class="content-controls">
+                    {{commentInfo.comment}}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

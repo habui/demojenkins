@@ -1,0 +1,572 @@
+﻿<div style="margin-top: 20px;">
+    <form class="form-horizontal" name="itemCreate">
+
+        <div class="control-group">
+            <p class="control-line">{{kind_banner}}</p>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input type="text" name="name" id="inputName" placeholder="Campaign Item Name" ng-model="item.name" class="input-large" required>
+                <span class="agerror" ng-show="checkValidate && itemCreate.name.$error.required">* required</span>
+            </div>
+        </div>
+
+        <!-- TYPE -->
+        <ng-include src="'views/order/item/banner.item'" ng-show="item.kind.toLowerCase() === 'media' || item.kind.toLowerCase() === 'networkmedia'"></ng-include>
+        <ng-include src="'views/order/item/popup.item'" ng-show="item.kind.toLowerCase() === 'popup' || item.kind.toLowerCase() === 'networkpopup'"></ng-include>
+        <ng-include src="'views/order/item/expandable.item'" ng-show="item.kind.toLowerCase() === 'expandable' || item.kind.toLowerCase() === 'networkexpandable'"></ng-include>
+        <ng-include src="'views/order/item/balloon.item'" ng-show="item.kind.toLowerCase() === 'balloon' || item.kind.toLowerCase() === 'networkballoon'"></ng-include>
+        <ng-include src="'views/order/item/html.item'" ng-show="item.kind.toLowerCase() === 'html' || item.kind.toLowerCase() === 'networkhtml'"></ng-include>
+        <ng-include src="'views/order/item/tvc.item'" ng-show="item.kind.toLowerCase() === 'networktvc'"></ng-include>
+        <ng-include src="'views/order/item/tvcbanner.item'" ng-show="item.kind.toLowerCase() === 'networkoverlaybanner' || item.kind.toLowerCase() === 'networkpausead'"></ng-include>
+        <ng-include src="'views/order/item/tracking.item'" ng-show="item.kind.toLowerCase() === 'tracking'"></ng-include>
+        <ng-include src="'views/order/item/prbanner.item'" ng-show="item.kind.toLowerCase() === 'networkprbanner' || item.kind.toLowerCase()=== 'prbanner'"></ng-include>
+
+
+        <div class="control-group" ng-hide="item.kind.toLowerCase() === 'networkprbanner' || item.kind.toLowerCase()=== 'prbanner'">
+            <label class="control-label" for="inputName">Extend data</label>
+            <div class="controls">
+                <span class="table-check" style="margin-top: 8px">
+                    <input type="checkbox" name="xdata" id="xdata" ng-model="xdata" />
+                    <label class="choice">enable</label>
+                </span>
+            </div>
+        </div>
+        <div class="control-group" ng-show="xdata && (item.kind.toLowerCase() !== 'networkprbanner' || item.kind.toLowerCase() !== 'prbanner')">
+            <div class="controls">
+                <div ng-repeat="xitem in xitems" class="content-controls" ng-show="xdata" style="margin-bottom: 10px">
+                    Key :
+                    <input class="input-small" type="text" ng-model="xitem.key" />
+                    Value :
+                    <input class="input-small" type="text" ng-model="xitem.val" />
+                    <i class="icon-plus-sign" ng-click="addXData()" ng-show="$index === 0"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group" ng-hide="isNetworkItem || item.kind.toLowerCase() === 'networkprbanner'  || item.kind.toLowerCase()=== 'prbanner'">
+            <label class="control-label">Frequency capping</label>
+            <div class="controls">
+                <span class="table-check" style="margin-top: 8px">
+                    <input type="checkbox" id="frequency" ng-model="item.checkFreqSiteOrZone" class="ng-pristine ng-valid">
+                    <label for="frequency" class="choice">Frequency capping for Site/Zone</label>
+                </span>
+            </div>
+        </div>
+
+        <div ng-show="isNetworkItem && item.kind.toLowerCase() !== 'networkprbanner' && item.kind.toLowerCase() !== 'prbanner'">
+
+            <div class="control-group">
+                <label class="control-label">PR retargeting</label>
+                <div class="controls">
+                    <div ng-repeat="retarget in retargeting" style="display: inline-block; width: 100%">
+                        <div class="input-append" style="position: relative; float: left; margin-right: 5px">
+                            <input type="text" placeholder="Choose bound" data-toggle="dropdown" class="input-mini ng-pristine ng-valid" value="{{strBound[retarget.bound]}}" disabled style="width: 100px">
+                            <div class="btn-group" style="position: static;">
+                                <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                                <ul class="dropdown-menu width-dropdown cmbmini" style="width: 125px">
+                                    <li><a href="javascript:" ng-click="retargeting[$index].bound = 0">Is equal</a></li>
+                                    <li><a href="javascript:" ng-click="retargeting[$index].bound = 1">Is not equal</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input style="float: left; width: 80px" type="text" class="input" placeholder="-" ng-model="retargeting[$index].value">
+                        <div class="icon_variable">
+                            <a href="javascript:" ng-click="retargeting.splice($index, 1)" class="remove"><i></i></a>
+                        </div>
+                    </div>
+                    <div class="icon_variable" style="padding-left: 0">
+                        <a href="javascript:" ng-click="retargeting.push({key: 'retargeting', value: 0, bound: 0})" class="add"><i></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label">Companion targeting value</label>
+                <div class="controls">
+                    <div ng-repeat="val in companionTargetingValues" style="display: inline-block; width: 100%">
+                        <input style="float: left; width: 80px" type="text" class="input" placeholder="value" ng-model="companionTargetingValues[$index].value">
+                        <div class="icon_variable">
+                            <a href="javascript:" ng-click="companionTargetingValues.splice($index, 1)" class="remove"><i></i></a>
+                        </div>
+                    </div>
+                    <div class="icon_variable" style="padding-left: 0">
+                        <a href="javascript:" ng-click="companionTargetingValues.push({'value':''})" class="add"><i></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <p class="control-line">Price Information</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping">Rate <span style="color: red;">*</span></label>
+                <div class="controls">
+                    <input type="text" price name="rate" id="Number1" placeholder="rate" ng-model="item.rate" class="span1 input-medium3" required>
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" class="input-mini" placeholder="Rate" ng-model="rateUnit" readonly>
+                        <div class="btn-group" style="position: static">
+                            <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown cmbmini">
+                                <li><a href="javascript:;" ng-click="choose('rate', '1')">CPM</a></li>
+                                <li><a href="javascript:;" ng-click="choose('rate', '2')">CPC</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <span class="agerror" ng-show="checkValidate && networkItemForm.rate.$invalid">* required</span>
+                    <div class="muted"><small>Enter value between 3000 and 50000</small></div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping" style="padding-top: 0;">High priority</label>
+                <div class="controls">
+                    <span class="table-check">
+                        <input type="checkbox" class="ng-pristine ng-valid" ng-model="item.highPriority">
+                        <label class="choice"></label>
+                    </span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping" style="padding-top: 0;">Limit by <span style="color: red;">*</span></label>
+                <div class="controls">
+                    <input type="text" price name="limit" min="0" id="Number2" placeholder="limit" ng-model="item.limit" class="span1 input-medium3" required="false" title="Please enter limit value">
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" class="input-medium" placeholder="Daily" ng-model="item.limitUnit" readonly>
+                        <div class="btn-group" style="position: static">
+                            <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <span class="agerror" ng-show="checkValidate && networkItemForm.limit.$invalid">* required</span>
+
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping" style="padding-top: 0;">Life time limit<span style="color: red;">*</span></label>
+                <div class="controls">
+                    <input type="text" price name="lifetimeLimit" min="0" id="Text3" placeholder="0" ng-model="item.lifetimeLimit" class="span1 input-medium3" required>
+                    <span class="agerror" ng-show="checkValidate && networkItemForm.limit.$invalid">* required</span>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" style="padding-top: 0;" for="Frequecy capping">Reset counter after <span style="color: red;">*</span></label>
+                <div class="controls">
+                    <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="hours">
+                    &nbsp; hours &nbsp;
+                    <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="minutes">
+                    &nbsp; minutes
+                    <input type="text" class="input-small2" placeholder="0" numbers-only ng-model="seconds">
+                    &nbsp; seconds
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" style="padding-top: 0;" for="Frequecy capping">Limit range time</label>
+                <div class="controls">
+                    <span class="table-check">
+                        <input type="checkbox" id="unlimitstart" class="ng-pristine ng-valid" ng-model="unlimitStartDate">
+                        <label class="choice"></label>
+                    </span>
+                    <label for="unlimitstart" class="ng-binding">Unlimit start time</label>
+                    <div ng-show="unlimitStartDate === false">
+                        <div class="input-append">
+                            <input name="startDate" type="text" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" class="input-medium ng-pristine ng-valid" style="width: 90px" bs-datepicker="">
+                            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls" style="padding-top: 10px">
+                    <span class="table-check">
+                        <input type="checkbox" id="unlimiend" class="ng-pristine ng-valid" ng-model="unlimitEndDate">
+                        <label class="choice"></label>
+                    </span>
+                    <label for="unlimiend" class="ng-binding">Unlimit end time</label>
+                    <div ng-show="unlimitEndDate === false">
+                        <div class="input-append">
+                            <span>to</span>
+                            <input id="Text7" name="endDate" type="text" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" class="input-medium ng-pristine ng-valid" style="width: 90px" bs-datepicker="">
+                            <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Frequency Capping -->
+            <div class="control-group">
+                <p class="control-line">Frequency Capping</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="frequencycapping">Frequency capping</label>
+                <div class="controls">
+                    <input type="text" price name="impression" id="impression" placeholder="impression" ng-model="freq_impression" class="input-small" required>
+                    impression per 
+                    <input type="text" numbers-only name="time_" id="time_" class="input-mini" placeholder="0" ng-model="freq_time" required>
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" class="input-mini" placeholder="Time" ng-model="freq_time_string">
+                        <div class="btn-group" style="position: static">
+                            <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu width-dropdown cmbmini">
+                                <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('minute')">Minutes</a></li>
+                                <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('hour')">Hours</a></li>
+                                <li><a href="javascript:;" ng-click="chooseFreqTimeUnit('day')">Days</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label"></label>
+                <div class="controls">
+                    <span class="table-check">
+                        <input type="checkbox" id="frequency1" ng-model="item.checkFreqSiteOrZone" class="ng-pristine ng-valid">
+                        <label for="frequency1" class="choice">Frequency capping for Site/Zone</label>
+                    </span>
+                </div>
+            </div>
+            <!-- Targeting -->
+            <div class="control-group">
+                <p class="control-line">Targeting</p>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping">Targeting</label>
+                <div class="controls">
+                    <div class="input-append" style="position: relative; margin-bottom: 0">
+                        <input type="text" placeholder="Choose Targeting" data-toggle="dropdown" class="input-medium" ng-model="sTargeting" disabled>
+                        <div class="btn-group" style="position: static;">
+                            <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                            <ul class="dropdown-menu width-dropdown scroll2">
+                                <li><a href="javascript:" ng-click="choose('targeting', 'website')">Website Zone</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'age')">Demographic Age</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'gender')">Demographic gender</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'channel')">Categories Channel</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'location')">Location</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'interest')">User Interest</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'resolution')">Technology Resolution</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'os')">Technology OS</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'device')">Technology Device</a></li>
+                                <li><a href="javascript:" ng-click="choose('targeting', 'site_variable')">Site Variable</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="Frequecy capping"></label>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['website'] === true">
+                        <div class="title-target">Website Zone <a href="javascript:" ng-click="remove_target('website')"><i class="icon-remove"></i></a></div>
+                        <div class="content-controls">
+                            <div class="cnt-grid">
+                                <div class="control-list" id="selectWebsite" style="overflow-y: visible">
+                                    <input type="text" id="searchSite" class="" ng-model="searchSite" placeholder="Search site name...">
+                                    <div class="control-list" style="overflow-y: visible; border: none; padding: 0; height: 170px">
+                                        <ul class="checkTree">
+                                            <li ng-repeat="website in websites"><span class="table-check">
+                                                <input type="checkbox" id="website1{{website.id}}" class="" ng-model="checkboxWebsite[website.id]" ng-change="checkWebsite(website.id)">
+                                                <label class="choice"></label>
+                                            </span>
+                                                <label for="website1{{website.id}}">{{website.name}}</label></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="control-list">
+                                    <ul class="checkTree">
+                                        <li ng-repeat="websiteId in selectedWebsites"><span class="table-check">
+                                            <input type="checkbox" id="website2{{websiteId}}" class="" ng-click="uncheck('website', $index)" checked>
+                                            <label class="choice"></label>
+                                        </span>
+                                            <label for="website2{{websiteId}}">{{siteNameDic[websiteId]}}</label></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul class="list-radiocheck">
+                                <li><span class="radio-check">
+                                    <input id="radio5" name="zones" type="radio" class="" ng-model="targetZonesOption" value="all" ng-change="choose('radio', 'all')" />
+                                    <label class="choice" for="radio5">Dislayed on all suitable zones</label>
+                                </span></li>
+                                <li><span class="radio-check">
+                                    <input id="radio6" name="zones" type="radio" class="" ng-model="targetZonesOption" value="specific" ng-change="choose('radio', 'specific')" />
+                                    <label class="choice" for="radio6">Dislayed on all specific zones</label>
+                                </span></li>
+                            </ul>
+                            <div class="cnt-grid" ng-show="targetZonesOption === 'specific'">
+                                <div class="control-list">
+                                    <ul class="checkTree">
+                                        <li ng-repeat="websiteId in selectedWebsites"><span class="table-check">
+                                            <input type="checkbox" id="sWebsite{{websiteId}}" ng-change="checkZoneWeb(websiteId)" ng-model="checkboxZoneWeb[websiteId]">
+                                            <label class="choice" for="Field"></label>
+                                        </span>
+                                            <label for="sWebsite{{websiteId}}">{{siteNameDic[websiteId]}}</label>
+                                            <ul class="checkTree" ng-if="kind != 'network_tvc'">
+                                                <li ng-repeat="zone in zones[websiteId]" id="li1{{zone.id}}"><span class="table-check">
+                                                    <input type="checkbox" id="zone1{{zone.id}}" ng-model="checkboxZone[websiteId][zone.id]['null']" ng-change="checkZone(websiteId, zone.id, 'null')">
+                                                    <label class="choice"></label>
+                                                </span>
+                                                    <label for="zone1{{zone.id}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{zone.name}}">{{zone.name}}</label></li>
+                                            </ul>
+                                            <!--Create TVC-->
+                                            <ul ng-if="kind == 'network_tvc'">
+                                                <span ng-repeat="zone in zones[websiteId]">
+                                                    <li ng-repeat="pos in zone.tvcPositions" id="li1">
+                                                        <span class="table-check">
+                                                            <input type="checkbox" id="zone1{{zone.id + '_' + pos}}" ng-model="checkboxZone[websiteId][zone.id][pos]" ng-change="checkZone(websiteId, zone.id, pos)">
+                                                            <label class="choice"></label>
+                                                        </span>
+                                                        <label for="zone1{{zone.id + '_' + pos}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{'[' + pos + '] ' + zone.name}}">{{"[" + pos + "] " + zone.name}}</label>
+                                                    </li>
+                                                </span>
+                                            </ul>
+                                            <!------------------>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="control-list">
+                                    <ul class="checkTree" ng-if="kind != 'network_tvc'">
+                                        <li ng-repeat="a in selectedZones" id="li2{{a.zone}}"><span class="table-check">
+                                            <input type="checkbox" id="zone2{{a.zone}}" checked ng-click="uncheck('zone', $index)">
+                                            <label class="choice"></label>
+                                        </span>
+                                            <label for="zone2{{a.zone}}" style="text-overflow: ellipsis; overflow: hidden;" title="{{zones[a.website][a.zone].name}}">{{zones[a.website][a.zone].name}}</label>
+                                        </li>
+                                    </ul>
+                                    <ul class="checkTree" ng-if="kind == 'network_tvc'">
+                                        <li ng-repeat="a in selectedZones" id="li2{{a.zone + '_' + a.pos}}"><span class="table-check">
+                                            <input type="checkbox" id="zone2{{a.zone + '_' + a.pos}}" checked ng-click="uncheck('zone', $index)">
+                                            <label class="choice"></label>
+                                        </span>
+                                            <label for="zone2{{a.zone + '_' + a.pos}}" ng-if="kind == 'network_tvc'" style="text-overflow: ellipsis; overflow: hidden;" title="{{'[' + a.pos + '] ' + zones[a.website][a.zone].name}}">{{"[" + a.pos + "] " + zones[a.website][a.zone].name}}</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div style="clear: both; padding-top: 10px;">
+                                <div></div>
+                                <span class="alert alert-error" ng-show="isWarningZoneSize">Some zone or website is disabled, because size of this item invalid with them.
+                                </span>
+                            </div>
+                            <div>
+                                <span class="alert alert-error" ng-show="isWarningSelectZone">Not yet any zone is selected!
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['age'] === true">
+                        <div class="title-target">Demographic Age<a href="javascript:" ng-click="remove_target('age')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls">
+                            <div class="input-append" style="position: relative; margin-bottom: 0">
+                                <input type="text" placeholder="Is less than" class="input-small120">
+                                <div class="btn-group" style="position: static;">
+                                    <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu width-dropdown cmbsmall">
+                                    </ul>
+                                </div>
+                            </div>
+                            <input type="text" class="input-small" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['gender'] === true">
+                        <div class="title-target">Demographic Gender<a href="javascript:" ng-click="remove_target('gender')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls">
+                            <div class="input-append" style="position: relative; margin-bottom: 0">
+                                <input type="text" placeholder="Choose gender" class="input-small120">
+                                <div class="btn-group" style="position: static;">
+                                    <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu width-dropdown cmbsmall">
+                                        <li><a href="javascript:;">Male</a></li>
+                                        <li><a href="javascript:;">Female</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['device'] === true">
+                        <div class="title-target">Technology device<a href="javascript:" ng-click="remove_target('device')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls">
+                            <div class="input-append" style="position: relative; margin-bottom: 0">
+                                <input type="text" placeholder="Choose divice" class="input-small120">
+                                <div class="btn-group" style="position: static;">
+                                    <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                                    <ul class="dropdown-menu width-dropdown cmbsmall">
+                                        <li><a href="javascript:;">PC</a></li>
+                                        <li><a href="javascript:;">Mobile</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['resolution'] === true">
+                        <div class="title-target">Technology Resolution<a href="javascript:" ng-click="remove_target('resolution')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls fixtarget">
+                            <div class="control-list target height_auto">
+                                <ul class="checkTree">
+                                    <li><span class="table-check">
+                                        <input id="Checkbox1" name="Field" type="checkbox" class="" value="First Choice" tabindex="4" checked="">
+                                        <label class="choice" for="Field"></label>
+                                    </span>1024x768</li>
+                                    <li><span class="table-check">
+                                        <input id="Field3" name="Field" type="checkbox" class="" value="First Choice" tabindex="4" checked="">
+                                        <label class="choice" for="Field"></label>
+                                    </span>1280x1024</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['os'] === true">
+                        <div class="title-target">Technology OS<a href="javascript:" ng-click="remove_target('os')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls fixtarget">
+                            <div class="control-list  target height_auto">
+                                <ul class="checkTree">
+                                    <li><span class="table-check">
+                                        <input id="android" name="Field" type="checkbox" class="" ng-model="osTargeting['android']">
+                                        <label class="choice" for="Field"></label>
+                                    </span>
+                                        <label for="android">Android</label></li>
+                                    <li><span class="table-check">
+                                        <input id="ios" name="Field" type="checkbox" class="" ng-model="osTargeting['ios']">
+                                        <label class="choice" for="Field"></label>
+                                    </span>
+                                        <label for="ios">iOS</label></li>
+                                    <li><span class="table-check">
+                                        <input id="other" name="Field" type="checkbox" class="" ng-model="osTargeting['other']">
+                                        <label class="choice" for="Field"></label>
+                                    </span>
+                                        <label for="other">PC and other</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['channel'] === true">
+                        <div class="title-target">Category - Channels<a href="javascript:" ng-click="remove_target('channel')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls fixtarget">
+                            <div class="control-list target height_auto">
+                                <ul class="checkTree">
+                                    <li ng-repeat="category in categories"><span class="table-check">
+                                        <input id="cat_{{category.id}}" name="cat_{{category.id}}" type="checkbox">
+                                        <label class="choice" for="cat_{{category.id}}"></label>
+                                    </span>
+                                        <label for="cat_{{category.id}}">{{category.name}}</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['interest'] === true">
+                        <div class="title-target">User - Interest<a href="javascript:" ng-click="remove_target('interest')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls fixtarget">
+                            <div class="control-list target height_auto">
+                                <ul class="checkTree">
+                                    <li><span class="table-check">
+                                        <input id="Checkbox11" name="Field" type="checkbox" class="" value="First Choice" tabindex="4" checked="">
+                                        <label class="choice" for="Field"></label>
+                                    </span>Book</li>
+                                    <li><span class="table-check">
+                                        <input id="Checkbox12" name="Field" type="checkbox" class="" value="First Choice" tabindex="4" checked="">
+                                        <label class="choice" for="Field"></label>
+                                    </span>Shopping</li>
+                                    <li><span class="table-check">
+                                        <input id="Checkbox13" name="Field" type="checkbox" class="" value="First Choice" tabindex="4" checked="">
+                                        <label class="choice" for="Field"></label>
+                                    </span>Cooking </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['location'] === true">
+                        <div class="title-target">Location<a href="javascript:" ng-click="remove_target('location')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls fixtarget">
+                            <div class="control-list target height_auto">
+                                <ul class="checkTree">
+                                    <li>
+                                        <span class="radio-check">
+                                            <input id="notVN" name="geographics" type="radio" class="" value="0" ng-model="belongLocation['VN']" ng-change="choose('radio', 'notVN')">
+                                            <label class="choice" for="notVN"></label>
+                                        </span>
+                                        <label class="choice" for="notVN">Not in Viet Nam</label>
+                                    </li>
+                                    <li>
+                                        <span class="radio-check">
+                                            <input id="VN" name="geographics" type="radio" class="" ng-change="choose('radio', 'VN')" value="1" ng-model="belongLocation['VN']" />
+                                            <label class="choice" for="VN"></label>
+                                        </span>
+                                        <label class="choice" for="VN">Viet Nam</label>
+                                        <ul class="checkTree">
+                                            <li ng-repeat="location in locations">
+                                                <span class="radio-check">
+                                                    <input id="{{location.id}}" name="Field" type="checkbox" ng-model="checkboxLocation[location.id]" ng-change="choose('changeLocation', '')">
+                                                    <label class="choice"></label>
+                                                </span>
+                                                <label for="{{location.id}}">{{location.name}}</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="target-ctn" ng-show="targeting['site_variable'] === true">
+                        <div class="title-target">Site Variable<a href="javascript:" ng-click="remove_target('site_variable')"><i class="icon-remove"></i></a> </div>
+                        <div class="content-controls">
+                            <a class="btn btn-mini btn-tertiary" ng-click="add_variable()">Add more</a>
+                        </div>
+                        <div class="content-controls">
+                            <div ng-repeat="variable in variables|filter:{key:'!os'}" style="display: inline-block;">
+                                <label style="width: 40px; float: left; line-height: 30px; padding-left: 10px">Key</label>
+                                <input style="float: left; width: 150px" type="text" class="input" placeholder="-" ng-model="variables[$index].key" ng-change="changeKey($index)" />
+
+                                <div class="input-append" style="position: relative; float: left; margin: 0 0 0 10px">
+                                    <input type="text" placeholder="Choose bound" data-toggle="dropdown" class="input-mini ng-pristine ng-valid" ng-model="strBound[variable.bound]" disabled style="width: 100px">
+                                    <div class="btn-group" style="position: static;">
+                                        <button class="btn dropdown-toggle" data-toggle="dropdown" tabindex="-1"><span class="caret"></span></button>
+                                        <ul class="dropdown-menu width-dropdown cmbmini" style="width: 125px">
+                                            <li><a href="javascript:" ng-click="variables[$index].bound = 0">Is equal</a></li>
+                                            <li><a href="javascript:" ng-click="variables[$index].bound = 1">Is not equal</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <label style="width: 40px; float: left; line-height: 30px; padding-left: 10px">Value</label>
+                                <input style="float: left; width: 150px" type="text" class="input" placeholder="-" ng-model="variables[$index].value" ng-change="changeValue($index)">
+                                <div class="icon_variable">
+                                    <a href="javascript:" ng-click="remove_variable($index)" class="remove"><i></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-large btn-primary" ng-disabled="hasSave === true" ng-click="save()">Create</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+            </div>
+        </div>
+
+    </form>
+</div>
+

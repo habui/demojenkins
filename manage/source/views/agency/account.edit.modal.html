@@ -1,0 +1,41 @@
+﻿<div class="modal-header">
+    <button aria-hidden="true" ng-click="cancel()" type="button" class="close">×</button>
+    <h3>Edit account</h3>
+</div>
+<div class="modal-body">
+    <form id="edit-profile" class="form-horizontal" name="editAccount">
+        <fieldset>
+            <div class="control-group">
+                <label class="control-label" for="firstname">Name (<span style="color: #F00">*</span>)</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" maxlength="255" id="firstname" ng-model="item.name" title="User name is required" required>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="lastname">Email (<span style="color: #F00">*</span>)</label>
+                <div class="controls">
+                    <input type="email" class="input-medium" maxlength="255" id="lastname" placeholder="ex: john@vng.com.vn" ng-model="item.email" required title="Ex: john@vng.com.vn" pattern="^[a-zA-Z0-9._]+[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z]+){1,2}$">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="lastname">Confirm email (<span style="color: #F00">*</span>)</label>
+                <div class="controls">
+                    <input type="text" class="input-medium" maxlength="255" id="Email1" ng-model="item.confirmemail" required pattern="{{item.email}}" title="Email not match">
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label class="control-label" for="lastname">Password (<span style="color: #F00">*</span>)</label>
+                <div class="controls">
+                    <input type="password" class="input-medium" maxlength="255" id="Password1" ng-model="item.password" required />
+                </div>
+            </div>
+            <div class="form-actions">
+                <button ng-click="update()" class="btn btn-primary btn-large" ng-disabled="editAccount.$invalid">Submit</button>
+                <a ng-click="cancel()" class="btn btn-large">Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>

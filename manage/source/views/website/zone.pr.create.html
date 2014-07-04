@@ -1,0 +1,22 @@
+﻿<form class="form-horizontal" name="bannerZone">
+    <fieldset>
+        
+        <div class="control-group">
+            <p class="control-line">Information</p>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="inputName">Name</label>
+            <div class="controls">
+                <input class="input-large" type="text" name="name" id="inputName" placeholder="PR Zone Name" ng-model="item.name" required>
+                <span class="agerror" ng-show="checkValidate && bannerZone.name.$error.required">* required</span>
+            </div>
+        </div>        
+
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-large btn-primary" ng-disabled="hasSave === true" ng-click="saveBannerZone(bannerZone)">Save</button>
+                <a class="btn btn-large" href="javascript:;" ng-click="cancel()">Cancel</a>
+            </div>
+        </div>
+    </fieldset>
+</form>

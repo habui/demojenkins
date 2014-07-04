@@ -1,0 +1,11 @@
+﻿<h2>User: {{user.name}}</h2>
+<section id="tables2">
+    <ul id="myTab" class="nav nav-tabs">
+        <li ng-class="isActiveClass('website')"><a href="javascript:;" ng-click="openPage('website', user.id)">Website</a></li>
+        <li ng-class="isActiveClass('order')"><a href="javascript:;" ng-click="openPage('order', user.id)">Order</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" ui-view>
+        </div>
+    </div>
+</section>

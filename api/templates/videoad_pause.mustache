@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<VAST version='2.0'>
+<Ad>
+	<InLine>
+		<AdSystem>123Click</AdSystem>
+		<AdTitle>{{title}}</AdTitle>
+		<Description>{{desc}}</Description>
+		<Impression>{{linkTrackImpress}}</Impression>
+		<Creatives>
+			<Creative>
+				<NonLinearAds>
+					<NonLinear id='1' width='{{width}}' height='{{height}}' minSuggestedDuration='{{duration}}'{{apiFramework}}>
+					<StaticResource creativeType='{{fileType}}'>
+						<![CDATA[{{mediaUrl}}]]>
+					</StaticResource>
+					<NonLinearClickThrough>{{linkTrackClick}}</NonLinearClickThrough>
+					</NonLinear>
+					<TrackingEvents>
+						<Tracking event='creativeView'>{{linkTrackCreativeView}}</Tracking>
+						<Tracking event='start'></Tracking>
+						<Tracking event='firstQuartile'>{{linkTrackFirstQuartile}}</Tracking>
+						<Tracking event='midpoint'>{{linkTrackMidPoint}}</Tracking>
+						<Tracking event='thirdQuartile'>{{linkTrackThirdQuartile}}</Tracking>
+						<Tracking event='complete'>{{linkTrackComplete}}</Tracking>
+						<Tracking event='close'>{{linkTrackClose}}</Tracking>
+						<Tracking event='pause'>{{linkTrackPause}}</Tracking>
+						<Tracking event='resume'>{{linkTrackResume}}</Tracking>
+						<Tracking event='fullscreen'>{{linkTrackFullscreen}}</Tracking>
+						<Tracking event='mute'>{{linkTrackMute}}</Tracking>
+						<Tracking event='unmute'>{{linkTrackUnmute}}</Tracking>
+					</TrackingEvents>
+				</NonLinearAds>
+			</Creative>
+		</Creatives>
+	</InLine>
+</Ad>
+</VAST>

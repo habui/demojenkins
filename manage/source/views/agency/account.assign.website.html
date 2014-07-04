@@ -1,0 +1,41 @@
+﻿<div class="row-fluid show-grid">
+    <div class="span6">
+        <search-autocomplete filterBy="name" data="websites" onselected="choose(item)" clear-text-on-click="true"></search-autocomplete>
+        <a ng-click="addSite()" class="btn">Add website</a>
+    </div>
+    <div class="span6 align-right">
+
+        <a ng-click="save()" class="btn btn-primary">Save</a>
+        <a ng-click="cancel()" class="btn">Cancel</a>
+    </div>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <th>Website Name</th>
+        <th ng-repeat="role in roles">
+            <span class="table-check">
+                <input type="checkbox" ng-model="checkRole[role.id]" ng-change="checkAllRole(role.id)"/>
+                <label class="choice" >{{role.name}}</label>
+            </span>
+        </th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="site in items|orderBy:'name'">
+            <td>{{site.name}}</td>
+            <td ng-repeat="role in roles">
+                <span class="table-check"  ng-show="mapRole[site.id][role.id]['visible']" >
+                    <input type="checkbox" class="" ng-model="mapRole[site.id][role.id]['value']"/>
+                    <label class="choice" ></label>
+                </span>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)"></paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No data found.
+</div>

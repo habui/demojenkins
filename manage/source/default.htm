@@ -1,0 +1,116 @@
+﻿<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" ng-app="123click" ng-controller="RootController"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en" ng-app="123click" ng-controller="RootController"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en" ng-app="123click" ng-controller="RootController"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" ng-app="123click" ng-controller="RootController">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <title>{{page.getTitle()}}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600,800">
+    <link rel="stylesheet" href="resource/css/font-awesome.css">
+    <link rel="stylesheet" href="resource/css/bootstrap.css">
+    <link rel="stylesheet" href="resource/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="resource/css/ui-lightness/jquery-ui-1.8.21.custom.css">
+    <link rel="stylesheet" href="resource/css/fonts.css">
+    <link rel="stylesheet" href="resource/css/gantt.css">
+    <link rel="stylesheet" href="resource/css/application.css">
+    <link rel="stylesheet" href="resource/css/tech.css">
+    <link rel="stylesheet" href="resource/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="resource/css/custom.q.css">
+    <link rel="stylesheet" href="resource/css/prettify.css" />
+</head>
+
+<body ng-class="getBodyClass()">
+    <div class="login" ng-show="isLoginPage()" ui-view="login"></div>
+    <!--Content -->
+    <div id="wrapper" ng-hide="isLoginPage()" ui-view="main">
+    </div>
+    <!--End-content-->
+    <!-- ======Footer====== -->
+    <div ng-hide="isLoginPage()" id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="span6">Copyright © 123CLick. All rights reserved. A product of <a href="http://vng.com.vn">VNG</a> </div>
+                <!-- /span6 -->
+
+                <div id="builtby" class="span6"><a href="javascript:;">123 Click</a> </div>
+                <!-- /.span6 -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /#footer -->
+    <!-- ======End-Footer====== -->
+</body>
+<!--[if lte IE 10]>
+        <script src="resource/js/xdomain.0.6.min.js" slave="http://dev.api.adtimaserver.vn/proxy.html"></script>
+        <![endif]-->
+<script src="resource/js/libs/jquery/jquery-1.7.2.min.js"></script>
+<script src="resource/js/libs/jquery/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="resource/js/libs/jquery/jquery.ui.touch-punch.min.js"></script>
+<script src="resource/js/libs/jquery/jquery.form.min.js"></script>
+<script src="resource/js/libs/bootstrap/bootstrap.min.js"></script>
+<script src="resource/js/FileSaver.js"></script>
+<script src="resource/js/Blob.js"></script>
+<script src="resource/js/tech.js"></script>
+<script src="resource/js/libs/moment.min.js"></script>
+
+<script src="resource/js/libs/jquery/jquery.event.drag-2.2.js"></script>
+<script src="resource/js/libs/jquery/jquery.event.drop-2.2.js"></script>
+<script src="resource/js/libs/jquery/jquery.flot.js"></script>
+<script src="resource/js/libs/jquery/jquery.flot.pie.js"></script>
+<script src="resource/js/libs/jquery/jquery.flot.tooltip.min.js"></script>
+<script src="resource/js/libs/jquery/jquery.flot.resize.js"></script>
+<script src="resource/js/jquery.fn.gantt.mod.js"></script>
+<script src="resource/js/libs/jquery/ZeroClipboard.js"></script>
+<script src="resource/js/canvas2image.js"></script>
+<script src="resource/js/base64.js"></script>
+<script src="resource/js/libs/angular/angular.min.js"></script>
+<script src="resource/js/libs/angular/angular-sanitize.min.js"></script>
+<script src="resource/js/libs/angular/angular-resource.min.js"></script>
+<script src="resource/js/libs/angular/angular-route.min.js"></script>
+<script src="resource/js/libs/angular/angular-ui-router.js"></script>
+<script src="resource/js/libs/angular/angular-strap.js"></script>
+<script src="resource/js/libs/angular/angular-mocks.js"></script>
+<script src="resource/js/libs/angular/ui-bootstrap-0.6.0.js"></script>
+<script src="resource/js/bootstrap-datepicker.js"></script>
+<script src="resource/js/flowplayer-3.2.12.min.js"></script>
+<script src="resource/js/libs/jquery/jquery.hotkeys.js"></script>
+<script src="resource/js/libs/google-code-prettify/prettify.js"></script>
+<script src="resource/js/jszip.min.js"></script>
+<script src="resource/js/libs/notify.js"></script>
+
+<script src="common/common.js"></script>
+
+<script src="common/scopes.js"></script>
+<script src="common/utils.js"></script>
+<script src="common/basecontroller.js"></script>
+
+<script src="modules/common/common.js"></script>
+<script src="modules/root/root.sum.js"></script>
+<script src="modules/backend/backend.sum.js"></script>
+<script src="modules/user/user.sum.js"></script>
+<script src="modules/website/website.sum.js"></script>
+<script src="modules/campaign/campaign.sum.js"></script>
+<script src="modules/admin/admin.sum.js"></script>
+<script src="modules/agency/agency.sum.js"></script>
+<script src="modules/report/report.sum.js"></script>
+<script src="modules/role/role.sum.js"></script>
+<script src="modules/user_role/user_role.sum.js"></script>
+<script src="modules/article/article.sum.js"></script>
+<script src="modules/system/system.sum.js"></script>
+<script src="directives.js"></script>
+<script src="app.js"></script>
+<script src="templates.js"></script>
+<script src="resource/js/libs/bootstrap/bootstrap-wysiwyg.js"></script>
+</html>
+
+

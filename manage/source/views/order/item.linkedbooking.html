@@ -1,0 +1,98 @@
+﻿<div class="row-fluid show-grid">
+    <div class="span6">
+        <a class="label label-secondary" href="javascript:;" ng-if="checkPermission(permissionDefine.EDITORDER)" ng-click="delete()" ng-class="isActiveClass()"><i class="icon-trash"></i>delete</a>
+        <a class="label label-secondary" href="javascript:;" ng-if="checkPermission(permissionDefine.EDITORDER)" ng-click="newBooking()"><i></i>New booking item</a>
+    </div>
+    <div class="span6">
+        <label class="right">Search:
+            <input type="text" aria-controls="dt_a" placeholder="Search campaign..." ng-enter="search()" ng-model="searchText">
+        </label>
+    </div>
+</div>
+
+<!-- content -->
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                <span class="table-check">
+                    <input type="checkbox" ng-model="checkBoxes['all']"/>
+                    <label class="choice" for=""></label>
+                </span>
+            </th>
+            <th>Zone Name</th>
+            <th>Website</th>
+            <th>Size</th>
+            <th>Share</th>
+            <th>Start date</th>
+            <th>End date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in items">
+            <td>
+                <span class="table-check">
+                    <input type="checkbox" ng-model="checkBoxes[item.id]" ng-change="check(item.id)"/>
+                    <label class="choice" for=""></label>
+                </span>
+            </td>
+            <td>
+                <a href="javascript:;" ng-click="gotoEdit(item.id, '#myModal')" >{{item.zoneName}}</a>
+            </td>
+            <td>{{item.siteName}}</td>
+            <td>{{item.itemWidth}} x {{item.itemHeight}}</td>
+            <td>{{item.share}}%</td>
+            <td>{{formatDateTime(item.from)}}</td>
+            <td>{{formatDateTime(item.to - 1000)}}</td>
+        </tr>
+    </tbody>
+</table>
+<!--<div ng-show="totalRecord > 0">
+    <paging total="{{totalRecord}}" pagesize="pageSize" pageindex="pageIndex" onchange="paging(start, size)">            
+	    
+    </paging>
+</div>
+<div ng-show="totalRecord <= 0">
+    No item found.
+</div> -->
+
+
+<!-- Modal -->
+
+<div id="myModal" class="modal hide fade "  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Update booking item</h3>
+    </div>
+    <div class="modal-body notice">
+        <h5 class="date">{{zone_name}}</h5>
+        <div class="content-booking left">
+            <div class="alert" ng-show="warningExtend">
+                Can not extend book
+            </div>
+            <div class="ctrol">
+                <span style="width: 60px; float: left; line-height: 30px;">Start date</span>
+                <div class="input-append">
+                    <input id="bookingStartDate" name="bookingStartDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_start" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                </div>
+                <span style="width: 60px; vertical-align: middle; line-height: 30px;">End date</span>
+                <div class="input-append">
+                    <input id="bookingEndDate" name="bookingEndDate" style="width: 75px;" type="text" ng-model="datepicker.book_zone_end" data-date-format="dd/mm/yyyy" bs-datepicker>
+                    <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                </div>
+            </div>
+            <div class="ctrol">
+                <div style="width: 60px; float: left; line-height: 30px;">Share</div>
+                <input type="text" style="width: 50px;" ng-model="editingItem.share">
+                (maximum <span style="color: red">{{zone_available}}</span>%)
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+    <a href="javascript:;" class="btn" ng-click="closeModal('#myModal')">Cancel</a>
+    <a href="javascript:;" class="btn btn-primary" ng-click="update('#myModal')">Update</a>
+    </div>
+</div>
+
+<!-- ----------- -->

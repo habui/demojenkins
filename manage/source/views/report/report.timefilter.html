@@ -1,0 +1,129 @@
+﻿<form style="padding-bottom: 0px; margin-bottom: 0;" class="bs-docs-example">
+    <div class="controls docs-input-sizes form-actions">
+        <ul class="list_filter">
+            <li class="filter-item">
+                <div style="position: relative; margin-bottom: 0" class="input-append">
+                    <input type="text" class="input-large" placeholder="Range time" ng-model="timeOption">
+                    <div style="position: static;" class="btn-group" ng-class="getOpenClass()">
+                        <button class="btn dropdown-toggle" ng-click="toggleOpen()">
+                            <span class="caret"></span>
+                        </button>
+                        <ul aria-labelledby="dropdownMenu" role="menu" class="dropdown-menu width-dropdown range-time" ng-click="click($event)">
+                            <li ng-click="chose('today', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.today" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Today
+                            </li>
+                            <li ng-click="chose('yesterday', $event)">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.yesterday" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Yesterday
+                            </li>
+                            <li ng-click="chose('thisweek', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.thisweek" />
+                                    <label for="Field" class="choice"></label>
+                                </span>This Week
+                            </li>
+                            <li ng-click="chose('lastweek', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.lastweek" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last Week
+                            </li>
+                            <li ng-click="chose('thismonth', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.thismonth" />
+                                    <label for="Field" class="choice"></label>
+                                </span>This Month
+                            </li>
+                            <li ng-click="chose('lastmonth', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.lastmonth" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last Month
+                            </li>
+                            <li ng-click="chose('last7days', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.last7days" />
+                                    <label for="Field" class="choice"></label>
+                                </span>Last 7 days
+                            </li>
+                            <li ng-click="chose('alltime', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-model="check.alltime" />
+                                    <label for="Field" class="choice"></label>
+                                </span>All Time
+                            </li>
+                            <li ng-click="chose('custom', $event)">
+                                <div>
+                                    <span class="table-check margintop">
+                                        <input type="checkbox" ng-model="check.custom" ng-change="chose('custom', $event)" />
+                                        <label for="Field" class="choice"></label>
+                                    </span>Custom
+                                </div>
+
+                                <div>
+                                    <div class="customtime cus1">
+                                        <input id="datepickerfrom" name="datepickerfrom" type="text" class="input-mini custom" ng-model="datepicker.startDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                    </div>
+                                    <span class="customtime cus2" ng-hide="reportType === 'zing_tv'">- </span>
+                                    <div class="customtime"  ng-hide="reportType === 'zing_tv'">
+                                        <input id="datepickerto" name="datepickerto" type="text" class="input-mini custom" ng-model="datepicker.endDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                    </div>
+                                </div>
+                            </li>
+                            <li style="clear: both"></li>
+                            <li class="divider"></li>
+                            <li class="listcampare" ng-click="chose('compare', $event)" ng-hide="reportType === 'zing_tv'">
+                                <span class="table-check margintop">
+                                    <input type="checkbox" ng-change="enableCompare()" ng-model="check.isCompare" />
+                                    <label for="Field" class="choice"></label>
+                                </span>
+                                <strong>COMPARE</strong><!--Khi check vao se show duoi the ul-->
+                                <ul ng-show="check.isCompare">
+                                    <li ng-click="chose('compare', $event)">
+                                        <span class="radio-check margintop">
+                                            <input type="radio" value="previous" name="compare" ng-model="check.compare" />
+                                            <label for="Field" class="choice"></label>
+                                        </span>Previous period
+                                    </li>
+                                    <li ng-click="chose('compare', $event)">
+                                        <span class="radio-check margintop">
+                                            <input type="radio" value="previous-year" name="compare" ng-model="check.compare" />
+                                            <label for="Field" class="choice"></label>
+                                        </span>Same period year
+                                    </li>
+                                    <li ng-click="chose('compare', $event)">
+                                        <div>
+                                            <span class="radio-check margintop">
+                                                <input type="radio" value="custom" name="compare" ng-model="check.compare">
+                                                <label for="Field" class="choice"></label>
+                                            </span>Custom
+                                        </div>
+                                        <div>
+                                            <div class="customtime cus1">
+                                                <input id="comparedatepickerfrom" name="comparedatepickerfrom" type="text" class="input-mini custom" ng-model="datepicker.startCompareDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                            </div>
+                                            <span class="customtime cus2">- </span>
+                                            <div style="position: relative; float: left">
+                                                <input id="comparedatepickerto" name="comparedatepickerto" type="text" class="input-mini custom" ng-model="datepicker.endCompareDate" data-date-format="dd/mm/yyyy" bs-datepicker ng-change="chose('datepicker', $event)">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li style="clear: both"></li>
+                                </ul>
+                            </li>
+                            <li style="margin-top: 10px;">
+                                <input id="query" type="button" class="btn btn-primary btn-small btn-apply" ng-click="query()" value="Apply" /></li>
+                        </ul>
+                    </div>
+
+                </div>
+                <img ng-show="isLoading" src="resource/img/ajax-loader.gif" style="margin-left: 20px;" />
+            </li>
+        </ul>
+    </div>
+</form>

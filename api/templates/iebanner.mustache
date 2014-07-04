@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Zing Ads</title>
+		<link rel="stylesheet" type="text/css" href="{{url_static}}/resource/css/click.css?v={{css_click_version}}"/>
+		<script type="text/javascript" src="{{url_static}}/resource/js/lb.js?v={{java_ld_version}}"></script>
+		<script type="text/javascript" src="{{url_static}}/resource/js/click.js?v={{java_click_version}}"></script>
+		<script type="text/javascript">
+            var param_init_body = "{{channelUrl}}";
+			var xd_url = "{{url_static}}/html/xd_proxy-{{html_proxy_version}}.html#?=";
+            {{jsParam}}
+		</script>
+	</head>
+	<body onload="_init('{{channelUrl}}')">
+		<div class="z2ads_box">
+			<div class="z2ads_contentimg">
+
+				{{{item_content}}}
+			</div>
+		</div>
+	</body>
+</html>

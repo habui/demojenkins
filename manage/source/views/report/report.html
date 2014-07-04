@@ -1,0 +1,36 @@
+﻿<div class="row">
+    <div class="tabbable">
+        <div class="span3">
+            <ul class="nav nav-tabs nav-stacked">
+                <li ng-class="isActiveTab('list_order')"  ng-show="isShowOrderMenu()"> <a href="javascript:;" ng-click="goTab('list_order')"> <i class="icon-file"></i>All order <i ng-click="toggleSubRecord('order', $event)" ng-class="getClass('order')"></i> </a></li>
+                <li ng-hide="orderSubCollapse">
+                    <input type="text" ng-model="orderFilter.name" ng-keydown="filterName('order', $event)" style="margin: 10px 0 2px 0; border-radius: 0; width: 95%;" placeholder="Search order..."/>
+                </li>
+                <li ng-repeat="order in orders|filter:orderFilter:strict|limitTo:numRecord" ng-class="isActiveOrderTab(order.id)" ng-hide="orderSubCollapse">
+                    <a href="javascript:;"  class="a_submenu" ng-click="goOrderReport(order.id)">{{order.name}}</a>
+                </li>
+                <li ng-show="showMore('order') && !orderSubCollapse"><a href="javascript:;" ng-click="goMore('order')">MORE ...</a></li>
+            <!--</ul>
+            <ul class="nav nav-tabs nav-stacked">-->
+                <li ng-class="isActiveTab('list_site')" ng-show="isShowWebsiteMenu()"> <a href="javascript:;" ng-click="goTab('list_site')"> <i class="icon-file"></i>All website <i ng-click="toggleSubRecord('website', $event)" ng-class="getClass('website')"></i> </a></li>
+                <li ng-hide="websiteSubCollapse"><input type="text" ng-model="siteFilter.name" ng-keydown="filterName('website', $event)"  style="margin: 10px 0 2px 0; border-radius: 0; width: 95%;" placeholder="Search website..."/></li>
+                <li ng-repeat="website in websites|filter:siteFilter:strict|limitTo:numRecord" ng-class="isActiveWebsiteTab(website.id)" ng-hide="websiteSubCollapse">
+                    <a href="javascript:;" class="a_submenu" ng-click="goWebsiteReport(website.id)">{{website.name}}</a>
+                </li>
+                <li ng-show="showMore('website') && !websiteSubCollapse"><a href="javascript:;" ng-click="goMore('website')">MORE ...</a></li>
+                <li ng-class="isActiveTab('report_zingtv')" ng-show="checkPermission(permissionDefine.ROOT)"> <a href="javascript:;" ng-click="goTab('report_zingtv')"> <i class="icon-file"></i>Zing TV</a></li>
+            </ul>
+        </div>
+        <div class="span9">
+            <div class="tab-content">
+                <div class="tab-pane  active">
+                    <div ui-view="breadcumnav">
+                    </div>
+                    
+                    <div ui-view="content">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
