@@ -66,13 +66,17 @@
 
     <repositories>
         <repository>
-            <id>sonatype</id>
-            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
+            <id>central</id>
+            <url>http://repo1.maven.org/</url>
         </repository>
         <repository>
             <id>scala-tools.org</id>
             <name>Scala-tools Maven2 Repository</name>
             <url>http://scala-tools.org/repo-releases</url>
+        </repository>
+	<repository>
+            <id>sonatype</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>java.net2</id>

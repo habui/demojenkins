@@ -131,6 +131,10 @@
     </build>
 
     <repositories>
+	<repository>
+            <id>central</id>
+            <url>http://repo1.maven.org/</url>
+        </repository>
         <repository>
             <id>Java.Net</id>
             <url>http://download.java.net/maven/2/</url>
